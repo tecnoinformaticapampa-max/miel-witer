@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin – Miel Witer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --honey:#D4820A;--amber:#B8680A;--gold:#F0A500;
+  --cream:#FAF5E9;--forest:#2D4A2A;--forest-dk:#1A2E18;
+  --text:#1C1208;--muted:#6B4F2A;--card:#FFFDF5;--white:#fff;
+  --border:rgba(212,130,10,.15);--red:#C0392B;--green:#27AE60;
+}
+body{font-family:'DM Sans',sans-serif;background:#F5F0E8;color:var(--text);min-height:100vh}
+
+/* ── LOGIN ── */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--forest-dk);position:relative;overflow:hidden}
+#loginScreen::before{content:'';position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E")}
+.login-card{background:var(--white);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:420px;position:relative;z-index:1}
+.login-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--forest-dk);text-align:center;margin-bottom:.2rem}
+.login-logo span{color:var(--honey)}
+.login-sub{text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:2rem}
+.field{margin-bottom:1.2rem}
+.field label{display:block;font-size:.8rem;font-weight:500;color:var(--muted);margin-bottom:.4rem;letter-spacing:.04em}
+.field input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:.7rem 1rem;font-family:'DM Sans',sans-serif;font-size:.93rem;background:var(--cream);color:var(--text);transition:border-color .2s;outline:none}
+.field input:focus{border-color:var(--honey)}
+.btn-login{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.85rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;margin-top:.5rem;transition:background .2s}
+.btn-login:hover{background:var(--amber)}
+.login-error{background:#FEF0EE;border:1px solid #F5C6C0;color:var(--red);font-size:.82rem;padding:.6rem .9rem;border-radius:8px;margin-top:.8rem;display:none}
+
+/* ── LAYOUT ADMIN ── */
+#adminScreen{display:none}
+.admin-header{background:var(--forest-dk);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+.admin-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--cream)}
+.admin-logo span{color:var(--gold)}
+.admin-header-actions{display:flex;gap:.6rem;align-items:center}
+.btn-sm{border:none;border-radius:8px;padding:.4rem .9rem;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;transition:background .15s}
+.btn-logout{background:rgba(255,255,255,.1);color:var(--cream)}
+.btn-logout:hover{background:rgba(255,255,255,.18)}
+
+.admin-body{max-width:960px;margin:0 auto;padding:2rem 1.5rem}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:var(--white);padding:.4rem;border-radius:14px;border:1px solid var(--border)}
+.tab-btn{flex:1;border:none;background:none;border-radius:10px;padding:.6rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .2s}
+.tab-btn.active{background:var(--honey);color:#fff}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── CARDS ── */
+.panel-card{background:var(--white);border-radius:18px;padding:1.5rem;margin-bottom:1.5rem;border:1px solid var(--border)}
+.panel-card h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--forest-dk);margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
+
+/* ── FORM ── */
+.form-row{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:1rem}
+@media(min-width:560px){.form-row.cols2{grid-template-columns:1fr 1fr}}
+.form-field label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.35rem;letter-spacing:.04em;text-transform:uppercase}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:.65rem .9rem;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--cream);color:var(--text);outline:none;transition:border-color .2s}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--honey)}
+.form-field textarea{resize:vertical;min-height:80px;line-height:1.6}
+
+/* ── IMAGEN UPLOAD ── */
+.img-upload-area{border:2px dashed var(--border);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--cream);position:relative}
+.img-upload-area:hover{border-color:var(--honey)}
+.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-upload-area .upload-icon{font-size:2rem;display:block;margin-bottom:.4rem;opacity:.5}
+.img-upload-area p{font-size:.8rem;color:var(--muted)}
+.img-preview{width:100%;max-height:180px;object-fit:cover;border-radius:10px;display:none;margin-top:.8rem}
+.img-uploading{font-size:.8rem;color:var(--honey);margin-top:.5rem;display:none}
+
+/* ── BOTONES ── */
+.btn-primary{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.7rem 1.6rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:inline-flex;align-items:center;gap:.4rem}
+.btn-primary:hover{background:var(--amber)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-danger{background:#FEF0EE;color:var(--red);border:1px solid #F5C6C0;border-radius:8px;padding:.4rem .8rem;font-family:'DM Sans',sans-serif;font-size:.78rem;cursor:pointer;transition:background .15s}
+.btn-danger:hover{background:#FADBD8}
+.btn-edit{background:#EEF5EE;color:var(--forest);border:1px solid rgba(45,74,42,.2);border-radius:8px;padding:.4rem .8rem;font-family:'DM Sans',sans-serif;font-size:.78rem;cursor:pointer;transition:background .15s}
+.btn-edit:hover{background:#D4E8D0}
+.btn-secondary{background:var(--cream);color:var(--muted);border:1px solid var(--border);border-radius:50px;padding:.65rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:.88rem;cursor:pointer;transition:background .15s}
+.btn-secondary:hover{background:var(--cream-dk,#F0E8D0)}
+
+/* ── LISTA PRODUCTOS ── */
+.productos-list{display:flex;flex-direction:column;gap:.75rem}
+.producto-row{background:var(--cream);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border)}
+.pr-img{width:52px;height:52px;border-radius:10px;overflow:hidden;background:#F0E8D0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.pr-img img{width:100%;height:100%;object-fit:cover}
+.pr-info{flex:1;min-width:0}
+.pr-name{font-weight:500;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-meta{font-size:.75rem;color:var(--muted);margin-top:.1rem}
+.pr-price{font-size:1rem;color:var(--honey);font-weight:500;white-space:nowrap;margin-right:.5rem}
+.pr-actions{display:flex;gap:.4rem;flex-shrink:0;align-items:center}
+.pr-inactive{opacity:.5}
+.badge-inactivo{background:#F0E8D0;color:var(--muted);font-size:.65rem;padding:.15rem .5rem;border-radius:4px;letter-spacing:.05em}
+.empty-list{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.88rem}
+
+/* ── CONFIGURACIÓN ── */
+.config-group{margin-bottom:1.5rem}
+.config-group h4{font-size:.8rem;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.connection-status{display:flex;align-items:center;gap:.6rem;font-size:.85rem;margin-top:.8rem;padding:.6rem .9rem;border-radius:8px;display:none}
+.connection-status.ok{background:#EAF5EA;color:var(--green);display:flex}
+.connection-status.error{background:#FEF0EE;color:var(--red);display:flex}
+
+/* ── CAMBIAR PASSWORD ── */
+.pass-info{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;padding:.8rem;background:var(--cream);border-radius:8px;border-left:3px solid var(--honey)}
+
+/* ── TOAST / ALERTS ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--forest-dk);color:var(--cream);padding:.7rem 1.3rem;border-radius:50px;font-size:.82rem;opacity:0;pointer-events:none;transition:all .28s;z-index:1000;white-space:nowrap}
+.toast.show{opacity:1}
+.toast.error-toast{background:var(--red)}
+.toast.ok-toast{background:var(--green)}
+
+.loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:900;display:none;align-items:center;justify-content:center}
+.loading-overlay.show{display:flex}
+.loading-box{background:var(--white);border-radius:16px;padding:2rem 2.5rem;text-align:center}
+.spinner{width:36px;height:36px;border:3px solid rgba(212,130,10,.2);border-top-color:var(--honey);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto .8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── MODAL EDITAR ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:800;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modal-bg.open{display:flex}
+.modal-box{background:var(--white);border-radius:20px;padding:2rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal-box h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--forest-dk);margin-bottom:1.2rem}
+.modal-footer{display:flex;justify-content:flex-end;gap:.6rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     PANTALLA DE LOGIN
+════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">Miel <span>Witer</span></div>
+    <div class="login-sub">Panel de Administración</div>
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="loginPass" placeholder="Ingresá la contraseña" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="loginError">Contraseña incorrecta. Intentá de nuevo.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PANTALLA ADMIN
+════════════════════════════════════ -->
+<div id="adminScreen">
+  <div class="admin-header">
+    <div class="admin-logo">Miel <span>Witer</span> <span style="font-size:.75rem;color:rgba(250,245,233,.4);font-family:'DM Sans',sans-serif;font-weight:300"> · Admin</span></div>
+    <div class="admin-header-actions">
+      <span id="headerStatus" style="font-size:.75rem;color:rgba(250,245,233,.5)"></span>
+      <button class="btn-sm btn-logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('productos')">🍯 Productos</button>
+      <button class="tab-btn" onclick="switchTab('nuevo')">＋ Nuevo</button>
+      <button class="tab-btn" onclick="switchTab('config')">⚙️ Configuración</button>
+    </div>
+
+    <!-- ── TAB: LISTA PRODUCTOS ── -->
+    <div id="tab-productos" class="tab-content active">
+      <div class="panel-card">
+        <h3>Productos publicados</h3>
+        <div id="productosList">
+          <div class="empty-list">Cargando productos...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: NUEVO PRODUCTO ── -->
+    <div id="tab-nuevo" class="tab-content">
+      <div class="panel-card">
+        <h3 id="formTitle">Agregar Producto</h3>
+        <input type="hidden" id="editId">
+
+        <div class="form-row cols2">
+          <div class="form-field">
+            <label>Nombre del producto *</label>
+            <input type="text" id="fNombre" placeholder="Ej: Miel Clásica">
+          </div>
+          <div class="form-field">
+            <label>Peso / Presentación</label>
+            <input type="text" id="fPeso" placeholder="Ej: 1 kg, 500 g">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Descripción</label>
+            <textarea id="fDesc" placeholder="Describí el producto: sabor, origen, características..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-row cols2">
+          <div class="form-field">
+            <label>Precio (ARS) *</label>
+            <input type="number" id="fPrecio" placeholder="Ej: 3500">
+          </div>
+          <div class="form-field">
+            <label>Etiqueta especial</label>
+            <input type="text" id="fBadge" placeholder="Ej: Más vendido, Artesanal">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Imagen del producto</label>
+            <div class="img-upload-area" id="uploadArea">
+              <input type="file" id="fImagen" accept="image/*" onchange="previsualizarImagen(this)">
+              <span class="upload-icon">🖼️</span>
+              <p>Tocá para seleccionar una imagen (JPG, PNG, WebP)</p>
+            </div>
+            <img id="imgPreview" class="img-preview" alt="Vista previa">
+            <div id="imgUploading" class="img-uploading">⏳ Subiendo imagen a Cloudinary...</div>
+            <input type="hidden" id="fImagenUrl">
+            <input type="hidden" id="fPublicId">
+          </div>
+        </div>
+
+        <div class="form-row cols2">
+          <div class="form-field">
+            <label>Orden de aparición</label>
+            <input type="number" id="fOrden" placeholder="0" value="0">
+          </div>
+          <div class="form-field">
+            <label>Estado</label>
+            <select id="fActivo">
+              <option value="true">✅ Activo (visible en la web)</option>
+              <option value="false">🔴 Inactivo (oculto)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.5rem">
+          <button class="btn-primary" onclick="guardarProducto()">💾 Guardar producto</button>
+          <button class="btn-secondary" onclick="limpiarFormulario()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: CONFIGURACIÓN ── -->
+    <div id="tab-config" class="tab-content">
+
+      <!-- Conexión Worker -->
+      <div class="panel-card">
+        <h3>⚙️ Conexión con el Worker</h3>
+        <div class="config-group">
+          <h4>Worker de Cloudflare</h4>
+          <div class="form-row cols2">
+            <div class="form-field">
+              <label>URL del Worker</label>
+              <input type="url" id="cfWorkerUrl" placeholder="https://miel-witer.TU-USUARIO.workers.dev">
+            </div>
+            <div class="form-field">
+              <label>Token admin (ADMIN_TOKEN)</label>
+              <input type="password" id="cfToken" placeholder="Contraseña del worker">
+            </div>
+          </div>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem">
+            <button class="btn-primary" onclick="guardarConfig()">💾 Guardar configuración</button>
+            <button class="btn-secondary" onclick="probarConexion()">🔗 Probar conexión</button>
+          </div>
+          <div class="connection-status" id="connStatus"></div>
+        </div>
+      </div>
+
+      <!-- Cloudinary config (informativo) -->
+      <div class="panel-card">
+        <h3>☁️ Cloudinary</h3>
+        <p style="font-size:.84rem;color:var(--muted);line-height:1.7">Las imágenes se suben a Cloudinary a través del Worker. El Worker usa las variables de entorno <code style="background:var(--cream);padding:.1rem .4rem;border-radius:4px">CLOUDINARY_CLOUD</code>, <code style="background:var(--cream);padding:.1rem .4rem;border-radius:4px">CLOUDINARY_KEY</code> y <code style="background:var(--cream);padding:.1rem .4rem;border-radius:4px">CLOUDINARY_SECRET</code> configuradas directamente en el dashboard de Cloudflare Workers.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.8rem;line-height:1.7">Las imágenes se guardan automáticamente en la carpeta <strong>miel-witer/productos</strong> de tu cuenta Cloudinary.</p>
+      </div>
+
+      <!-- Cambiar contraseña -->
+      <div class="panel-card">
+        <h3>🔐 Contraseña del panel</h3>
+        <div class="pass-info">
+          La contraseña que usás para entrar a este panel se guarda localmente en tu dispositivo. Si querés cambiarla, ingresá la actual y la nueva contraseña.
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Contraseña actual</label>
+            <input type="password" id="passActual" placeholder="Contraseña actual">
+          </div>
+        </div>
+        <div class="form-row cols2">
+          <div class="form-field">
+            <label>Nueva contraseña</label>
+            <input type="password" id="passNueva" placeholder="Nueva contraseña">
+          </div>
+          <div class="form-field">
+            <label>Repetir nueva contraseña</label>
+            <input type="password" id="passRepetir" placeholder="Repetí la nueva contraseña">
+          </div>
+        </div>
+        <button class="btn-primary" onclick="cambiarPassword()">🔐 Cambiar contraseña</button>
+      </div>
+
+    </div><!-- /tab-config -->
+  </div><!-- /admin-body -->
+</div><!-- /adminScreen -->
+
+<!-- ── MODAL EDITAR ── -->
+<div class="modal-bg" id="editModal">
+  <div class="modal-box">
+    <h3>Editar Producto</h3>
+    <div id="editModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-primary" onclick="guardarEdicion()">💾 Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── LOADING ── -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div id="loadingMsg" style="font-size:.88rem;color:var(--muted)">Procesando...</div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// STORAGE KEYS
+// ══════════════════════════════════════════════
+const KEY_PASS     = 'mw_admin_pass';
+const KEY_WORKER   = 'mw_worker_url';
+const KEY_TOKEN    = 'mw_worker_token';
+const DEFAULT_PASS = 'mielwiter2026';  // contraseña inicial — cambiala desde el panel
+
+// ══════════════════════════════════════════════
+// LOGIN
+// ══════════════════════════════════════════════
+function getPass() {
+  return localStorage.getItem(KEY_PASS) || DEFAULT_PASS;
+}
+
+function doLogin() {
+  const val = document.getElementById('loginPass').value.trim();
+  if (val === getPass()) {
+    localStorage.setItem('mw_auth', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    iniciarAdmin();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginPass').value = '';
+  }
+}
+
+function logout() {
+  localStorage.removeItem('mw_auth');
+  location.reload();
+}
+
+// Verificar si ya está logueado
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('mw_auth') === '1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    iniciarAdmin();
+  }
+  // Cargar config guardada
+  const wu = localStorage.getItem(KEY_WORKER);
+  const wt = localStorage.getItem(KEY_TOKEN);
+  if (wu) document.getElementById('cfWorkerUrl').value = wu;
+  if (wt) document.getElementById('cfToken').value = wt;
+});
+
+// ══════════════════════════════════════════════
+// ADMIN INIT
+// ══════════════════════════════════════════════
+let productosCache = [];
+let productosGithubSha = '';
+
+async function iniciarAdmin() {
+  const url = getWorkerUrl();
+  if (url) {
+    document.getElementById('headerStatus').textContent = '🔗 ' + url.replace('https://', '');
+    await cargarProductosAdmin();
+  } else {
+    document.getElementById('headerStatus').textContent = '⚠️ Configurá el Worker primero';
+    renderListaProductos([]);
+  }
+}
+
+function getWorkerUrl() { return localStorage.getItem(KEY_WORKER) || ''; }
+function getToken()     { return localStorage.getItem(KEY_TOKEN) || ''; }
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['productos','nuevo','config'][i] === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+// PRODUCTOS – LECTURA
+// ══════════════════════════════════════════════
+async function cargarProductosAdmin() {
+  const url = getWorkerUrl();
+  if (!url) return;
+  showLoading('Cargando productos...');
+  try {
+    const res = await fetch(url + '/productos', {
+      headers: { 'Authorization': 'Bearer ' + getToken() }
+    });
+    if (!res.ok) throw new Error('Error ' + res.status);
+    const data = await res.json();
+    productosCache = data.productos || [];
+    productosGithubSha = data.sha || '';
+    renderListaProductos(productosCache);
+  } catch(e) {
+    showToast('No se pudo cargar productos. Verificá la configuración.', 'error');
+    renderListaProductos([]);
+  } finally {
+    hideLoading();
+  }
+}
+
+function renderListaProductos(lista) {
+  const container = document.getElementById('productosList');
+  if (!lista || lista.length === 0) {
+    container.innerHTML = `<div class="empty-list">No hay productos aún. ¡Agregá el primero desde la pestaña "＋ Nuevo"!</div>`;
+    return;
+  }
+  const sorted = [...lista].sort((a,b) => (a.orden||0) - (b.orden||0));
+  container.innerHTML = sorted.map(p => {
+    const imgHtml = p.imagen_url
+      ? `<img src="${p.imagen_url}" alt="${p.nombre}">`
+      : '🍯';
+    const inactivo = p.activo === false;
+    return `
+      <div class="producto-row ${inactivo?'pr-inactive':''}">
+        <div class="pr-img">${imgHtml}</div>
+        <div class="pr-info">
+          <div class="pr-name">${p.nombre} ${p.peso?'<span style="font-weight:300;color:var(--muted)">· '+p.peso+'</span>':''} ${inactivo?'<span class="badge-inactivo">INACTIVO</span>':''}</div>
+          <div class="pr-meta">${p.descripcion ? p.descripcion.slice(0,60)+'...' : '—'}</div>
+        </div>
+        <div class="pr-price">$${Number(p.precio).toLocaleString('es-AR')}</div>
+        <div class="pr-actions">
+          <button class="btn-edit" onclick="editarProducto('${p.id}')">✏️ Editar</button>
+          <button class="btn-danger" onclick="eliminarProducto('${p.id}')">🗑️</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// IMAGEN – SUBIDA
+// ══════════════════════════════════════════════
+function previsualizarImagen(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const preview = document.getElementById('imgPreview');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function subirImagenSiHay() {
+  const input = document.getElementById('fImagen');
+  const file = input.files[0];
+  if (!file) return null;
+
+  const url = getWorkerUrl();
+  if (!url) { showToast('Configurá el Worker primero', 'error'); return null; }
+
+  document.getElementById('imgUploading').style.display = 'block';
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(url + '/imagen', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: formData
+    });
+    if (!res.ok) throw new Error('Error subiendo imagen');
+    const data = await res.json();
+    document.getElementById('fImagenUrl').value = data.url;
+    document.getElementById('fPublicId').value = data.public_id;
+    return { url: data.url, public_id: data.public_id };
+  } catch(e) {
+    showToast('Error al subir imagen: ' + e.message, 'error');
+    return null;
+  } finally {
+    document.getElementById('imgUploading').style.display = 'none';
+  }
+}
+
+// ══════════════════════════════════════════════
+// GUARDAR PRODUCTO (nuevo)
+// ══════════════════════════════════════════════
+async function guardarProducto() {
+  const nombre = document.getElementById('fNombre').value.trim();
+  const precio = document.getElementById('fPrecio').value.trim();
+  if (!nombre || !precio) { showToast('Nombre y precio son obligatorios', 'error'); return; }
+
+  showLoading('Guardando producto...');
+
+  // Subir imagen si hay archivo seleccionado
+  let imgData = { url: document.getElementById('fImagenUrl').value, public_id: document.getElementById('fPublicId').value };
+  if (document.getElementById('fImagen').files[0]) {
+    const subida = await subirImagenSiHay();
+    if (subida) imgData = subida;
+  }
+
+  const editId = document.getElementById('editId').value;
+  const esEdicion = !!editId;
+
+  const producto = {
+    id: esEdicion ? editId : 'p' + Date.now(),
+    nombre,
+    peso: document.getElementById('fPeso').value.trim(),
+    descripcion: document.getElementById('fDesc').value.trim(),
+    precio: Number(precio),
+    badge: document.getElementById('fBadge').value.trim(),
+    imagen_url: imgData.url || '',
+    cloudinary_public_id: imgData.public_id || '',
+    activo: document.getElementById('fActivo').value === 'true',
+    orden: Number(document.getElementById('fOrden').value) || 0,
+    created_at: esEdicion ? undefined : new Date().toISOString(),
+  };
+  if (esEdicion) delete producto.created_at;
+
+  if (esEdicion) {
+    const idx = productosCache.findIndex(p => p.id === editId);
+    if (idx !== -1) productosCache[idx] = { ...productosCache[idx], ...producto };
+  } else {
+    producto.created_at = new Date().toISOString();
+    productosCache.push(producto);
+  }
+
+  const ok = await guardarEnGithub();
+  hideLoading();
+  if (ok) {
+    showToast(esEdicion ? '✅ Producto actualizado' : '✅ Producto agregado', 'ok');
+    limpiarFormulario();
+    renderListaProductos(productosCache);
+    switchTab('productos');
+  }
+}
+
+async function guardarEnGithub() {
+  const url = getWorkerUrl();
+  if (!url) { showToast('Worker no configurado', 'error'); return false; }
+  try {
+    const res = await fetch(url + '/productos', {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + getToken(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productos: productosCache, sha: productosGithubSha })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      throw new Error(err.detalle?.message || 'Error ' + res.status);
+    }
+    const data = await res.json();
+    // Actualizar SHA para el próximo PUT
+    const reload = await fetch(url + '/productos', {
+      headers: { 'Authorization': 'Bearer ' + getToken() }
+    });
+    if (reload.ok) {
+      const d = await reload.json();
+      productosGithubSha = d.sha;
+    }
+    return true;
+  } catch(e) {
+    showToast('Error al guardar: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// ══════════════════════════════════════════════
+// EDITAR PRODUCTO
+// ══════════════════════════════════════════════
+function editarProducto(id) {
+  const p = productosCache.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('editId').value = p.id;
+  document.getElementById('fNombre').value = p.nombre || '';
+  document.getElementById('fPeso').value = p.peso || '';
+  document.getElementById('fDesc').value = p.descripcion || '';
+  document.getElementById('fPrecio').value = p.precio || '';
+  document.getElementById('fBadge').value = p.badge || '';
+  document.getElementById('fImagenUrl').value = p.imagen_url || '';
+  document.getElementById('fPublicId').value = p.cloudinary_public_id || '';
+  document.getElementById('fOrden').value = p.orden || 0;
+  document.getElementById('fActivo').value = String(p.activo !== false);
+  document.getElementById('formTitle').textContent = 'Editar: ' + p.nombre;
+  if (p.imagen_url) {
+    document.getElementById('imgPreview').src = p.imagen_url;
+    document.getElementById('imgPreview').style.display = 'block';
+  } else {
+    document.getElementById('imgPreview').style.display = 'none';
+  }
+  switchTab('nuevo');
+}
+
+function limpiarFormulario() {
+  ['fNombre','fPeso','fDesc','fPrecio','fBadge','fImagenUrl','fPublicId','editId'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fOrden').value = '0';
+  document.getElementById('fActivo').value = 'true';
+  document.getElementById('fImagen').value = '';
+  document.getElementById('imgPreview').style.display = 'none';
+  document.getElementById('formTitle').textContent = 'Agregar Producto';
+}
+
+// ══════════════════════════════════════════════
+// ELIMINAR PRODUCTO
+// ══════════════════════════════════════════════
+async function eliminarProducto(id) {
+  const p = productosCache.find(x => x.id === id);
+  if (!p) return;
+  if (!confirm(`¿Eliminar "${p.nombre}"? Esta acción no se puede deshacer.`)) return;
+  showLoading('Eliminando producto...');
+  productosCache = productosCache.filter(x => x.id !== id);
+
+  // Intentar eliminar imagen de Cloudinary si existe
+  if (p.cloudinary_public_id) {
+    const url = getWorkerUrl();
+    if (url) {
+      await fetch(url + '/imagen', {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ public_id: p.cloudinary_public_id })
+      }).catch(()=>{});
+    }
+  }
+
+  const ok = await guardarEnGithub();
+  hideLoading();
+  if (ok) {
+    showToast('🗑️ Producto eliminado', 'ok');
+    renderListaProductos(productosCache);
+  }
+}
+
+// ══════════════════════════════════════════════
+// CONFIGURACIÓN
+// ══════════════════════════════════════════════
+function guardarConfig() {
+  const url = document.getElementById('cfWorkerUrl').value.trim().replace(/\/$/, '');
+  const token = document.getElementById('cfToken').value.trim();
+  if (!url || !token) { showToast('Completá URL y Token', 'error'); return; }
+  localStorage.setItem(KEY_WORKER, url);
+  localStorage.setItem(KEY_TOKEN, token);
+  document.getElementById('headerStatus').textContent = '🔗 ' + url.replace('https://', '');
+  showToast('✅ Configuración guardada', 'ok');
+}
+
+async function probarConexion() {
+  const url = document.getElementById('cfWorkerUrl').value.trim().replace(/\/$/, '');
+  const token = document.getElementById('cfToken').value.trim();
+  const status = document.getElementById('connStatus');
+  if (!url || !token) { showToast('Completá URL y Token primero', 'error'); return; }
+  status.style.display = 'none';
+  showLoading('Probando conexión...');
+  try {
+    const res = await fetch(url + '/ping', { headers: { 'Authorization': 'Bearer ' + token } });
+    const data = await res.json();
+    hideLoading();
+    if (res.ok && data.ok) {
+      status.className = 'connection-status ok';
+      status.innerHTML = '✅ ' + data.mensaje;
+      status.style.display = 'flex';
+      // Guardar y cargar productos
+      localStorage.setItem(KEY_WORKER, url);
+      localStorage.setItem(KEY_TOKEN, token);
+      await cargarProductosAdmin();
+    } else {
+      throw new Error(data.error || 'Token incorrecto');
+    }
+  } catch(e) {
+    hideLoading();
+    status.className = 'connection-status error';
+    status.innerHTML = '❌ Error: ' + e.message;
+    status.style.display = 'flex';
+  }
+}
+
+// ══════════════════════════════════════════════
+// CAMBIAR PASSWORD
+// ══════════════════════════════════════════════
+function cambiarPassword() {
+  const actual = document.getElementById('passActual').value;
+  const nueva = document.getElementById('passNueva').value;
+  const repetir = document.getElementById('passRepetir').value;
+  if (actual !== getPass()) { showToast('La contraseña actual es incorrecta', 'error'); return; }
+  if (!nueva || nueva.length < 6) { showToast('La nueva contraseña debe tener al menos 6 caracteres', 'error'); return; }
+  if (nueva !== repetir) { showToast('Las contraseñas nuevas no coinciden', 'error'); return; }
+  localStorage.setItem(KEY_PASS, nueva);
+  document.getElementById('passActual').value = '';
+  document.getElementById('passNueva').value = '';
+  document.getElementById('passRepetir').value = '';
+  showToast('✅ Contraseña actualizada', 'ok');
+}
+
+// ══════════════════════════════════════════════
+// MODAL (reservado para uso futuro)
+// ══════════════════════════════════════════════
+function cerrarModal() { document.getElementById('editModal').classList.remove('open'); }
+function guardarEdicion() { cerrarModal(); }
+
+// ══════════════════════════════════════════════
+// UTILIDADES
+// ══════════════════════════════════════════════
+function showLoading(msg='Procesando...') {
+  document.getElementById('loadingMsg').textContent = msg;
+  document.getElementById('loadingOverlay').classList.add('show');
+}
+function hideLoading() {
+  document.getElementById('loadingOverlay').classList.remove('show');
+}
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' '+type+'-toast' : '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+</script>
+</body>
+</html>
