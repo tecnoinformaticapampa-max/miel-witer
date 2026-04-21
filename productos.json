@@ -6,8 +6,8 @@
     "descripcion": "Miel de campo puro",
     "precio": 3500,
     "badge": "artesanal",
-    "imagen_url": "",
-    "cloudinary_public_id": "",
+    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776733634/miel-witer/productos/xyculmp1gsjiaau0ycpx.png",
+    "cloudinary_public_id": "miel-witer/productos/xyculmp1gsjiaau0ycpx",
     "activo": true,
     "orden": 1,
     "created_at": "2026-04-21T00:20:02.164Z"
