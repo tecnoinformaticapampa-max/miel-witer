@@ -50,7 +50,7 @@ async function githubGet(env, filePath) {
   });
   if (!res.ok) throw new Error("GitHub GET failed: " + res.status);
   const data = await res.json();
-  const content = JSON.parse(atob(data.content.replace(/\n/g, "")));
+  const content = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, "")))));
   return { content, sha: data.sha };
 }
 
