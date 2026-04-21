@@ -6,5 +6,13 @@
     "cloudinary_public_id": "miel-witer/clientes/vk90ljedmbd8gvif9bmf",
     "activo": true,
     "created_at": "2026-04-21T17:23:46.896Z"
+  },
+  {
+    "id": "c1776792418505",
+    "nombre": "Cliente Feliz! = Miel Witer en sus manos!",
+    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776792418/miel-witer/clientes/y6vdcykf70r63q065vjb.png",
+    "cloudinary_public_id": "miel-witer/clientes/y6vdcykf70r63q065vjb",
+    "activo": true,
+    "created_at": "2026-04-21T17:26:58.505Z"
   }
 ]
