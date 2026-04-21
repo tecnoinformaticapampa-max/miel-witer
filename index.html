@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Miel Witer – Miel Pura del Impenetrable Chaqueño</title>
 <meta name="description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte. 10 años de trayectoria apicultora.">
+<meta name="theme-color" content="#D4820A">
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/7LD64ykN/screenshot-7.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Miel Witer">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Miel Witer – Miel Pura del Impenetrable">
+<meta property="og:description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte.">
+<meta property="og:image" content="https://i.postimg.cc/xdYCQS2G/screenshot-3.png">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -13,6 +28,7 @@
   const CONFIG = {
     PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
     WHATSAPP: "5493725641680",
+    INSTAGRAM: "https://www.instagram.com/witer_miel/",
     NEGOCIO: "Miel Witer",
   };
 </script>
@@ -32,11 +48,13 @@ html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s,box-shadow .3s}
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s,box-shadow .3s}
 nav.scrolled{background:rgba(250,245,233,.97);box-shadow:0 2px 20px rgba(180,100,0,.12)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--cream);letter-spacing:.04em;transition:color .3s}
-nav.scrolled .nav-logo{color:var(--forest)}
-.nav-logo span{color:var(--gold)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.nav-logo img{width:42px;height:42px;object-fit:contain;border-radius:8px;transition:opacity .3s}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cream);letter-spacing:.04em;transition:color .3s}
+nav.scrolled .nav-logo-text{color:var(--forest)}
+.nav-logo-text span{color:var(--gold)}
 .cart-btn{position:relative;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .2s,transform .15s}
 .cart-btn:hover{background:var(--amber);transform:scale(1.04)}
 .cart-count{background:#fff;color:var(--honey);border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;min-width:20px}
@@ -44,20 +62,21 @@ nav.scrolled .nav-logo{color:var(--forest)}
 @keyframes bump{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden;background:var(--forest-dk)}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 65% 40%,rgba(212,130,10,.2) 0%,transparent 65%),radial-gradient(ellipse at 15% 75%,rgba(45,74,42,.7) 0%,transparent 55%);z-index:0}
-.hero-honeycomb{position:absolute;inset:0;opacity:.055;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E")}
-.hero-content{position:relative;z-index:1;max-width:700px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero-bg-img{position:absolute;inset:0;background-image:url('https://i.postimg.cc/xdYCQS2G/screenshot-3.png');background-size:cover;background-position:center;filter:brightness(.45) saturate(1.2);z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,46,24,.5) 0%,rgba(26,46,24,.3) 50%,rgba(26,46,24,.7) 100%);z-index:1}
+.hero-honeycomb{position:absolute;inset:0;opacity:.04;z-index:2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:3;max-width:700px}
 .hero-badge{display:inline-block;background:rgba(240,165,0,.18);border:1px solid rgba(240,165,0,.35);color:var(--gold-lt);font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.75rem}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,9vw,5.8rem);font-weight:500;line-height:1.04;color:var(--cream);margin-bottom:.5rem;letter-spacing:-.01em}
 .hero h1 em{color:var(--gold);font-style:italic}
-.hero-sub{font-size:clamp(.9rem,2.5vw,1.1rem);color:rgba(250,245,233,.62);font-weight:300;max-width:460px;margin:1rem auto 2.5rem;line-height:1.75}
+.hero-sub{font-size:clamp(.9rem,2.5vw,1.1rem);color:rgba(250,245,233,.72);font-weight:300;max-width:460px;margin:1rem auto 2.5rem;line-height:1.75}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
 .btn-primary{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.8rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
 .btn-primary:hover{background:var(--gold);transform:translateY(-2px)}
 .btn-outline{background:transparent;color:var(--cream);border:1px solid rgba(250,245,233,.3);border-radius:50px;padding:.8rem 1.8rem;font-size:.95rem;cursor:pointer;transition:border-color .2s,color .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Sans',sans-serif}
 .btn-outline:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
-.hero-scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4}
+.hero-scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.5;z-index:3}
 .hero-scroll-hint span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
 .scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--cream),transparent);animation:scrollAnim 2s ease infinite}
 @keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1);transform-origin:top}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
@@ -82,10 +101,10 @@ section{padding:5rem 1.5rem}
 .stat{text-align:center;padding:1.2rem .5rem;background:var(--cream);border-radius:14px;border:1px solid rgba(212,130,10,.1)}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;color:var(--honey);display:block;line-height:1}
 .stat-label{font-size:.68rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;display:block}
-.hexagon-wrap{display:flex;justify-content:center}
-.hexagon{width:200px;height:200px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:linear-gradient(135deg,var(--gold-lt),var(--honey),var(--amber));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
-.hex-icon{font-size:3.2rem}
-.hex-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#fff;font-weight:500;text-align:center;padding:0 1rem;line-height:1.3}
+.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.historia-fotos img{width:100%;height:160px;object-fit:cover;border-radius:14px}
+.historia-fotos img:first-child{border-radius:14px 14px 4px 14px}
+.historia-fotos img:last-child{border-radius:14px 4px 14px 14px}
 
 /* ── CATÁLOGO ── */
 .catalogo{background:var(--cream)}
@@ -97,8 +116,6 @@ section{padding:5rem 1.5rem}
 .empty-state .empty-icon{font-size:3.5rem;display:block;margin-bottom:1rem;opacity:.4}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.25rem}
 @media(min-width:900px){.products-grid{grid-template-columns:repeat(4,1fr)}}
-
-/* ── PRODUCT CARD ── */
 .product-card{background:var(--card-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;border:1px solid rgba(212,130,10,.1);display:flex;flex-direction:column}
 .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
 .product-img-wrap{height:170px;overflow:hidden;position:relative;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -111,40 +128,51 @@ section{padding:5rem 1.5rem}
 .product-peso{font-size:.72rem;color:var(--honey);font-weight:500;margin-bottom:.3rem;letter-spacing:.05em;text-transform:uppercase}
 .product-desc{font-size:.8rem;color:var(--text-muted);line-height:1.65;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .product-price{font-size:1.45rem;font-weight:500;color:var(--honey);font-family:'Cormorant Garamond',serif;margin-bottom:.9rem}
-.product-price.consultar{font-size:1rem;font-weight:500;color:var(--text-muted);font-family:'DM Sans',sans-serif;background:var(--cream);padding:.3rem .7rem;border-radius:8px;display:inline-block}
-
-/* ── CANTIDAD + AGREGAR ── */
+.product-price.consultar{font-size:1rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;background:var(--cream);padding:.3rem .7rem;border-radius:8px;display:inline-block}
 .card-actions{display:flex;align-items:center;gap:.6rem;margin-top:auto}
 .qty-controls{display:flex;align-items:center;gap:.3rem;background:var(--cream);border-radius:50px;padding:.25rem .4rem;border:1px solid rgba(212,130,10,.2)}
 .qty-btn-card{width:26px;height:26px;border-radius:50%;border:none;background:none;color:var(--honey);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1;font-weight:500}
 .qty-btn-card:hover{background:rgba(212,130,10,.1)}
 .qty-num-card{font-size:.9rem;font-weight:500;min-width:20px;text-align:center;color:var(--text)}
 .add-btn{flex:1;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.6rem .8rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.3rem}
-.add-btn:hover{background:var(--forest-lt);transform:scale(1.02)}
+.add-btn:hover{background:var(--forest-lt)}
 .add-btn.added{background:var(--honey)}
 
-/* ── ORIGEN ── */
+/* ── ORIGEN + MAPA ── */
 .origen{background:var(--forest-dk)}
 .origen .section-title{color:var(--cream)}
 .origen .section-label{color:var(--gold)}
-.origen-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:center}
+.origen-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:start}
 @media(min-width:640px){.origen-grid{grid-template-columns:1fr 1fr}}
 .origen p{color:rgba(250,245,233,.68);line-height:1.85;font-size:.95rem;margin-bottom:1rem}
 .features{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem}
 .features li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:rgba(250,245,233,.7);line-height:1.5}
 .feat-icon{width:30px;height:30px;background:rgba(240,165,0,.14);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.map-card{background:rgba(255,255,255,.06);border:1px solid rgba(240,165,0,.2);border-radius:22px;padding:2.5rem 2rem;text-align:center}
-.map-pin{font-size:3rem;display:block;margin-bottom:.75rem;animation:pinBounce 2.5s ease-in-out infinite}
-@keyframes pinBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.map-city{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt);font-weight:500}
-.map-province{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,245,233,.45);margin-top:.2rem}
-.map-coords{font-size:.68rem;color:rgba(250,245,233,.3);margin-top:.8rem;font-family:monospace}
+.origen-foto{width:100%;border-radius:16px;overflow:hidden;margin-bottom:1.2rem}
+.origen-foto img{width:100%;height:220px;object-fit:cover;display:block}
+.map-wrap{border-radius:16px;overflow:hidden;border:1px solid rgba(240,165,0,.2)}
+.map-wrap iframe{width:100%;height:240px;display:block;border:0}
+.map-label{background:rgba(255,255,255,.06);padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:rgba(250,245,233,.6)}
+.map-label strong{color:var(--gold-lt)}
+
+/* ── INSTAGRAM STRIP ── */
+.instagram-strip{background:var(--cream);padding:3rem 1.5rem;text-align:center;border-top:1px solid rgba(212,130,10,.1)}
+.ig-inner{max-width:520px;margin:0 auto}
+.ig-logo{width:48px;height:48px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem}
+.ig-inner h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--forest-dk);margin-bottom:.4rem}
+.ig-inner p{font-size:.88rem;color:var(--text-muted);margin-bottom:1.2rem}
+.ig-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366);color:#fff;border:none;border-radius:50px;padding:.75rem 1.6rem;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .15s}
+.ig-btn:hover{opacity:.9;transform:translateY(-2px)}
 
 /* ── FOOTER ── */
 footer{background:var(--forest-dk);border-top:1px solid rgba(240,165,0,.1);color:rgba(250,245,233,.45);text-align:center;padding:3rem 1.5rem;font-size:.82rem}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold-lt);display:block;margin-bottom:.4rem}
+.footer-logo-wrap{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:.5rem}
+.footer-logo-img{width:40px;height:40px;object-fit:contain;border-radius:8px;opacity:.85}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt)}
+footer p{margin-top:.4rem}
 footer a{color:var(--gold);text-decoration:none}
 footer a:hover{color:var(--gold-lt)}
+.footer-links{display:flex;justify-content:center;gap:1.2rem;margin-top:.8rem;flex-wrap:wrap}
 
 /* ── CARRITO PANEL ── */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
@@ -163,7 +191,6 @@ footer a:hover{color:var(--gold-lt)}
 .ci-img img{width:100%;height:100%;object-fit:cover}
 .ci-info{flex:1;min-width:0}
 .ci-name{font-size:.86rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ci-sub{font-size:.75rem;color:var(--text-muted)}
 .ci-price{font-size:.84rem;color:var(--honey);font-weight:500;margin-top:.1rem}
 .ci-controls{display:flex;align-items:center;gap:.35rem;flex-shrink:0}
 .qty-btn{width:27px;height:27px;border-radius:50%;border:1px solid rgba(212,130,10,.3);background:none;color:var(--honey);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1}
@@ -179,10 +206,10 @@ footer a:hover{color:var(--gold-lt)}
 .checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.6rem}
 .checkout-btn:hover{background:var(--amber);transform:translateY(-1px)}
 .checkout-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.vaciar-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.8rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif;transition:color .15s}
+.vaciar-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.8rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
 .vaciar-btn:hover{color:var(--text)}
 
-/* ── MODAL FORMULARIO PEDIDO ── */
+/* ── MODAL FORMULARIO ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{opacity:1;pointer-events:all}
 .modal-box{background:var(--white);border-radius:24px;padding:0;max-width:460px;width:100%;max-height:92vh;overflow-y:auto;transform:scale(.92);transition:transform .3s;display:flex;flex-direction:column}
@@ -208,18 +235,17 @@ footer a:hover{color:var(--gold-lt)}
 .confirm-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.5rem}
 .confirm-btn:hover{background:var(--amber)}
 .volver-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
-.volver-btn:hover{color:var(--text)}
 .modal-nota{font-size:.72rem;color:var(--text-muted);text-align:center;line-height:1.5;margin-top:.5rem}
 
 /* ── WA FLOTANTE ── */
 .wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
 .wa-btn{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;font-size:1.6rem}
-.wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5)}
+.wa-btn:hover{transform:scale(1.1)}
 .wa-tooltip{background:var(--forest-dk);color:var(--cream);font-size:.78rem;padding:.4rem .85rem;border-radius:50px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
 .wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-dk);color:var(--cream);padding:.6rem 1.4rem;border-radius:50px;font-size:.8rem;opacity:0;pointer-events:none;transition:all .28s;z-index:400;white-space:nowrap;box-shadow:var(--shadow-md)}
+.toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-dk);color:var(--cream);padding:.6rem 1.4rem;border-radius:50px;font-size:.8rem;opacity:0;pointer-events:none;transition:all .28s;z-index:400;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── MODAL ÉXITO ── */
@@ -228,12 +254,26 @@ footer a:hover{color:var(--gold-lt)}
 .modal-exito .modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
 .modal-exito h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
 .modal-exito p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
+
+/* ── PWA INSTALL BANNER ── */
+.pwa-banner{position:fixed;bottom:0;left:0;right:0;background:var(--forest-dk);color:var(--cream);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;z-index:300;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);border-top:2px solid var(--honey)}
+.pwa-banner.show{transform:translateY(0)}
+.pwa-banner img{width:40px;height:40px;border-radius:10px;object-fit:contain;flex-shrink:0}
+.pwa-banner-text{flex:1}
+.pwa-banner-text strong{display:block;font-size:.9rem;color:var(--cream)}
+.pwa-banner-text span{font-size:.75rem;color:rgba(250,245,233,.55)}
+.pwa-install-btn{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.pwa-dismiss{background:none;border:none;color:rgba(250,245,233,.4);font-size:1.2rem;cursor:pointer;padding:.2rem;flex-shrink:0}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="navbar">
-  <div class="nav-logo">Miel <span>Witer</span></div>
+  <a href="#" class="nav-logo">
+    <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer logo" onerror="this.style.display='none'">
+    <span class="nav-logo-text">Miel <span>Witer</span></span>
+  </a>
   <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">
     🛒 Carrito <span class="cart-count" id="cartCount">0</span>
   </button>
@@ -241,7 +281,8 @@ footer a:hover{color:var(--gold-lt)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-honeycomb"></div>
   <div class="hero-content">
     <div class="hero-badge">🍯 100% Pura · Sin Aditivos · Pampa del Indio, Chaco</div>
@@ -270,8 +311,9 @@ footer a:hover{color:var(--gold-lt)}
           <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Pura</span></div>
         </div>
       </div>
-      <div class="hexagon-wrap fade-in delay-1">
-        <div class="hexagon"><span class="hex-icon">🐝</span><span class="hex-text">Monte Chaqueño</span></div>
+      <div class="historia-fotos fade-in delay-1">
+        <img src="https://i.postimg.cc/tgyTbHjN/screenshot-4.png" alt="Miel Witer producto" loading="lazy">
+        <img src="https://i.postimg.cc/jjK5TrbH/screenshot-6.png" alt="Miel Witer tarro" loading="lazy">
       </div>
     </div>
   </div>
@@ -290,15 +332,17 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </section>
 
-<!-- ORIGEN -->
+<!-- ORIGEN + MAPA -->
 <section class="origen" id="origen">
   <div class="container">
     <div class="origen-grid">
       <div class="fade-in">
         <span class="section-label">Nuestro origen</span>
         <h2 class="section-title">Del <em>Impenetrable</em> a tu hogar</h2>
-        <p>Pampa del Indio es una pequeña localidad del Chaco profundo, rodeada de bosques nativos que preservan la biodiversidad única del Impenetrable chaqueño.</p>
-        <p>Esa geografía salvaje es la que hace nuestra miel irreproducible en otro lugar del mundo.</p>
+        <div class="origen-foto">
+          <img src="https://i.postimg.cc/25m6YfDF/screenshot-5.png" alt="Pampa del Indio" loading="lazy">
+        </div>
+        <p>Pampa del Indio, en el corazón del Chaco profundo. Rodeada de bosques nativos que preservan la biodiversidad única del Impenetrable.</p>
         <ul class="features">
           <li><span class="feat-icon">🌿</span>Flores silvestres del monte nativo chaqueño</li>
           <li><span class="feat-icon">☀️</span>Cosecha artesanal bajo el sol del Chaco</li>
@@ -307,25 +351,42 @@ footer a:hover{color:var(--gold-lt)}
         </ul>
       </div>
       <div class="fade-in delay-1">
-        <div class="map-card">
-          <span class="map-pin">📍</span>
-          <div class="map-city">Pampa del Indio</div>
-          <div class="map-province">Chaco · Argentina</div>
-          <div class="map-coords">26°01′S &nbsp;·&nbsp; 59°56′O</div>
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!4v1776736045486!6m8!1m7!1s2pmneIcY98deZKNnegdoPg!2m2!1d-26.05188350867848!2d-59.94163613812756!3f266.5132180286004!4f-3.889304397794845!5f1.5378273236760203" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Punto de venta Miel Witer"></iframe>
+          <div class="map-label">
+            <span>📍</span>
+            <span><strong>Punto de venta</strong> · Pampa del Indio, Chaco</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- INSTAGRAM STRIP -->
+<div class="instagram-strip fade-in">
+  <div class="ig-inner">
+    <div class="ig-logo">📸</div>
+    <h3>Seguinos en Instagram</h3>
+    <p>Mirá el día a día de Miel Witer, el monte chaqueño y nuestras cosechas en <strong>@witer_miel</strong></p>
+    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener" class="ig-btn">
+      Ver @witer_miel →
+    </a>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">Miel Witer</span>
-  <p>Pampa del Indio, Chaco, Argentina</p>
-  <p style="margin-top:.5rem">
+  <div class="footer-logo-wrap">
+    <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer" class="footer-logo-img" onerror="this.style.display='none'">
+    <span class="footer-logo-text">Miel Witer</span>
+  </div>
+  <p>Pampa del Indio, Chaco, Argentina · Producción en Armonía con el Ambiente</p>
+  <div class="footer-links">
     <a href="#" onclick="abrirWhatsApp('Hola! Los contacto desde la web 🍯');return false">💬 WhatsApp</a>
-    &nbsp;·&nbsp;<a href="#catalogo">Ver Productos</a>
-  </p>
+    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener">📸 Instagram</a>
+    <a href="#catalogo">🍯 Productos</a>
+  </div>
   <p style="margin-top:1rem;font-size:.7rem;opacity:.4">© 2026 Miel Witer · Producto 100% chaqueño</p>
 </footer>
 
@@ -360,7 +421,7 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </div>
 
-<!-- MODAL FORMULARIO PEDIDO -->
+<!-- MODAL FORMULARIO -->
 <div class="modal-overlay" id="modalFormOverlay">
   <div class="modal-box">
     <div class="modal-head">
@@ -371,23 +432,11 @@ footer a:hover{color:var(--gold-lt)}
       <div class="resumen-pedido">
         <div class="resumen-title">Resumen del pedido</div>
         <div id="resumenItems"></div>
-        <div class="resumen-total">
-          <span>Total estimado</span>
-          <span id="resumenTotal">$0</span>
-        </div>
+        <div class="resumen-total"><span>Total estimado</span><span id="resumenTotal">$0</span></div>
       </div>
-      <div class="form-field">
-        <label>Nombre y apellido *</label>
-        <input type="text" id="fNombre" placeholder="Tu nombre completo">
-      </div>
-      <div class="form-field">
-        <label>WhatsApp / Teléfono *</label>
-        <input type="tel" id="fTelefono" placeholder="Ej: 3725 123456">
-      </div>
-      <div class="form-field">
-        <label>Localidad / Ciudad *</label>
-        <input type="text" id="fLocalidad" placeholder="Tu ciudad">
-      </div>
+      <div class="form-field"><label>Nombre y apellido *</label><input type="text" id="fNombre" placeholder="Tu nombre completo"></div>
+      <div class="form-field"><label>WhatsApp / Teléfono *</label><input type="tel" id="fTelefono" placeholder="Ej: 3725 123456"></div>
+      <div class="form-field"><label>Localidad / Ciudad *</label><input type="text" id="fLocalidad" placeholder="Tu ciudad"></div>
       <div class="form-row-2">
         <div class="form-field">
           <label>Provincia *</label>
@@ -400,14 +449,10 @@ footer a:hover{color:var(--gold-lt)}
             <option>Mendoza</option><option>Misiones</option><option>Neuquén</option>
             <option>Río Negro</option><option>Salta</option><option>San Juan</option>
             <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
-            <option>Santiago del Estero</option><option>Tierra del Fuego</option>
-            <option>Tucumán</option>
+            <option>Santiago del Estero</option><option>Tierra del Fuego</option><option>Tucumán</option>
           </select>
         </div>
-        <div class="form-field">
-          <label>Código postal *</label>
-          <input type="text" id="fCP" placeholder="Ej: H3416">
-        </div>
+        <div class="form-field"><label>Código postal *</label><input type="text" id="fCP" placeholder="Ej: H3416"></div>
       </div>
       <div class="form-field">
         <label>Dirección de envío <span class="form-opcional">(opcional)</span></label>
@@ -430,13 +475,24 @@ footer a:hover{color:var(--gold-lt)}
   <div class="modal-exito">
     <span class="modal-icon">🎉</span>
     <h3>¡Pedido enviado!</h3>
-    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago.</p>
+    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago. ¡Gracias!</p>
     <button class="btn-primary" onclick="document.getElementById('modalExitoOverlay').classList.remove('open')" style="margin:0 auto">¡Perfecto!</button>
   </div>
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwaBanner">
+  <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer">
+  <div class="pwa-banner-text">
+    <strong>Instalá Miel Witer</strong>
+    <span>Agregá la app a tu pantalla de inicio</span>
+  </div>
+  <button class="pwa-install-btn" id="pwaInstallBtn">Instalar</button>
+  <button class="pwa-dismiss" onclick="cerrarPWA()">✕</button>
+</div>
 
 <script>
 // ═══════════════════════════════════════
@@ -446,35 +502,60 @@ let carrito = {};
 let productosData = [];
 
 // ═══════════════════════════════════════
+// PWA
+// ═══════════════════════════════════════
+let deferredPrompt = null;
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => {
+    if (!localStorage.getItem('mw_pwa_dismissed')) {
+      document.getElementById('pwaBanner').classList.add('show');
+    }
+  }, 4000);
+});
+document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') cerrarPWA();
+  deferredPrompt = null;
+});
+function cerrarPWA() {
+  document.getElementById('pwaBanner').classList.remove('show');
+  localStorage.setItem('mw_pwa_dismissed', '1');
+}
+
+// ═══════════════════════════════════════
 // CARGAR PRODUCTOS
 // ═══════════════════════════════════════
 async function cargarProductos() {
   const container = document.getElementById('productosContainer');
   try {
     const res = await fetch(CONFIG.PRODUCTOS_URL + '?t=' + Date.now());
-    if (!res.ok) throw new Error('No se pudo cargar');
-    const productos = await res.json();
-    productosData = productos;
-    renderProductos(productos);
-  } catch(e) {
+    if (!res.ok) throw new Error();
+    productosData = await res.json();
+    renderProductos(productosData);
+  } catch {
     container.innerHTML = `
       <div class="empty-state">
         <span class="empty-icon">🍯</span>
-        <p>Próximamente nuestros productos estarán disponibles aquí.<br>
-        Mientras tanto, <strong>consultanos por WhatsApp</strong>.</p>
-        <br>
-        <button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">
-          💬 Consultar ahora
-        </button>
+        <p>Próximamente nuestros productos estarán disponibles aquí.<br>Mientras tanto consultanos por WhatsApp.</p>
+        <br><button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">💬 Consultar ahora</button>
       </div>`;
   }
 }
 
 function renderProductos(productos) {
   const container = document.getElementById('productosContainer');
-  const activos = (productos || []).filter(p => p.activo !== false);
+  const activos = (productos||[]).filter(p => p.activo !== false);
   if (!activos.length) {
-    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span><p>Estamos preparando el catálogo. Volvé pronto o consultanos por WhatsApp.</p></div>`;
+    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span><p>Estamos preparando el catálogo. Volvé pronto.</p></div>`;
     return;
   }
   const sorted = [...activos].sort((a,b) => (a.orden||0)-(b.orden||0));
@@ -483,9 +564,8 @@ function renderProductos(productos) {
 }
 
 function renderCard(p) {
-  const tieneImg = !!p.imagen_url;
   const tienePrecio = p.precio && Number(p.precio) > 0;
-  const imgHtml = tieneImg
+  const imgHtml = p.imagen_url
     ? `<img src="${p.imagen_url}" alt="${p.nombre}" loading="lazy">`
     : `<span class="product-img-placeholder">🍯</span>`;
   const badgeHtml = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
@@ -507,18 +587,15 @@ function renderCard(p) {
             <span class="qty-num-card" id="qty-card-${p.id}">1</span>
             <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',1)">+</button>
           </div>
-          <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">
-            ＋ Agregar
-          </button>
+          <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">＋ Agregar</button>
         </div>
       </div>
     </div>`;
 }
 
-// Cantidad en la card (antes de agregar)
 const cantidadesCard = {};
 function cambiarCantidadCard(id, delta) {
-  cantidadesCard[id] = Math.max(1, (cantidadesCard[id] || 1) + delta);
+  cantidadesCard[id] = Math.max(1, (cantidadesCard[id]||1) + delta);
   const el = document.getElementById('qty-card-' + id);
   if (el) el.textContent = cantidadesCard[id];
 }
@@ -530,22 +607,14 @@ function agregarAlCarrito(id) {
   const p = productosData.find(x => x.id == id);
   if (!p) return;
   const qty = cantidadesCard[id] || 1;
-  if (carrito[id]) {
-    carrito[id].qty += qty;
-  } else {
-    carrito[id] = { producto: p, qty };
-  }
-  // Reset cantidad card
+  carrito[id] = carrito[id] ? {...carrito[id], qty: carrito[id].qty + qty} : {producto:p, qty};
   cantidadesCard[id] = 1;
   const el = document.getElementById('qty-card-' + id);
   if (el) el.textContent = '1';
-
   actualizarCarritoUI();
   const btn = document.getElementById('btn-' + id);
   if (btn) { btn.classList.add('added'); btn.textContent = '✓ Agregado'; }
-  setTimeout(() => {
-    if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; }
-  }, 1400);
+  setTimeout(() => { if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; } }, 1400);
   const cnt = document.getElementById('cartCount');
   cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump');
   showToast('¡' + p.nombre + ' agregado! 🍯');
@@ -561,46 +630,38 @@ function cambiarCantidad(id, delta) {
 function vaciarCarrito() {
   if (!Object.keys(carrito).length) return;
   if (!confirm('¿Vaciar el carrito?')) return;
-  carrito = {};
-  actualizarCarritoUI();
+  carrito = {}; actualizarCarritoUI();
 }
 
 function actualizarCarritoUI() {
   const items = Object.values(carrito);
-  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio) <= 0);
-  const total = items.reduce((s,i) => s + (Number(i.producto.precio)||0) * i.qty, 0);
-  const totalUnidades = items.reduce((s,i) => s + i.qty, 0);
-
+  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
+  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
+  const totalUnidades = items.reduce((s,i) => s+i.qty, 0);
   document.getElementById('cartCount').textContent = totalUnidades;
-  document.getElementById('cartTotal').textContent = tieneConsultar && total === 0
-    ? 'A confirmar'
-    : '$' + total.toLocaleString('es-AR');
+  document.getElementById('cartTotal').textContent = tieneConsultar && total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
   document.getElementById('checkoutBtn').disabled = items.length === 0;
   document.getElementById('cartConsultarWarn').classList.toggle('show', tieneConsultar);
-
   const wrap = document.getElementById('cartItems');
   if (!items.length) {
     wrap.innerHTML = `<div class="cart-empty-msg"><span class="ei">🛒</span><p>Tu carrito está vacío.<br>¡Agregá productos para comenzar!</p></div>`;
     return;
   }
-  wrap.innerHTML = items.map(({producto:p, qty}) => {
-    const precioLinea = p.precio && Number(p.precio) > 0
-      ? '$' + (Number(p.precio)*qty).toLocaleString('es-AR')
-      : 'Precio a consultar';
+  wrap.innerHTML = items.map(({producto:p,qty}) => {
+    const precioLinea = p.precio && Number(p.precio)>0 ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR') : 'Precio a consultar';
     const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}">` : '🍯';
-    return `
-      <div class="cart-item">
-        <div class="ci-img">${imgHtml}</div>
-        <div class="ci-info">
-          <div class="ci-name">${p.nombre}${p.peso?' · '+p.peso:''}</div>
-          <div class="ci-price">${precioLinea}</div>
-        </div>
-        <div class="ci-controls">
-          <button class="qty-btn" onclick="cambiarCantidad('${p.id}',-1)">−</button>
-          <span class="qty-num">${qty}</span>
-          <button class="qty-btn" onclick="cambiarCantidad('${p.id}',1)">+</button>
-        </div>
-      </div>`;
+    return `<div class="cart-item">
+      <div class="ci-img">${imgHtml}</div>
+      <div class="ci-info">
+        <div class="ci-name">${p.nombre}${p.peso?' · '+p.peso:''}</div>
+        <div class="ci-price">${precioLinea}</div>
+      </div>
+      <div class="ci-controls">
+        <button class="qty-btn" onclick="cambiarCantidad('${p.id}',-1)">−</button>
+        <span class="qty-num">${qty}</span>
+        <button class="qty-btn" onclick="cambiarCantidad('${p.id}',1)">+</button>
+      </div>
+    </div>`;
   }).join('');
 }
 
@@ -610,23 +671,18 @@ function toggleCart() {
 }
 
 // ═══════════════════════════════════════
-// FORMULARIO PEDIDO
+// FORMULARIO
 // ═══════════════════════════════════════
 function abrirFormulario() {
   const items = Object.values(carrito);
   if (!items.length) return;
   toggleCart();
-  // Llenar resumen
   const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
   const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-  document.getElementById('resumenItems').innerHTML = items.map(({producto:p,qty}) => {
-    const precio = p.precio && Number(p.precio)>0
-      ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR')
-      : 'A consultar';
-    return `<div class="resumen-item"><span>${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''}</span><span>${precio}</span></div>`;
-  }).join('');
-  document.getElementById('resumenTotal').textContent = tieneConsultar && total===0
-    ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
+  document.getElementById('resumenItems').innerHTML = items.map(({producto:p,qty}) =>
+    `<div class="resumen-item"><span>${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''}</span><span>${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'A consultar'}</span></div>`
+  ).join('');
+  document.getElementById('resumenTotal').textContent = tieneConsultar&&total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
   setTimeout(() => document.getElementById('modalFormOverlay').classList.add('open'), 350);
 }
 
@@ -642,31 +698,17 @@ function confirmarPedido() {
   const provincia = document.getElementById('fProvincia').value;
   const cp = document.getElementById('fCP').value.trim();
   const direccion = document.getElementById('fDireccion').value.trim();
-
-  if (!nombre || !telefono || !localidad || !provincia || !cp) {
-    showToast('Completá los campos obligatorios *', '');
-    return;
-  }
-
+  if (!nombre||!telefono||!localidad||!provincia||!cp) { showToast('Completá los campos obligatorios *'); return; }
   const items = Object.values(carrito);
-  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
+  const tieneConsultar = items.some(i => !i.producto.precio||Number(i.producto.precio)<=0);
   const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-
-  const lineasProductos = items.map(({producto:p,qty}) => {
-    const precio = p.precio && Number(p.precio)>0
-      ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR')
-      : 'Precio a consultar';
-    return `• ${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''} — ${precio}`;
-  }).join('\n');
-
-  const totalTexto = tieneConsultar && total===0
-    ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
-
-  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineasProductos}\n\n*Total estimado: ${totalTexto}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
-
+  const lineas = items.map(({producto:p,qty}) =>
+    `• ${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''} — ${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'Precio a consultar'}`
+  ).join('\n');
+  const totalTexto = tieneConsultar&&total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
+  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineas}\n\n*Total estimado: ${totalTexto}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
   abrirWhatsApp(msg);
-  carrito = {};
-  actualizarCarritoUI();
+  carrito = {}; actualizarCarritoUI();
   document.getElementById('modalFormOverlay').classList.remove('open');
   setTimeout(() => document.getElementById('modalExitoOverlay').classList.add('open'), 400);
 }
@@ -677,24 +719,20 @@ function confirmarPedido() {
 function abrirWhatsApp(msg) {
   window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
 }
-
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
-
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
 });
-
 function observeFadeIns() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, {threshold:.1});
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
-
 observeFadeIns();
 cargarProductos();
 actualizarCarritoUI();
