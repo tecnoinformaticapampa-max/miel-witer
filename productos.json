@@ -1,7 +1,7 @@
 [
   {
     "id": "p1776730802163",
-    "nombre": "Miel Clásica",
+    "nombre": "Miel ClÃ¡sica",
     "peso": "1 kg.",
     "descripcion": "Miel de campo puro",
     "precio": 3500,
@@ -11,5 +11,18 @@
     "activo": true,
     "orden": 1,
     "created_at": "2026-04-21T00:20:02.164Z"
+  },
+  {
+    "id": "p1776778965795",
+    "nombre": "Miel Clásica",
+    "peso": "2500g",
+    "descripcion": "Miel pura de Campo en botella pvc",
+    "precio": 2500,
+    "badge": "el mas pedido",
+    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776778965/miel-witer/productos/tslnj94hzb12pm7pkwzb.png",
+    "cloudinary_public_id": "miel-witer/productos/tslnj94hzb12pm7pkwzb",
+    "activo": true,
+    "orden": 0,
+    "created_at": "2026-04-21T13:42:45.796Z"
   }
 ]
