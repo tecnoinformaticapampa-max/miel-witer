@@ -1,15 +1,1 @@
-[
-  {
-    "id": "p1776722297896",
-    "nombre": "Miel Clásica",
-    "peso": "1 kg",
-    "descripcion": "Miel pura de flores silvestres del monte chaqueño",
-    "precio": 3500,
-    "badge": "Más vendido",
-    "imagen_url": "",
-    "cloudinary_public_id": "",
-    "activo": true,
-    "orden": 0,
-    "created_at": "2026-04-20T21:58:17.896Z"
-  }
-]
+[]
