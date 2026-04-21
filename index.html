@@ -21,6 +21,7 @@
 
 <script>
 const CONFIG = {
+  WORKER_URL:    "https://miel-witer-worker.tecnoinformaticapampa.workers.dev",
   PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
   CLIENTES_URL:  "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/clientes.json",
   WHATSAPP: "5493725641680",
@@ -619,9 +620,11 @@ function galeriaGoTo(idx) {
 async function cargarClientes() {
   const grid = document.getElementById('clientesGrid');
   try {
-    const res = await fetch(CONFIG.CLIENTES_URL + '?t=' + Date.now());
+    // Leer desde el Worker para obtener datos siempre actualizados
+    const res = await fetch(CONFIG.WORKER_URL + '/clientes');
     if (!res.ok) throw new Error();
-    const clientes = await res.json();
+    const data = await res.json();
+    const clientes = data.clientes || data;
     const activos = clientes.filter(c => c.activo !== false);
     if (!activos.length) {
       grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">
@@ -664,9 +667,12 @@ function seededShuffle(arr, seed) {
 async function cargarProductos() {
   const container = document.getElementById('productosContainer');
   try {
-    const res = await fetch(CONFIG.PRODUCTOS_URL + '?t=' + Date.now());
+    // Leer desde el Worker para obtener datos siempre actualizados (sin delay de deploy)
+    const workerUrl = CONFIG.WORKER_URL + '/productos';
+    const res = await fetch(workerUrl);
     if (!res.ok) throw new Error();
-    productosData = await res.json();
+    const data = await res.json();
+    productosData = data.productos || data;
     renderProductos(productosData);
   } catch {
     container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span>
