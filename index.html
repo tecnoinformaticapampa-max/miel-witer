@@ -168,12 +168,25 @@ section{padding:5rem 1.5rem}
 /* ── CLIENTES FELICES ── */
 .clientes{background:var(--white);padding:5rem 1.5rem}
 .clientes-header{text-align:center;margin-bottom:3rem}
-.clientes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;max-width:920px;margin:0 auto}
-.cliente-card{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:4/3;box-shadow:var(--shadow-md);cursor:pointer}
-.cliente-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.clientes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:960px;margin:0 auto}
+@media(max-width:640px){.clientes-grid{grid-template-columns:1fr;max-width:400px}}
+.cliente-card{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:3/4;box-shadow:var(--shadow-md);cursor:pointer}
+.cliente-card img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .4s}
 .cliente-card:hover img{transform:scale(1.05)}
-.cliente-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,46,24,.7) 0%,transparent 50%);opacity:0;transition:opacity .3s}
+.cliente-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,46,24,.85) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem}
 .cliente-card:hover .cliente-card-overlay{opacity:1}
+.cliente-card-nombre{color:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;line-height:1.4}
+.cliente-card-texto{color:rgba(255,255,255,.8);font-size:.78rem;font-style:italic;margin-top:.2rem}
+/* Lightbox */
+.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;backdrop-filter:blur(6px)}
+.lightbox-overlay.open{display:flex}
+.lightbox-inner{position:relative;max-width:520px;width:100%;cursor:default}
+.lightbox-inner img{width:100%;max-height:80vh;object-fit:contain;border-radius:16px;display:block}
+.lightbox-info{background:rgba(255,255,255,.08);border-radius:0 0 16px 16px;padding:.9rem 1.2rem;color:#fff}
+.lightbox-info strong{font-size:.95rem;font-family:'DM Sans',sans-serif}
+.lightbox-info span{display:block;font-size:.82rem;color:rgba(255,255,255,.7);font-style:italic;margin-top:.2rem}
+.lightbox-close{position:absolute;top:-1rem;right:-1rem;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:2.2rem;height:2.2rem;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.3)}
 .clientes-empty{text-align:center;padding:2rem;color:var(--text-muted);font-size:.9rem}
 .clientes-nota{text-align:center;margin-top:1.5rem;font-size:.8rem;color:var(--text-muted)}
 .clientes-nota strong{color:var(--honey)}
@@ -462,6 +475,17 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 
 <!-- CARRITO -->
+<!-- Lightbox clientes -->
+<div class="lightbox-overlay" id="clienteLightbox" onclick="cerrarLightbox(event)">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="cerrarLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-info" id="lightboxInfo" style="display:none">
+      <strong id="lightboxNombre"></strong>
+      <span id="lightboxTexto"></span>
+    </div>
+  </div>
+</div>
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-header"><h3>🛒 Tu pedido</h3><button class="close-btn" onclick="toggleCart()">✕</button></div>
@@ -639,15 +663,45 @@ async function cargarClientes() {
     const shuffled = seededShuffle(activos, semilla);
     const mostrar = shuffled.slice(0, 3);
     grid.innerHTML = mostrar.map(c => `
-      <div class="cliente-card fade-in">
+      <div class="cliente-card fade-in" onclick="abrirLightbox('${c.imagen_url}','${(c.nombre||'').replace(/'/g,"\'")}','${(c.texto||'').replace(/'/g,"\'")}')">
         <img src="${c.imagen_url}" alt="${c.nombre||'Cliente feliz'}" loading="lazy">
-        <div class="cliente-card-overlay"></div>
+        <div class="cliente-card-overlay">
+          <div>
+            ${c.nombre ? `<div class="cliente-card-nombre">${c.nombre}</div>` : ''}
+            ${c.texto  ? `<div class="cliente-card-texto">"${c.texto}"</div>` : ''}
+          </div>
+        </div>
       </div>`).join('');
     observeFadeIns();
   } catch {
     grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">Cargando fotos de clientes...</div>`;
   }
 }
+
+// ── LIGHTBOX CLIENTES ──────────────────────────────────────
+function abrirLightbox(url, nombre, texto) {
+  document.getElementById('lightboxImg').src = url;
+  const info = document.getElementById('lightboxInfo');
+  const n = document.getElementById('lightboxNombre');
+  const t = document.getElementById('lightboxTexto');
+  if (nombre || texto) {
+    n.textContent = nombre || '';
+    t.textContent = texto ? '"' + texto + '"' : '';
+    t.style.display = texto ? 'block' : 'none';
+    info.style.display = 'block';
+  } else {
+    info.style.display = 'none';
+  }
+  document.getElementById('clienteLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarLightbox(e) {
+  if (e && e.target !== e.currentTarget && e.currentTarget.id !== 'clienteLightbox') return;
+  document.getElementById('clienteLightbox').classList.remove('open');
+  document.getElementById('lightboxImg').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });
 
 // Shuffle determinístico con semilla numérica
 function seededShuffle(arr, seed) {

@@ -264,13 +264,15 @@ body{font-family:'DM Sans',sans-serif;background:#F5F0E8;color:var(--text);min-h
             <div class="form-field">
               <label>Nombre del cliente <span style="font-weight:300">(opcional)</span></label>
               <input type="text" id="cNombre" placeholder="Ej: María de Resistencia">
+              <label style="margin-top:.6rem">Texto en la foto <span style="font-weight:300">(opcional)</span></label>
+              <input type="text" id="cTexto" placeholder="Ej: La mejor miel que probé!">
             </div>
             <div class="form-field">
               <label>Imagen *</label>
-              <div class="img-upload-area" style="padding:1rem">
-                <input type="file" id="cImagen" accept="image/*" onchange="previsualizarClienteImg(this)">
+              <div class="img-upload-area" style="padding:1rem" onclick="document.getElementById('cImagen').click()">
+                <input type="file" id="cImagen" accept="image/*" onchange="previsualizarClienteImg(this)" style="display:none">
                 <span class="upload-icon" style="font-size:1.5rem">📸</span>
-                <p style="font-size:.75rem">Seleccionar foto</p>
+                <p style="font-size:.75rem" id="cImagenLabel">Tocá para seleccionar foto</p>
               </div>
               <img id="cImgPreview" class="img-preview" alt="Vista previa">
               <div id="cImgUploading" class="img-uploading">⏳ Subiendo...</div>
@@ -474,9 +476,10 @@ function renderListaClientes(lista) {
       + '</div>'
       + '<div class="pr-info">'
       + '<div class="pr-name">' + (c.nombre||'(sin nombre)') + ' ' + (inactivo?'<span class="badge-inactivo">INACTIVO</span>':'') + '</div>'
-      + '<div class="pr-meta">' + new Date(c.created_at||Date.now()).toLocaleDateString('es-AR') + '</div>'
+      + '<div class="pr-meta">' + (c.texto ? '"'+c.texto+'" · ' : '') + new Date(c.created_at||Date.now()).toLocaleDateString('es-AR') + '</div>'
       + '</div>'
       + '<div class="pr-actions">'
+      + '<button class="btn-edit" onclick="editarCliente(\'' + c.id + '\')">✏️ Editar</button>'
       + '<button class="btn-edit" onclick="toggleClienteActivo(\'' + c.id + '\')">' + (inactivo ? '✅ Activar' : '🔴 Ocultar') + '</button>'
       + '<button class="btn-danger" onclick="eliminarCliente(\'' + c.id + '\')">🗑️</button>'
       + '</div></div>';
@@ -486,6 +489,8 @@ function renderListaClientes(lista) {
 function previsualizarClienteImg(input) {
   const file = input.files[0];
   if (!file) return;
+  const label = document.getElementById('cImagenLabel');
+  if (label) label.textContent = '✅ ' + file.name;
   const reader = new FileReader();
   reader.onload = e => {
     const p = document.getElementById('cImgPreview');
@@ -514,6 +519,7 @@ async function agregarCliente() {
     const cliente = {
       id: 'c' + Date.now(),
       nombre: document.getElementById('cNombre').value.trim(),
+      texto: document.getElementById('cTexto').value.trim(),
       imagen_url: imgData.url,
       cloudinary_public_id: imgData.public_id,
       activo: true,
@@ -524,7 +530,9 @@ async function agregarCliente() {
     if (ok) {
       showToast('Foto de cliente agregada', 'ok');
       document.getElementById('cNombre').value = '';
+      document.getElementById('cTexto').value = '';
       document.getElementById('cImagen').value = '';
+      document.getElementById('cImagenLabel').textContent = 'Tocá para seleccionar foto';
       document.getElementById('cImgPreview').style.display = 'none';
       renderListaClientes(clientesCache);
     } else { clientesCache.pop(); }
@@ -533,6 +541,45 @@ async function agregarCliente() {
     clientesCache.pop();
   } finally {
     hideLoading();
+  }
+}
+
+function editarCliente(id) {
+  const c = clientesCache.find(x => x.id === id);
+  if (!c) return;
+  // Reusar el modal de edición de productos
+  const body = document.getElementById('editModalBody');
+  body.innerHTML = `
+    <div class="form-field" style="margin-bottom:.8rem">
+      <label>Nombre del cliente</label>
+      <input type="text" id="ecNombre" value="${c.nombre||''}" placeholder="Ej: María de Resistencia">
+    </div>
+    <div class="form-field" style="margin-bottom:.8rem">
+      <label>Texto en la foto</label>
+      <input type="text" id="ecTexto" value="${c.texto||''}" placeholder="Ej: La mejor miel que probé!">
+    </div>
+    <div style="margin-bottom:.8rem">
+      <label style="font-size:.82rem;color:var(--muted);display:block;margin-bottom:.4rem">Foto actual</label>
+      <img src="${c.imagen_url}" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px">
+    </div>`;
+  // Botón guardar en footer del modal
+  const footer = document.querySelector('#editModal .modal-footer');
+  footer.innerHTML = `
+    <button class="btn-secondary" onclick="cerrarModal()">Cancelar</button>
+    <button class="btn-primary" onclick="guardarEdicionCliente('${c.id}')">💾 Guardar</button>`;
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function guardarEdicionCliente(id) {
+  const c = clientesCache.find(x => x.id === id);
+  if (!c) return;
+  c.nombre = document.getElementById('ecNombre').value.trim();
+  c.texto  = document.getElementById('ecTexto').value.trim();
+  const ok = await guardarClientesEnGithub();
+  if (ok) {
+    renderListaClientes(clientesCache);
+    showToast('Foto actualizada', 'ok');
+    cerrarModal();
   }
 }
 
