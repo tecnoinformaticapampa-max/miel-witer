@@ -477,8 +477,8 @@ function renderListaClientes(lista) {
       + '<div class="pr-meta">' + new Date(c.created_at||Date.now()).toLocaleDateString('es-AR') + '</div>'
       + '</div>'
       + '<div class="pr-actions">'
-      + '<button class="btn-edit" onclick="toggleClienteActivo(''+c.id+'')">' + (inactivo?'✅ Activar':'🔴 Ocultar') + '</button>'
-      + '<button class="btn-danger" onclick="eliminarCliente(''+c.id+'')">🗑️</button>'
+      + '<button class="btn-edit" onclick="toggleClienteActivo(\'' + c.id + '\')">' + (inactivo ? '✅ Activar' : '🔴 Ocultar') + '</button>'
+      + '<button class="btn-danger" onclick="eliminarCliente(\'' + c.id + '\')">🗑️</button>'
       + '</div></div>';
   }).join('');
 }
