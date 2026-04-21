@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "c1776792226896",
+    "nombre": "Ella muy feliz de tener su Miel Witer!",
+    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776792226/miel-witer/clientes/vk90ljedmbd8gvif9bmf.png",
+    "cloudinary_public_id": "miel-witer/clientes/vk90ljedmbd8gvif9bmf",
+    "activo": true,
+    "created_at": "2026-04-21T17:23:46.896Z"
+  }
+]
