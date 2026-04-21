@@ -9,14 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
-<!-- ═══════════════════════════════════════════════════════
-     CONFIGURACIÓN – editá solo esta sección
-     ═══════════════════════════════════════════════════ -->
 <script>
   const CONFIG = {
-    // URL raw de tu productos.json en GitHub
-    // Ejemplo: https://raw.githubusercontent.com/usuario/repo/main/productos.json
-   PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
+    PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
     WHATSAPP: "5493725641680",
     NEGOCIO: "Miel Witer",
   };
@@ -77,7 +72,6 @@ section{padding:5rem 1.5rem}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 .fade-in.delay-1{transition-delay:.12s}
 .fade-in.delay-2{transition-delay:.24s}
-.fade-in.delay-3{transition-delay:.36s}
 
 /* ── HISTORIA ── */
 .historia{background:var(--white)}
@@ -96,29 +90,36 @@ section{padding:5rem 1.5rem}
 /* ── CATÁLOGO ── */
 .catalogo{background:var(--cream)}
 .catalogo-header{text-align:center;margin-bottom:3rem}
-
-/* estado de carga */
 .loading-state{text-align:center;padding:4rem 1rem;color:var(--text-muted)}
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(212,130,10,.2);border-top-color:var(--honey);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 .empty-state{text-align:center;padding:4rem 1rem;color:var(--text-muted)}
 .empty-state .empty-icon{font-size:3.5rem;display:block;margin-bottom:1rem;opacity:.4}
-.empty-state p{font-size:.95rem;line-height:1.7}
-
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.25rem}
-.product-card{background:var(--card-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;border:1px solid rgba(212,130,10,.1)}
+@media(min-width:900px){.products-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ── PRODUCT CARD ── */
+.product-card{background:var(--card-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;border:1px solid rgba(212,130,10,.1);display:flex;flex-direction:column}
 .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-.product-img-wrap{height:170px;overflow:hidden;position:relative;background:var(--cream-dk);display:flex;align-items:center;justify-content:center}
+.product-img-wrap{height:170px;overflow:hidden;position:relative;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .product-card:hover .product-img-wrap img{transform:scale(1.06)}
 .product-img-placeholder{font-size:4rem;opacity:.4}
 .product-badge{position:absolute;top:.75rem;right:.75rem;background:var(--forest);color:#fff;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:50px}
-.product-body{padding:1.2rem 1.1rem 1.4rem}
-.product-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--forest-dk);margin-bottom:.15rem}
-.product-peso{font-size:.72rem;color:var(--honey);font-weight:500;margin-bottom:.35rem;letter-spacing:.05em;text-transform:uppercase}
-.product-desc{font-size:.8rem;color:var(--text-muted);line-height:1.65;margin-bottom:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.product-price{font-size:1.5rem;font-weight:500;color:var(--honey);font-family:'Cormorant Garamond',serif;margin-bottom:.9rem}
-.add-btn{width:100%;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.62rem 1rem;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.product-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;flex:1}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--forest-dk);margin-bottom:.15rem}
+.product-peso{font-size:.72rem;color:var(--honey);font-weight:500;margin-bottom:.3rem;letter-spacing:.05em;text-transform:uppercase}
+.product-desc{font-size:.8rem;color:var(--text-muted);line-height:1.65;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.product-price{font-size:1.45rem;font-weight:500;color:var(--honey);font-family:'Cormorant Garamond',serif;margin-bottom:.9rem}
+.product-price.consultar{font-size:1rem;font-weight:500;color:var(--text-muted);font-family:'DM Sans',sans-serif;background:var(--cream);padding:.3rem .7rem;border-radius:8px;display:inline-block}
+
+/* ── CANTIDAD + AGREGAR ── */
+.card-actions{display:flex;align-items:center;gap:.6rem;margin-top:auto}
+.qty-controls{display:flex;align-items:center;gap:.3rem;background:var(--cream);border-radius:50px;padding:.25rem .4rem;border:1px solid rgba(212,130,10,.2)}
+.qty-btn-card{width:26px;height:26px;border-radius:50%;border:none;background:none;color:var(--honey);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1;font-weight:500}
+.qty-btn-card:hover{background:rgba(212,130,10,.1)}
+.qty-num-card{font-size:.9rem;font-weight:500;min-width:20px;text-align:center;color:var(--text)}
+.add-btn{flex:1;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.6rem .8rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.3rem}
 .add-btn:hover{background:var(--forest-lt);transform:scale(1.02)}
 .add-btn.added{background:var(--honey)}
 
@@ -137,12 +138,11 @@ section{padding:5rem 1.5rem}
 @keyframes pinBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 .map-city{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt);font-weight:500}
 .map-province{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,245,233,.45);margin-top:.2rem}
-.map-coords{font-size:.68rem;color:rgba(250,245,233,.3);margin-top:.8rem;font-family:monospace;letter-spacing:.05em}
+.map-coords{font-size:.68rem;color:rgba(250,245,233,.3);margin-top:.8rem;font-family:monospace}
 
 /* ── FOOTER ── */
 footer{background:var(--forest-dk);border-top:1px solid rgba(240,165,0,.1);color:rgba(250,245,233,.45);text-align:center;padding:3rem 1.5rem;font-size:.82rem}
 .footer-logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold-lt);display:block;margin-bottom:.4rem}
-footer p{margin-top:.4rem}
 footer a{color:var(--gold);text-decoration:none}
 footer a:hover{color:var(--gold-lt)}
 
@@ -158,7 +158,6 @@ footer a:hover{color:var(--gold-lt)}
 .cart-items-wrap{flex:1;overflow-y:auto;padding:1rem 1.5rem}
 .cart-empty-msg{text-align:center;padding:3.5rem 1rem;color:var(--text-muted)}
 .cart-empty-msg .ei{font-size:3rem;display:block;margin-bottom:1rem;opacity:.35}
-.cart-empty-msg p{font-size:.88rem;line-height:1.6}
 .cart-item{display:flex;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid rgba(212,130,10,.07)}
 .ci-img{width:46px;height:46px;border-radius:12px;background:var(--cream);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
 .ci-img img{width:100%;height:100%;object-fit:cover}
@@ -171,12 +170,46 @@ footer a:hover{color:var(--gold-lt)}
 .qty-btn:hover{background:var(--cream)}
 .qty-num{font-size:.88rem;font-weight:500;min-width:18px;text-align:center}
 .cart-footer{padding:1.4rem 1.5rem;border-top:1px solid rgba(212,130,10,.1)}
-.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.2rem}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
 .cart-total-label{font-size:.82rem;color:var(--text-muted)}
 .cart-total-val{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--honey);font-weight:600}
-.checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.cart-consultar-note{font-size:.75rem;color:var(--text-muted);margin-bottom:.5rem;line-height:1.5}
+.cart-consultar-warn{background:#FFF8E7;border:1px solid rgba(212,130,10,.2);border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:var(--amber);margin-bottom:1rem;line-height:1.5;display:none}
+.cart-consultar-warn.show{display:block}
+.checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.6rem}
 .checkout-btn:hover{background:var(--amber);transform:translateY(-1px)}
 .checkout-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.vaciar-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.8rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif;transition:color .15s}
+.vaciar-btn:hover{color:var(--text)}
+
+/* ── MODAL FORMULARIO PEDIDO ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--white);border-radius:24px;padding:0;max-width:460px;width:100%;max-height:92vh;overflow-y:auto;transform:scale(.92);transition:transform .3s;display:flex;flex-direction:column}
+.modal-overlay.open .modal-box{transform:scale(1)}
+.modal-head{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(212,130,10,.1);position:sticky;top:0;background:var(--white);border-radius:24px 24px 0 0;z-index:1}
+.modal-head h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--forest-dk)}
+.modal-head p{font-size:.82rem;color:var(--text-muted);margin-top:.2rem}
+.modal-body{padding:1.2rem 1.5rem}
+.resumen-pedido{background:var(--cream);border-radius:12px;padding:1rem;margin-bottom:1.2rem}
+.resumen-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:.6rem}
+.resumen-item{display:flex;justify-content:space-between;font-size:.83rem;padding:.25rem 0;color:var(--text)}
+.resumen-item span:last-child{color:var(--honey);font-weight:500}
+.resumen-total{display:flex;justify-content:space-between;font-size:.9rem;font-weight:500;padding-top:.6rem;margin-top:.4rem;border-top:1px solid rgba(212,130,10,.15)}
+.resumen-total span:last-child{color:var(--honey);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.form-field{margin-bottom:1rem}
+.form-field label{display:block;font-size:.78rem;font-weight:500;color:var(--text-muted);margin-bottom:.35rem;letter-spacing:.04em}
+.form-field input,.form-field select,.form-field textarea{width:100%;border:1.5px solid rgba(212,130,10,.2);border-radius:10px;padding:.65rem .9rem;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--cream);color:var(--text);outline:none;transition:border-color .2s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--honey);background:var(--white)}
+.form-field textarea{resize:vertical;min-height:70px;line-height:1.6}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.form-opcional{font-size:.72rem;color:var(--text-muted);margin-left:.3rem;font-weight:300}
+.modal-footer{padding:1rem 1.5rem 1.5rem;position:sticky;bottom:0;background:var(--white);border-top:1px solid rgba(212,130,10,.1);border-radius:0 0 24px 24px}
+.confirm-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.5rem}
+.confirm-btn:hover{background:var(--amber)}
+.volver-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
+.volver-btn:hover{color:var(--text)}
+.modal-nota{font-size:.72rem;color:var(--text-muted);text-align:center;line-height:1.5;margin-top:.5rem}
 
 /* ── WA FLOTANTE ── */
 .wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
@@ -189,19 +222,16 @@ footer a:hover{color:var(--gold-lt)}
 .toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-dk);color:var(--cream);padding:.6rem 1.4rem;border-radius:50px;font-size:.8rem;opacity:0;pointer-events:none;transition:all .28s;z-index:400;white-space:nowrap;box-shadow:var(--shadow-md)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── MODAL CHECKOUT ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--white);border-radius:24px;padding:2.5rem 2rem;max-width:400px;width:100%;text-align:center;transform:scale(.92);transition:transform .3s}
-.modal-overlay.open .modal{transform:scale(1)}
-.modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
-.modal h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
-.modal p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
+/* ── MODAL ÉXITO ── */
+.modal-exito{background:var(--white);border-radius:24px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;transform:scale(.92);transition:transform .3s}
+.modal-overlay.open .modal-exito{transform:scale(1)}
+.modal-exito .modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
+.modal-exito h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
+.modal-exito p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
 </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
 <nav id="navbar">
   <div class="nav-logo">Miel <span>Witer</span></div>
   <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">
@@ -209,7 +239,7 @@ footer a:hover{color:var(--gold-lt)}
   </button>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-honeycomb"></div>
@@ -219,28 +249,21 @@ footer a:hover{color:var(--gold-lt)}
     <p class="hero-sub">Miel pura de los montes del Chaco profundo. Recolectada con amor desde hace más de 10 años. Sin mezclas, sin aditivos.</p>
     <div class="hero-ctas">
       <a href="#catalogo" class="btn-primary">🍯 Ver Productos</a>
-      <a id="heroWa" href="#" class="btn-outline" onclick="abrirWhatsApp('Hola! Vi su página y quiero consultar sobre la miel 🍯')">
-        💬 Consultar por WhatsApp
-      </a>
+      <a href="#" class="btn-outline" onclick="abrirWhatsApp('Hola! Vi la página de Miel Witer y quiero consultar 🍯');return false">💬 Consultar por WhatsApp</a>
     </div>
   </div>
-  <div class="hero-scroll-hint">
-    <span>Descubrí</span>
-    <div class="scroll-line"></div>
-  </div>
+  <div class="hero-scroll-hint"><span>Descubrí</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- ── HISTORIA ── -->
+<!-- HISTORIA -->
 <section class="historia" id="historia">
   <div class="container">
     <div class="historia-grid">
       <div class="fade-in">
         <span class="section-label">Quiénes somos</span>
         <h2 class="section-title">Diez años de <em>pasión</em> apicultora</h2>
-        <div>
-          <p>Nació en el corazón del monte chaqueño, de manos de familias que conocen los secretos del Impenetrable. Nuestra miel no tiene aditivos, no tiene mezclas: es exactamente lo que la naturaleza produce.</p>
-          <p>Las abejas liban flores silvestres del quebracho, el algarrobo y el mistol — una biodiversidad única que le da a Miel Witer su sabor profundo e inconfundible.</p>
-        </div>
+        <p>Nació en el corazón del monte chaqueño, de manos de familias que conocen los secretos del Impenetrable. Nuestra miel no tiene aditivos, no tiene mezclas: es exactamente lo que la naturaleza produce.</p>
+        <p>Las abejas liban flores silvestres del quebracho, el algarrobo y el mistol — una biodiversidad única que le da a Miel Witer su sabor profundo e inconfundible.</p>
         <div class="stats-row">
           <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Años</span></div>
           <div class="stat"><span class="stat-num">0</span><span class="stat-label">Aditivos</span></div>
@@ -248,16 +271,13 @@ footer a:hover{color:var(--gold-lt)}
         </div>
       </div>
       <div class="hexagon-wrap fade-in delay-1">
-        <div class="hexagon">
-          <span class="hex-icon">🐝</span>
-          <span class="hex-text">Monte Chaqueño</span>
-        </div>
+        <div class="hexagon"><span class="hex-icon">🐝</span><span class="hex-text">Monte Chaqueño</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CATÁLOGO ── -->
+<!-- CATÁLOGO -->
 <section class="catalogo" id="catalogo">
   <div class="container">
     <div class="catalogo-header fade-in">
@@ -265,15 +285,12 @@ footer a:hover{color:var(--gold-lt)}
       <h2 class="section-title">El <em>sabor</em> del monte</h2>
     </div>
     <div id="productosContainer">
-      <div class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Cargando productos...</p>
-      </div>
+      <div class="loading-state"><div class="loading-spinner"></div><p>Cargando productos...</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── ORIGEN ── -->
+<!-- ORIGEN -->
 <section class="origen" id="origen">
   <div class="container">
     <div class="origen-grid">
@@ -281,7 +298,7 @@ footer a:hover{color:var(--gold-lt)}
         <span class="section-label">Nuestro origen</span>
         <h2 class="section-title">Del <em>Impenetrable</em> a tu hogar</h2>
         <p>Pampa del Indio es una pequeña localidad del Chaco profundo, rodeada de bosques nativos que preservan la biodiversidad única del Impenetrable chaqueño.</p>
-        <p>Esa geografía salvaje es la que hace nuestra miel irreproducible en otro lugar del mundo. Cada tarro lleva el alma del monte.</p>
+        <p>Esa geografía salvaje es la que hace nuestra miel irreproducible en otro lugar del mundo.</p>
         <ul class="features">
           <li><span class="feat-icon">🌿</span>Flores silvestres del monte nativo chaqueño</li>
           <li><span class="feat-icon">☀️</span>Cosecha artesanal bajo el sol del Chaco</li>
@@ -301,27 +318,26 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <span class="footer-logo">Miel Witer</span>
   <p>Pampa del Indio, Chaco, Argentina</p>
   <p style="margin-top:.5rem">
-    <a href="#" onclick="abrirWhatsApp('Hola! Los contacto desde la web 🍯')">💬 WhatsApp</a>
-    &nbsp;·&nbsp;
-    <a href="#catalogo">Ver Productos</a>
+    <a href="#" onclick="abrirWhatsApp('Hola! Los contacto desde la web 🍯');return false">💬 WhatsApp</a>
+    &nbsp;·&nbsp;<a href="#catalogo">Ver Productos</a>
   </p>
   <p style="margin-top:1rem;font-size:.7rem;opacity:.4">© 2026 Miel Witer · Producto 100% chaqueño</p>
 </footer>
 
-<!-- ── WA FLOTANTE ── -->
+<!-- WA FLOTANTE -->
 <div class="wa-float">
   <span class="wa-tooltip">¡Consultanos por WhatsApp!</span>
-  <button class="wa-btn" onclick="abrirWhatsApp('Hola! Vi su página y quiero consultar sobre la miel 🍯')" aria-label="WhatsApp">
+  <button class="wa-btn" onclick="abrirWhatsApp('Hola! Vi la página de Miel Witer y quiero consultar 🍯')" aria-label="WhatsApp">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </button>
 </div>
 
-<!-- ── CARRITO PANEL ── -->
+<!-- CARRITO PANEL -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-header">
@@ -334,49 +350,118 @@ footer a:hover{color:var(--gold-lt)}
       <span class="cart-total-label">Total estimado</span>
       <span class="cart-total-val" id="cartTotal">$0</span>
     </div>
-    <button class="checkout-btn" id="checkoutBtn" onclick="finalizarPedido()" disabled>
+    <p class="cart-consultar-note">* Los precios pueden actualizarse. Confirmamos al recibir tu pedido.</p>
+    <div class="cart-consultar-warn" id="cartConsultarWarn">⚠️ Algunos productos tienen precio a consultar. Te lo confirmamos por WhatsApp al recibir el pedido.</div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="abrirFormulario()" disabled>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Finalizar por WhatsApp
+      Hacer pedido por WhatsApp
     </button>
+    <button class="vaciar-btn" onclick="vaciarCarrito()">Vaciar carrito</button>
   </div>
 </div>
 
-<!-- ── MODAL PEDIDO ── -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
+<!-- MODAL FORMULARIO PEDIDO -->
+<div class="modal-overlay" id="modalFormOverlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Completar pedido</h3>
+      <p>Ingresá tus datos para confirmar el pedido y coordinar el envío.</p>
+    </div>
+    <div class="modal-body">
+      <div class="resumen-pedido">
+        <div class="resumen-title">Resumen del pedido</div>
+        <div id="resumenItems"></div>
+        <div class="resumen-total">
+          <span>Total estimado</span>
+          <span id="resumenTotal">$0</span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Nombre y apellido *</label>
+        <input type="text" id="fNombre" placeholder="Tu nombre completo">
+      </div>
+      <div class="form-field">
+        <label>WhatsApp / Teléfono *</label>
+        <input type="tel" id="fTelefono" placeholder="Ej: 3725 123456">
+      </div>
+      <div class="form-field">
+        <label>Localidad / Ciudad *</label>
+        <input type="text" id="fLocalidad" placeholder="Tu ciudad">
+      </div>
+      <div class="form-row-2">
+        <div class="form-field">
+          <label>Provincia *</label>
+          <select id="fProvincia">
+            <option value="">Seleccioná...</option>
+            <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
+            <option>Chaco</option><option>Chubut</option><option>Córdoba</option>
+            <option>Corrientes</option><option>Entre Ríos</option><option>Formosa</option>
+            <option>Jujuy</option><option>La Pampa</option><option>La Rioja</option>
+            <option>Mendoza</option><option>Misiones</option><option>Neuquén</option>
+            <option>Río Negro</option><option>Salta</option><option>San Juan</option>
+            <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
+            <option>Santiago del Estero</option><option>Tierra del Fuego</option>
+            <option>Tucumán</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Código postal *</label>
+          <input type="text" id="fCP" placeholder="Ej: H3416">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Dirección de envío <span class="form-opcional">(opcional)</span></label>
+        <textarea id="fDireccion" placeholder="Calle, número, piso... También podés coordinar la dirección directamente en el chat."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="confirm-btn" onclick="confirmarPedido()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Confirmar y enviar pedido
+      </button>
+      <button class="volver-btn" onclick="cerrarFormulario()">← Volver al carrito</button>
+      <p class="modal-nota">Te respondemos a la brevedad para confirmar stock, precio final y costo de envío.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ÉXITO -->
+<div class="modal-overlay" id="modalExitoOverlay">
+  <div class="modal-exito">
     <span class="modal-icon">🎉</span>
     <h3>¡Pedido enviado!</h3>
-    <p>Te abrimos WhatsApp con el detalle de tu pedido. En breve el equipo de Miel Witer se comunica para coordinar la entrega y el pago. ¡Gracias!</p>
-    <button class="btn-primary" onclick="document.getElementById('modalOverlay').classList.remove('open')">¡Perfecto!</button>
+    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago.</p>
+    <button class="btn-primary" onclick="document.getElementById('modalExitoOverlay').classList.remove('open')" style="margin:0 auto">¡Perfecto!</button>
   </div>
 </div>
 
-<!-- ── TOAST ── -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════
-// CARGAR PRODUCTOS DESDE GITHUB
+// ESTADO
 // ═══════════════════════════════════════
 let carrito = {};
 let productosData = [];
 
+// ═══════════════════════════════════════
+// CARGAR PRODUCTOS
+// ═══════════════════════════════════════
 async function cargarProductos() {
   const container = document.getElementById('productosContainer');
   try {
-    // Timestamp para evitar caché
-    const url = CONFIG.PRODUCTOS_URL + '?t=' + Date.now();
-    const res = await fetch(url);
+    const res = await fetch(CONFIG.PRODUCTOS_URL + '?t=' + Date.now());
     if (!res.ok) throw new Error('No se pudo cargar');
     const productos = await res.json();
     productosData = productos;
     renderProductos(productos);
-  } catch (e) {
+  } catch(e) {
     container.innerHTML = `
       <div class="empty-state">
         <span class="empty-icon">🍯</span>
         <p>Próximamente nuestros productos estarán disponibles aquí.<br>
-        Mientras tanto, <strong>consultanos por WhatsApp</strong> para hacer tu pedido.</p>
+        Mientras tanto, <strong>consultanos por WhatsApp</strong>.</p>
         <br>
         <button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">
           💬 Consultar ahora
@@ -387,45 +472,55 @@ async function cargarProductos() {
 
 function renderProductos(productos) {
   const container = document.getElementById('productosContainer');
-  if (!productos || productos.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <span class="empty-icon">🍯</span>
-        <p>Estamos preparando nuestro catálogo.<br>Volvé pronto o consultanos por WhatsApp.</p>
-      </div>`;
+  const activos = (productos || []).filter(p => p.activo !== false);
+  if (!activos.length) {
+    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span><p>Estamos preparando el catálogo. Volvé pronto o consultanos por WhatsApp.</p></div>`;
     return;
   }
-  const activos = productos.filter(p => p.activo !== false);
-  if (activos.length === 0) {
-    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span><p>Productos no disponibles por el momento.</p></div>`;
-    return;
-  }
-  container.innerHTML = `<div class="products-grid">${activos.map(renderTarjeta).join('')}</div>`;
+  const sorted = [...activos].sort((a,b) => (a.orden||0)-(b.orden||0));
+  container.innerHTML = `<div class="products-grid">${sorted.map(renderCard).join('')}</div>`;
   observeFadeIns();
 }
 
-function renderTarjeta(p) {
-  const imgHtml = p.imagen_url
+function renderCard(p) {
+  const tieneImg = !!p.imagen_url;
+  const tienePrecio = p.precio && Number(p.precio) > 0;
+  const imgHtml = tieneImg
     ? `<img src="${p.imagen_url}" alt="${p.nombre}" loading="lazy">`
     : `<span class="product-img-placeholder">🍯</span>`;
   const badgeHtml = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
   const pesoHtml = p.peso ? `<div class="product-peso">${p.peso}</div>` : '';
+  const precioHtml = tienePrecio
+    ? `<div class="product-price">$${Number(p.precio).toLocaleString('es-AR')}</div>`
+    : `<div class="product-price consultar">Precio a consultar</div>`;
   return `
     <div class="product-card fade-in">
-      <div class="product-img-wrap">
-        ${imgHtml}
-        ${badgeHtml}
-      </div>
+      <div class="product-img-wrap">${imgHtml}${badgeHtml}</div>
       <div class="product-body">
         <div class="product-name">${p.nombre}</div>
         ${pesoHtml}
-        <div class="product-desc">${p.descripcion || ''}</div>
-        <div class="product-price">$${Number(p.precio).toLocaleString('es-AR')}</div>
-        <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">
-          ＋ Agregar al carrito
-        </button>
+        <div class="product-desc">${p.descripcion||''}</div>
+        ${precioHtml}
+        <div class="card-actions">
+          <div class="qty-controls">
+            <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',-1)">−</button>
+            <span class="qty-num-card" id="qty-card-${p.id}">1</span>
+            <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',1)">+</button>
+          </div>
+          <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">
+            ＋ Agregar
+          </button>
+        </div>
       </div>
     </div>`;
+}
+
+// Cantidad en la card (antes de agregar)
+const cantidadesCard = {};
+function cambiarCantidadCard(id, delta) {
+  cantidadesCard[id] = Math.max(1, (cantidadesCard[id] || 1) + delta);
+  const el = document.getElementById('qty-card-' + id);
+  if (el) el.textContent = cantidadesCard[id];
 }
 
 // ═══════════════════════════════════════
@@ -434,19 +529,25 @@ function renderTarjeta(p) {
 function agregarAlCarrito(id) {
   const p = productosData.find(x => x.id == id);
   if (!p) return;
-  carrito[id] = carrito[id]
-    ? { ...carrito[id], qty: carrito[id].qty + 1 }
-    : { producto: p, qty: 1 };
+  const qty = cantidadesCard[id] || 1;
+  if (carrito[id]) {
+    carrito[id].qty += qty;
+  } else {
+    carrito[id] = { producto: p, qty };
+  }
+  // Reset cantidad card
+  cantidadesCard[id] = 1;
+  const el = document.getElementById('qty-card-' + id);
+  if (el) el.textContent = '1';
+
   actualizarCarritoUI();
   const btn = document.getElementById('btn-' + id);
   if (btn) { btn.classList.add('added'); btn.textContent = '✓ Agregado'; }
   setTimeout(() => {
-    if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar al carrito'; }
-  }, 1300);
+    if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; }
+  }, 1400);
   const cnt = document.getElementById('cartCount');
-  cnt.classList.remove('bump');
-  void cnt.offsetWidth;
-  cnt.classList.add('bump');
+  cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump');
   showToast('¡' + p.nombre + ' agregado! 🍯');
 }
 
@@ -457,62 +558,117 @@ function cambiarCantidad(id, delta) {
   actualizarCarritoUI();
 }
 
+function vaciarCarrito() {
+  if (!Object.keys(carrito).length) return;
+  if (!confirm('¿Vaciar el carrito?')) return;
+  carrito = {};
+  actualizarCarritoUI();
+}
+
 function actualizarCarritoUI() {
   const items = Object.values(carrito);
-  const total = items.reduce((s, i) => s + Number(i.producto.precio) * i.qty, 0);
-  const totalUnidades = items.reduce((s, i) => s + i.qty, 0);
+  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio) <= 0);
+  const total = items.reduce((s,i) => s + (Number(i.producto.precio)||0) * i.qty, 0);
+  const totalUnidades = items.reduce((s,i) => s + i.qty, 0);
+
   document.getElementById('cartCount').textContent = totalUnidades;
-  document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-AR');
+  document.getElementById('cartTotal').textContent = tieneConsultar && total === 0
+    ? 'A confirmar'
+    : '$' + total.toLocaleString('es-AR');
   document.getElementById('checkoutBtn').disabled = items.length === 0;
+  document.getElementById('cartConsultarWarn').classList.toggle('show', tieneConsultar);
 
   const wrap = document.getElementById('cartItems');
-  if (items.length === 0) {
-    wrap.innerHTML = `
-      <div class="cart-empty-msg">
-        <span class="ei">🛒</span>
-        <p>Tu carrito está vacío.<br>¡Agregá productos para comenzar!</p>
-      </div>`;
+  if (!items.length) {
+    wrap.innerHTML = `<div class="cart-empty-msg"><span class="ei">🛒</span><p>Tu carrito está vacío.<br>¡Agregá productos para comenzar!</p></div>`;
     return;
   }
-  wrap.innerHTML = items.map(({ producto: p, qty }) => {
-    const imgHtml = p.imagen_url
-      ? `<img src="${p.imagen_url}" alt="${p.nombre}">`
-      : '🍯';
+  wrap.innerHTML = items.map(({producto:p, qty}) => {
+    const precioLinea = p.precio && Number(p.precio) > 0
+      ? '$' + (Number(p.precio)*qty).toLocaleString('es-AR')
+      : 'Precio a consultar';
+    const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}">` : '🍯';
     return `
       <div class="cart-item">
         <div class="ci-img">${imgHtml}</div>
         <div class="ci-info">
-          <div class="ci-name">${p.nombre}</div>
-          <div class="ci-sub">${p.peso || ''}</div>
-          <div class="ci-price">$${(Number(p.precio) * qty).toLocaleString('es-AR')}</div>
+          <div class="ci-name">${p.nombre}${p.peso?' · '+p.peso:''}</div>
+          <div class="ci-price">${precioLinea}</div>
         </div>
         <div class="ci-controls">
-          <button class="qty-btn" onclick="cambiarCantidad('${p.id}', -1)">−</button>
+          <button class="qty-btn" onclick="cambiarCantidad('${p.id}',-1)">−</button>
           <span class="qty-num">${qty}</span>
-          <button class="qty-btn" onclick="cambiarCantidad('${p.id}', 1)">+</button>
+          <button class="qty-btn" onclick="cambiarCantidad('${p.id}',1)">+</button>
         </div>
       </div>`;
   }).join('');
 }
 
-function finalizarPedido() {
-  const items = Object.values(carrito);
-  if (!items.length) return;
-  const lineas = items.map(({ producto: p, qty }) =>
-    `• ${qty}x ${p.nombre}${p.peso ? ' (' + p.peso + ')' : ''} – $${(Number(p.precio) * qty).toLocaleString('es-AR')}`
-  ).join('\n');
-  const total = items.reduce((s, i) => s + Number(i.producto.precio) * i.qty, 0);
-  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n${lineas}\n\n*Total: $${total.toLocaleString('es-AR')}*\n\n¿Cómo coordinamos la entrega y el pago?`;
-  abrirWhatsApp(msg);
-  carrito = {};
-  actualizarCarritoUI();
-  toggleCart();
-  setTimeout(() => document.getElementById('modalOverlay').classList.add('open'), 400);
-}
-
 function toggleCart() {
   document.getElementById('cartOverlay').classList.toggle('open');
   document.getElementById('cartPanel').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════
+// FORMULARIO PEDIDO
+// ═══════════════════════════════════════
+function abrirFormulario() {
+  const items = Object.values(carrito);
+  if (!items.length) return;
+  toggleCart();
+  // Llenar resumen
+  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
+  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
+  document.getElementById('resumenItems').innerHTML = items.map(({producto:p,qty}) => {
+    const precio = p.precio && Number(p.precio)>0
+      ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR')
+      : 'A consultar';
+    return `<div class="resumen-item"><span>${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''}</span><span>${precio}</span></div>`;
+  }).join('');
+  document.getElementById('resumenTotal').textContent = tieneConsultar && total===0
+    ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
+  setTimeout(() => document.getElementById('modalFormOverlay').classList.add('open'), 350);
+}
+
+function cerrarFormulario() {
+  document.getElementById('modalFormOverlay').classList.remove('open');
+  setTimeout(() => toggleCart(), 300);
+}
+
+function confirmarPedido() {
+  const nombre = document.getElementById('fNombre').value.trim();
+  const telefono = document.getElementById('fTelefono').value.trim();
+  const localidad = document.getElementById('fLocalidad').value.trim();
+  const provincia = document.getElementById('fProvincia').value;
+  const cp = document.getElementById('fCP').value.trim();
+  const direccion = document.getElementById('fDireccion').value.trim();
+
+  if (!nombre || !telefono || !localidad || !provincia || !cp) {
+    showToast('Completá los campos obligatorios *', '');
+    return;
+  }
+
+  const items = Object.values(carrito);
+  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
+  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
+
+  const lineasProductos = items.map(({producto:p,qty}) => {
+    const precio = p.precio && Number(p.precio)>0
+      ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR')
+      : 'Precio a consultar';
+    return `• ${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''} — ${precio}`;
+  }).join('\n');
+
+  const totalTexto = tieneConsultar && total===0
+    ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
+
+  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineasProductos}\n\n*Total estimado: ${totalTexto}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
+
+  abrirWhatsApp(msg);
+  carrito = {};
+  actualizarCarritoUI();
+  document.getElementById('modalFormOverlay').classList.remove('open');
+  setTimeout(() => document.getElementById('modalExitoOverlay').classList.add('open'), 400);
 }
 
 // ═══════════════════════════════════════
@@ -524,8 +680,7 @@ function abrirWhatsApp(msg) {
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
@@ -535,8 +690,8 @@ window.addEventListener('scroll', () => {
 
 function observeFadeIns() {
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: .1 });
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:.1});
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
 
