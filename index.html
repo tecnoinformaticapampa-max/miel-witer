@@ -6,31 +6,40 @@
 <title>Miel Witer – Miel Pura del Impenetrable Chaqueño</title>
 <meta name="description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte. 10 años de trayectoria apicultora.">
 <meta name="theme-color" content="#D4820A">
-
-<!-- PWA -->
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/7LD64ykN/screenshot-7.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Miel Witer">
-
-<!-- Open Graph -->
 <meta property="og:title" content="Miel Witer – Miel Pura del Impenetrable">
 <meta property="og:description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte.">
 <meta property="og:image" content="https://i.postimg.cc/xdYCQS2G/screenshot-3.png">
 <meta property="og:type" content="website">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
 <script>
-  const CONFIG = {
-    PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
-    WHATSAPP: "5493725641680",
-    INSTAGRAM: "https://www.instagram.com/witer_miel/",
-    NEGOCIO: "Miel Witer",
-  };
+const CONFIG = {
+  PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
+  CLIENTES_URL:  "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/clientes.json",
+  WHATSAPP: "5493725641680",
+  INSTAGRAM: "https://www.instagram.com/witer_miel/",
+  NEGOCIO: "Miel Witer",
+};
+// Fotos de galería de productos (fijas, del dueño)
+const GALERIA_FOTOS = [
+  "https://i.postimg.cc/xdYCQS2G/screenshot-3.png",
+  "https://i.postimg.cc/tgyTbHjN/screenshot-4.png",
+  "https://i.postimg.cc/bvmN3TTT/screenshot-12.png",
+  "https://i.postimg.cc/9fLFJppt/screenshot-13.png",
+  "https://i.postimg.cc/ZqwKVccP/screenshot-14.png",
+  "https://i.postimg.cc/fb8TBKKc/screenshot-15.png",
+  "https://i.postimg.cc/KYG8PVnf/screenshot-19.png",
+  "https://i.postimg.cc/vmYZrjWW/screenshot-20.png",
+  "https://i.postimg.cc/vmYZrjWr/screenshot-22.png",
+  "https://i.postimg.cc/N0sj6V1m/screenshot-23.png",
+];
 </script>
 
 <style>
@@ -51,37 +60,38 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s,box-shadow .3s}
 nav.scrolled{background:rgba(250,245,233,.97);box-shadow:0 2px 20px rgba(180,100,0,.12)}
 .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
-.nav-logo img{width:42px;height:42px;object-fit:contain;border-radius:8px;transition:opacity .3s}
+.nav-logo img{width:42px;height:42px;object-fit:contain;border-radius:8px}
 .nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cream);letter-spacing:.04em;transition:color .3s}
 nav.scrolled .nav-logo-text{color:var(--forest)}
 .nav-logo-text span{color:var(--gold)}
-.cart-btn{position:relative;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .2s,transform .15s}
+.cart-btn{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .2s,transform .15s}
 .cart-btn:hover{background:var(--amber);transform:scale(1.04)}
 .cart-count{background:#fff;color:var(--honey);border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;min-width:20px}
 .cart-count.bump{animation:bump .25s ease}
 @keyframes bump{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
-.hero-bg-img{position:absolute;inset:0;background-image:url('https://i.postimg.cc/xdYCQS2G/screenshot-3.png');background-size:cover;background-position:center;filter:brightness(.45) saturate(1.2);z-index:0}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,46,24,.5) 0%,rgba(26,46,24,.3) 50%,rgba(26,46,24,.7) 100%);z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 5rem;position:relative;overflow:hidden}
+.hero-bg-img{position:absolute;inset:0;background-image:url('https://i.postimg.cc/xdYCQS2G/screenshot-3.png');background-size:cover;background-position:center;filter:brightness(.42) saturate(1.2);z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,46,24,.45) 0%,rgba(26,46,24,.25) 50%,rgba(26,46,24,.75) 100%);z-index:1}
 .hero-honeycomb{position:absolute;inset:0;opacity:.04;z-index:2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E")}
 .hero-content{position:relative;z-index:3;max-width:700px}
 .hero-badge{display:inline-block;background:rgba(240,165,0,.18);border:1px solid rgba(240,165,0,.35);color:var(--gold-lt);font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.75rem}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,9vw,5.8rem);font-weight:500;line-height:1.04;color:var(--cream);margin-bottom:.5rem;letter-spacing:-.01em}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,9vw,5.8rem);font-weight:500;line-height:1.04;color:var(--cream);margin-bottom:.5rem}
 .hero h1 em{color:var(--gold);font-style:italic}
 .hero-sub{font-size:clamp(.9rem,2.5vw,1.1rem);color:rgba(250,245,233,.72);font-weight:300;max-width:460px;margin:1rem auto 2.5rem;line-height:1.75}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:3rem}
 .btn-primary{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.8rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
 .btn-primary:hover{background:var(--gold);transform:translateY(-2px)}
 .btn-outline{background:transparent;color:var(--cream);border:1px solid rgba(250,245,233,.3);border-radius:50px;padding:.8rem 1.8rem;font-size:.95rem;cursor:pointer;transition:border-color .2s,color .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Sans',sans-serif}
 .btn-outline:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
-.hero-scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.5;z-index:3}
+/* FIX: scroll hint separado de los botones */
+.hero-scroll-hint{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.45}
 .hero-scroll-hint span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
 .scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--cream),transparent);animation:scrollAnim 2s ease infinite}
 @keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1);transform-origin:top}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
 
-/* ── SECCIONES ── */
+/* ── SECCIONES COMUNES ── */
 section{padding:5rem 1.5rem}
 .container{max-width:920px;margin:0 auto}
 .section-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--honey);font-weight:500;margin-bottom:.6rem;display:block}
@@ -103,8 +113,24 @@ section{padding:5rem 1.5rem}
 .stat-label{font-size:.68rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;display:block}
 .historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 .historia-fotos img{width:100%;height:160px;object-fit:cover;border-radius:14px}
-.historia-fotos img:first-child{border-radius:14px 14px 4px 14px}
-.historia-fotos img:last-child{border-radius:14px 4px 14px 14px}
+
+/* ── GALERÍA DESLIZABLE ── */
+.galeria{background:var(--forest-dk);padding:4rem 0;overflow:hidden}
+.galeria-title{text-align:center;margin-bottom:2rem;padding:0 1.5rem}
+.galeria-title .section-label{color:var(--gold)}
+.galeria-title .section-title{color:var(--cream)}
+.galeria-track-wrap{position:relative;overflow:hidden}
+.galeria-track{display:flex;gap:1rem;padding:0 1.5rem;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+.galeria-item{flex-shrink:0;width:240px;height:200px;border-radius:16px;overflow:hidden;border:2px solid rgba(240,165,0,.15)}
+@media(min-width:640px){.galeria-item{width:280px;height:220px}}
+.galeria-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.galeria-item:hover img{transform:scale(1.06)}
+.galeria-nav{display:flex;justify-content:center;gap:.75rem;margin-top:1.5rem;padding:0 1.5rem}
+.galeria-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,165,0,.3);background:rgba(255,255,255,.07);color:var(--gold-lt);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.galeria-btn:hover{background:rgba(240,165,0,.18)}
+.galeria-dots{display:flex;gap:.4rem;align-items:center}
+.galeria-dot{width:6px;height:6px;border-radius:50%;background:rgba(250,245,233,.25);transition:background .2s,transform .2s;cursor:pointer;border:none}
+.galeria-dot.active{background:var(--gold);transform:scale(1.3)}
 
 /* ── CATÁLOGO ── */
 .catalogo{background:var(--cream)}
@@ -119,12 +145,12 @@ section{padding:5rem 1.5rem}
 .product-card{background:var(--card-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;border:1px solid rgba(212,130,10,.1);display:flex;flex-direction:column}
 .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
 .product-img-wrap{height:170px;overflow:hidden;position:relative;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .product-card:hover .product-img-wrap img{transform:scale(1.06)}
 .product-img-placeholder{font-size:4rem;opacity:.4}
 .product-badge{position:absolute;top:.75rem;right:.75rem;background:var(--forest);color:#fff;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:50px}
 .product-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;flex:1}
-.product-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--forest-dk);margin-bottom:.15rem}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--forest-dk)}
 .product-peso{font-size:.72rem;color:var(--honey);font-weight:500;margin-bottom:.3rem;letter-spacing:.05em;text-transform:uppercase}
 .product-desc{font-size:.8rem;color:var(--text-muted);line-height:1.65;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .product-price{font-size:1.45rem;font-weight:500;color:var(--honey);font-family:'Cormorant Garamond',serif;margin-bottom:.9rem}
@@ -133,12 +159,25 @@ section{padding:5rem 1.5rem}
 .qty-controls{display:flex;align-items:center;gap:.3rem;background:var(--cream);border-radius:50px;padding:.25rem .4rem;border:1px solid rgba(212,130,10,.2)}
 .qty-btn-card{width:26px;height:26px;border-radius:50%;border:none;background:none;color:var(--honey);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1;font-weight:500}
 .qty-btn-card:hover{background:rgba(212,130,10,.1)}
-.qty-num-card{font-size:.9rem;font-weight:500;min-width:20px;text-align:center;color:var(--text)}
-.add-btn{flex:1;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.6rem .8rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.3rem}
+.qty-num-card{font-size:.9rem;font-weight:500;min-width:20px;text-align:center}
+.add-btn{flex:1;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.6rem .8rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.3rem}
 .add-btn:hover{background:var(--forest-lt)}
 .add-btn.added{background:var(--honey)}
 
-/* ── ORIGEN + MAPA ── */
+/* ── CLIENTES FELICES ── */
+.clientes{background:var(--white);padding:5rem 1.5rem}
+.clientes-header{text-align:center;margin-bottom:3rem}
+.clientes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;max-width:920px;margin:0 auto}
+.cliente-card{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:4/3;box-shadow:var(--shadow-md);cursor:pointer}
+.cliente-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.cliente-card:hover img{transform:scale(1.05)}
+.cliente-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,46,24,.7) 0%,transparent 50%);opacity:0;transition:opacity .3s}
+.cliente-card:hover .cliente-card-overlay{opacity:1}
+.clientes-empty{text-align:center;padding:2rem;color:var(--text-muted);font-size:.9rem}
+.clientes-nota{text-align:center;margin-top:1.5rem;font-size:.8rem;color:var(--text-muted)}
+.clientes-nota strong{color:var(--honey)}
+
+/* ── ORIGEN ── */
 .origen{background:var(--forest-dk)}
 .origen .section-title{color:var(--cream)}
 .origen .section-label{color:var(--gold)}
@@ -149,13 +188,13 @@ section{padding:5rem 1.5rem}
 .features li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:rgba(250,245,233,.7);line-height:1.5}
 .feat-icon{width:30px;height:30px;background:rgba(240,165,0,.14);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .origen-foto{width:100%;border-radius:16px;overflow:hidden;margin-bottom:1.2rem}
-.origen-foto img{width:100%;height:220px;object-fit:cover;display:block}
+.origen-foto img{width:100%;height:240px;object-fit:cover;display:block}
 .map-wrap{border-radius:16px;overflow:hidden;border:1px solid rgba(240,165,0,.2)}
 .map-wrap iframe{width:100%;height:240px;display:block;border:0}
 .map-label{background:rgba(255,255,255,.06);padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:rgba(250,245,233,.6)}
 .map-label strong{color:var(--gold-lt)}
 
-/* ── INSTAGRAM STRIP ── */
+/* ── INSTAGRAM ── */
 .instagram-strip{background:var(--cream);padding:3rem 1.5rem;text-align:center;border-top:1px solid rgba(212,130,10,.1)}
 .ig-inner{max-width:520px;margin:0 auto}
 .ig-logo{width:48px;height:48px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem}
@@ -169,12 +208,10 @@ footer{background:var(--forest-dk);border-top:1px solid rgba(240,165,0,.1);color
 .footer-logo-wrap{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:.5rem}
 .footer-logo-img{width:40px;height:40px;object-fit:contain;border-radius:8px;opacity:.85}
 .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt)}
-footer p{margin-top:.4rem}
 footer a{color:var(--gold);text-decoration:none}
-footer a:hover{color:var(--gold-lt)}
 .footer-links{display:flex;justify-content:center;gap:1.2rem;margin-top:.8rem;flex-wrap:wrap}
 
-/* ── CARRITO PANEL ── */
+/* ── CARRITO ── */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
 .cart-overlay.open{opacity:1;pointer-events:all}
 .cart-panel{position:fixed;right:0;top:0;height:100%;width:min(390px,100vw);background:var(--white);z-index:201;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.14)}
@@ -203,11 +240,10 @@ footer a:hover{color:var(--gold-lt)}
 .cart-consultar-note{font-size:.75rem;color:var(--text-muted);margin-bottom:.5rem;line-height:1.5}
 .cart-consultar-warn{background:#FFF8E7;border:1px solid rgba(212,130,10,.2);border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:var(--amber);margin-bottom:1rem;line-height:1.5;display:none}
 .cart-consultar-warn.show{display:block}
-.checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.6rem}
-.checkout-btn:hover{background:var(--amber);transform:translateY(-1px)}
-.checkout-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.6rem}
+.checkout-btn:hover{background:var(--amber)}
+.checkout-btn:disabled{opacity:.4;cursor:not-allowed}
 .vaciar-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.8rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
-.vaciar-btn:hover{color:var(--text)}
 
 /* ── MODAL FORMULARIO ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem}
@@ -220,7 +256,7 @@ footer a:hover{color:var(--gold-lt)}
 .modal-body{padding:1.2rem 1.5rem}
 .resumen-pedido{background:var(--cream);border-radius:12px;padding:1rem;margin-bottom:1.2rem}
 .resumen-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:.6rem}
-.resumen-item{display:flex;justify-content:space-between;font-size:.83rem;padding:.25rem 0;color:var(--text)}
+.resumen-item{display:flex;justify-content:space-between;font-size:.83rem;padding:.25rem 0}
 .resumen-item span:last-child{color:var(--honey);font-weight:500}
 .resumen-total{display:flex;justify-content:space-between;font-size:.9rem;font-weight:500;padding-top:.6rem;margin-top:.4rem;border-top:1px solid rgba(212,130,10,.15)}
 .resumen-total span:last-child{color:var(--honey);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
@@ -230,16 +266,21 @@ footer a:hover{color:var(--gold-lt)}
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--honey);background:var(--white)}
 .form-field textarea{resize:vertical;min-height:70px;line-height:1.6}
 .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.form-opcional{font-size:.72rem;color:var(--text-muted);margin-left:.3rem;font-weight:300}
+.form-opcional{font-size:.72rem;color:var(--text-muted);margin-left:.3rem}
 .modal-footer{padding:1rem 1.5rem 1.5rem;position:sticky;bottom:0;background:var(--white);border-top:1px solid rgba(212,130,10,.1);border-radius:0 0 24px 24px}
 .confirm-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.5rem}
 .confirm-btn:hover{background:var(--amber)}
 .volver-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
 .modal-nota{font-size:.72rem;color:var(--text-muted);text-align:center;line-height:1.5;margin-top:.5rem}
+.modal-exito{background:var(--white);border-radius:24px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;transform:scale(.92);transition:transform .3s}
+.modal-overlay.open .modal-exito{transform:scale(1)}
+.modal-exito .modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
+.modal-exito h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
+.modal-exito p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
 
 /* ── WA FLOTANTE ── */
 .wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
-.wa-btn{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;font-size:1.6rem}
+.wa-btn{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s}
 .wa-btn:hover{transform:scale(1.1)}
 .wa-tooltip{background:var(--forest-dk);color:var(--cream);font-size:.78rem;padding:.4rem .85rem;border-radius:50px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
 .wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
@@ -248,19 +289,12 @@ footer a:hover{color:var(--gold-lt)}
 .toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-dk);color:var(--cream);padding:.6rem 1.4rem;border-radius:50px;font-size:.8rem;opacity:0;pointer-events:none;transition:all .28s;z-index:400;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── MODAL ÉXITO ── */
-.modal-exito{background:var(--white);border-radius:24px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;transform:scale(.92);transition:transform .3s}
-.modal-overlay.open .modal-exito{transform:scale(1)}
-.modal-exito .modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
-.modal-exito h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
-.modal-exito p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
-
-/* ── PWA INSTALL BANNER ── */
+/* ── PWA BANNER ── */
 .pwa-banner{position:fixed;bottom:0;left:0;right:0;background:var(--forest-dk);color:var(--cream);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;z-index:300;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);border-top:2px solid var(--honey)}
 .pwa-banner.show{transform:translateY(0)}
 .pwa-banner img{width:40px;height:40px;border-radius:10px;object-fit:contain;flex-shrink:0}
 .pwa-banner-text{flex:1}
-.pwa-banner-text strong{display:block;font-size:.9rem;color:var(--cream)}
+.pwa-banner-text strong{display:block;font-size:.9rem}
 .pwa-banner-text span{font-size:.75rem;color:rgba(250,245,233,.55)}
 .pwa-install-btn{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .pwa-dismiss{background:none;border:none;color:rgba(250,245,233,.4);font-size:1.2rem;cursor:pointer;padding:.2rem;flex-shrink:0}
@@ -271,10 +305,10 @@ footer a:hover{color:var(--gold-lt)}
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer logo" onerror="this.style.display='none'">
+    <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer" onerror="this.style.display='none'">
     <span class="nav-logo-text">Miel <span>Witer</span></span>
   </a>
-  <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">
+  <button class="cart-btn" onclick="toggleCart()">
     🛒 Carrito <span class="cart-count" id="cartCount">0</span>
   </button>
 </nav>
@@ -292,8 +326,11 @@ footer a:hover{color:var(--gold-lt)}
       <a href="#catalogo" class="btn-primary">🍯 Ver Productos</a>
       <a href="#" class="btn-outline" onclick="abrirWhatsApp('Hola! Vi la página de Miel Witer y quiero consultar 🍯');return false">💬 Consultar por WhatsApp</a>
     </div>
+    <div class="hero-scroll-hint">
+      <span>Descubrí</span>
+      <div class="scroll-line"></div>
+    </div>
   </div>
-  <div class="hero-scroll-hint"><span>Descubrí</span><div class="scroll-line"></div></div>
 </section>
 
 <!-- HISTORIA -->
@@ -319,6 +356,22 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </section>
 
+<!-- GALERÍA DESLIZABLE -->
+<div class="galeria" id="galeria">
+  <div class="galeria-title fade-in">
+    <span class="section-label">Nuestra miel</span>
+    <h2 class="section-title">Del panal a tu <em>mesa</em></h2>
+  </div>
+  <div class="galeria-track-wrap">
+    <div class="galeria-track" id="galeriaTrack"></div>
+  </div>
+  <div class="galeria-nav">
+    <button class="galeria-btn" onclick="galeriaNav(-1)">←</button>
+    <div class="galeria-dots" id="galeriaDots"></div>
+    <button class="galeria-btn" onclick="galeriaNav(1)">→</button>
+  </div>
+</div>
+
 <!-- CATÁLOGO -->
 <section class="catalogo" id="catalogo">
   <div class="container">
@@ -332,6 +385,20 @@ footer a:hover{color:var(--gold-lt)}
   </div>
 </section>
 
+<!-- CLIENTES FELICES -->
+<section class="clientes" id="clientes">
+  <div class="container">
+    <div class="clientes-header fade-in">
+      <span class="section-label">Comunidad Miel Witer</span>
+      <h2 class="section-title">Clientes <em>felices</em></h2>
+    </div>
+    <div class="clientes-grid" id="clientesGrid">
+      <div class="loading-state"><div class="loading-spinner"></div></div>
+    </div>
+    <p class="clientes-nota">Las fotos se renuevan cada día 🍯 — <strong>¿Querés aparecer acá?</strong> ¡Mandanos tu foto por WhatsApp!</p>
+  </div>
+</section>
+
 <!-- ORIGEN + MAPA -->
 <section class="origen" id="origen">
   <div class="container">
@@ -340,7 +407,7 @@ footer a:hover{color:var(--gold-lt)}
         <span class="section-label">Nuestro origen</span>
         <h2 class="section-title">Del <em>Impenetrable</em> a tu hogar</h2>
         <div class="origen-foto">
-          <img src="https://i.postimg.cc/25m6YfDF/screenshot-5.png" alt="Pampa del Indio" loading="lazy">
+          <img src="https://i.postimg.cc/0jftwzx2/screenshot-21.png" alt="Pampa del Indio, Chaco" loading="lazy">
         </div>
         <p>Pampa del Indio, en el corazón del Chaco profundo. Rodeada de bosques nativos que preservan la biodiversidad única del Impenetrable.</p>
         <ul class="features">
@@ -353,25 +420,20 @@ footer a:hover{color:var(--gold-lt)}
       <div class="fade-in delay-1">
         <div class="map-wrap">
           <iframe src="https://www.google.com/maps/embed?pb=!4v1776736045486!6m8!1m7!1s2pmneIcY98deZKNnegdoPg!2m2!1d-26.05188350867848!2d-59.94163613812756!3f266.5132180286004!4f-3.889304397794845!5f1.5378273236760203" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Punto de venta Miel Witer"></iframe>
-          <div class="map-label">
-            <span>📍</span>
-            <span><strong>Punto de venta</strong> · Pampa del Indio, Chaco</span>
-          </div>
+          <div class="map-label">📍 <span><strong>Punto de venta</strong> · Pampa del Indio, Chaco</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INSTAGRAM STRIP -->
+<!-- INSTAGRAM -->
 <div class="instagram-strip fade-in">
   <div class="ig-inner">
     <div class="ig-logo">📸</div>
     <h3>Seguinos en Instagram</h3>
-    <p>Mirá el día a día de Miel Witer, el monte chaqueño y nuestras cosechas en <strong>@witer_miel</strong></p>
-    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener" class="ig-btn">
-      Ver @witer_miel →
-    </a>
+    <p>El día a día de Miel Witer, el monte chaqueño y nuestras cosechas en <strong>@witer_miel</strong></p>
+    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener" class="ig-btn">Ver @witer_miel →</a>
   </div>
 </div>
 
@@ -398,13 +460,10 @@ footer a:hover{color:var(--gold-lt)}
   </button>
 </div>
 
-<!-- CARRITO PANEL -->
+<!-- CARRITO -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
-  <div class="cart-header">
-    <h3>🛒 Tu pedido</h3>
-    <button class="close-btn" onclick="toggleCart()">✕</button>
-  </div>
+  <div class="cart-header"><h3>🛒 Tu pedido</h3><button class="close-btn" onclick="toggleCart()">✕</button></div>
   <div class="cart-items-wrap" id="cartItems"></div>
   <div class="cart-footer">
     <div class="cart-total-row">
@@ -424,10 +483,7 @@ footer a:hover{color:var(--gold-lt)}
 <!-- MODAL FORMULARIO -->
 <div class="modal-overlay" id="modalFormOverlay">
   <div class="modal-box">
-    <div class="modal-head">
-      <h3>Completar pedido</h3>
-      <p>Ingresá tus datos para confirmar el pedido y coordinar el envío.</p>
-    </div>
+    <div class="modal-head"><h3>Completar pedido</h3><p>Ingresá tus datos para confirmar el pedido y coordinar el envío.</p></div>
     <div class="modal-body">
       <div class="resumen-pedido">
         <div class="resumen-title">Resumen del pedido</div>
@@ -456,7 +512,7 @@ footer a:hover{color:var(--gold-lt)}
       </div>
       <div class="form-field">
         <label>Dirección de envío <span class="form-opcional">(opcional)</span></label>
-        <textarea id="fDireccion" placeholder="Calle, número, piso... También podés coordinar la dirección directamente en el chat."></textarea>
+        <textarea id="fDireccion" placeholder="Calle, número, piso... También podés coordinar directamente en el chat."></textarea>
       </div>
     </div>
     <div class="modal-footer">
@@ -475,7 +531,7 @@ footer a:hover{color:var(--gold-lt)}
   <div class="modal-exito">
     <span class="modal-icon">🎉</span>
     <h3>¡Pedido enviado!</h3>
-    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago. ¡Gracias!</p>
+    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago.</p>
     <button class="btn-primary" onclick="document.getElementById('modalExitoOverlay').classList.remove('open')" style="margin:0 auto">¡Perfecto!</button>
   </div>
 </div>
@@ -483,40 +539,33 @@ footer a:hover{color:var(--gold-lt)}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- PWA INSTALL BANNER -->
+<!-- PWA BANNER -->
 <div class="pwa-banner" id="pwaBanner">
   <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer">
-  <div class="pwa-banner-text">
-    <strong>Instalá Miel Witer</strong>
-    <span>Agregá la app a tu pantalla de inicio</span>
-  </div>
+  <div class="pwa-banner-text"><strong>Instalá Miel Witer</strong><span>Agregá la app a tu pantalla de inicio</span></div>
   <button class="pwa-install-btn" id="pwaInstallBtn">Instalar</button>
   <button class="pwa-dismiss" onclick="cerrarPWA()">✕</button>
 </div>
 
 <script>
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 // ESTADO
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 let carrito = {};
 let productosData = [];
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 // PWA
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 let deferredPrompt = null;
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 }
 window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
+  e.preventDefault(); deferredPrompt = e;
   setTimeout(() => {
-    if (!localStorage.getItem('mw_pwa_dismissed')) {
+    if (!localStorage.getItem('mw_pwa_dismissed'))
       document.getElementById('pwaBanner').classList.add('show');
-    }
   }, 4000);
 });
 document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
@@ -531,9 +580,87 @@ function cerrarPWA() {
   localStorage.setItem('mw_pwa_dismissed', '1');
 }
 
-// ═══════════════════════════════════════
-// CARGAR PRODUCTOS
-// ═══════════════════════════════════════
+// ═══════════════════════════════
+// GALERÍA DESLIZABLE
+// ═══════════════════════════════
+let galeriaIdx = 0;
+const VISIBLE = window.innerWidth >= 640 ? 3 : 1;
+
+function initGaleria() {
+  const track = document.getElementById('galeriaTrack');
+  const dots = document.getElementById('galeriaDots');
+  track.innerHTML = GALERIA_FOTOS.map((url, i) =>
+    `<div class="galeria-item"><img src="${url}" alt="Miel Witer ${i+1}" loading="lazy"></div>`
+  ).join('');
+  const totalDots = Math.ceil(GALERIA_FOTOS.length / VISIBLE);
+  dots.innerHTML = Array.from({length: totalDots}, (_,i) =>
+    `<button class="galeria-dot${i===0?' active':''}" onclick="galeriaGoTo(${i})"></button>`
+  ).join('');
+  // Auto-play cada 4 segundos
+  setInterval(() => galeriaNav(1), 4000);
+}
+
+function galeriaNav(dir) {
+  const totalDots = Math.ceil(GALERIA_FOTOS.length / VISIBLE);
+  galeriaIdx = (galeriaIdx + dir + totalDots) % totalDots;
+  galeriaGoTo(galeriaIdx);
+}
+
+function galeriaGoTo(idx) {
+  galeriaIdx = idx;
+  const itemWidth = document.querySelector('.galeria-item')?.offsetWidth + 16 || 256;
+  document.getElementById('galeriaTrack').style.transform = `translateX(-${idx * VISIBLE * itemWidth}px)`;
+  document.querySelectorAll('.galeria-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+}
+
+// ═══════════════════════════════
+// CLIENTES FELICES — rotación por día
+// ═══════════════════════════════
+async function cargarClientes() {
+  const grid = document.getElementById('clientesGrid');
+  try {
+    const res = await fetch(CONFIG.CLIENTES_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error();
+    const clientes = await res.json();
+    const activos = clientes.filter(c => c.activo !== false);
+    if (!activos.length) {
+      grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">
+        Pronto vas a ver acá a nuestros clientes felices. ¿Querés ser el primero? 
+        <a href="#" onclick="abrirWhatsApp('Hola! Quiero aparecer en la sección clientes felices de Miel Witer 🍯');return false" style="color:var(--honey)">¡Mandanos tu foto!</a>
+      </div>`;
+      return;
+    }
+    // Rotación diaria: semilla = día del año
+    const hoy = new Date();
+    const semilla = hoy.getFullYear() * 1000 + Math.floor((hoy - new Date(hoy.getFullYear(),0,0)) / 86400000);
+    const shuffled = seededShuffle(activos, semilla);
+    const mostrar = shuffled.slice(0, 3);
+    grid.innerHTML = mostrar.map(c => `
+      <div class="cliente-card fade-in">
+        <img src="${c.imagen_url}" alt="${c.nombre||'Cliente feliz'}" loading="lazy">
+        <div class="cliente-card-overlay"></div>
+      </div>`).join('');
+    observeFadeIns();
+  } catch {
+    grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">Cargando fotos de clientes...</div>`;
+  }
+}
+
+// Shuffle determinístico con semilla numérica
+function seededShuffle(arr, seed) {
+  const a = [...arr];
+  let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xFFFFFFFF;
+    const j = Math.abs(s) % (i + 1);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ═══════════════════════════════
+// PRODUCTOS
+// ═══════════════════════════════
 async function cargarProductos() {
   const container = document.getElementById('productosContainer');
   try {
@@ -542,12 +669,9 @@ async function cargarProductos() {
     productosData = await res.json();
     renderProductos(productosData);
   } catch {
-    container.innerHTML = `
-      <div class="empty-state">
-        <span class="empty-icon">🍯</span>
-        <p>Próximamente nuestros productos estarán disponibles aquí.<br>Mientras tanto consultanos por WhatsApp.</p>
-        <br><button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">💬 Consultar ahora</button>
-      </div>`;
+    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span>
+      <p>Próximamente nuestros productos estarán disponibles aquí.<br>Mientras tanto consultanos por WhatsApp.</p>
+      <br><button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">💬 Consultar ahora</button></div>`;
   }
 }
 
@@ -565,32 +689,24 @@ function renderProductos(productos) {
 
 function renderCard(p) {
   const tienePrecio = p.precio && Number(p.precio) > 0;
-  const imgHtml = p.imagen_url
-    ? `<img src="${p.imagen_url}" alt="${p.nombre}" loading="lazy">`
-    : `<span class="product-img-placeholder">🍯</span>`;
-  const badgeHtml = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
-  const pesoHtml = p.peso ? `<div class="product-peso">${p.peso}</div>` : '';
-  const precioHtml = tienePrecio
-    ? `<div class="product-price">$${Number(p.precio).toLocaleString('es-AR')}</div>`
-    : `<div class="product-price consultar">Precio a consultar</div>`;
-  return `
-    <div class="product-card fade-in">
-      <div class="product-img-wrap">${imgHtml}${badgeHtml}</div>
-      <div class="product-body">
-        <div class="product-name">${p.nombre}</div>
-        ${pesoHtml}
-        <div class="product-desc">${p.descripcion||''}</div>
-        ${precioHtml}
-        <div class="card-actions">
-          <div class="qty-controls">
-            <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',-1)">−</button>
-            <span class="qty-num-card" id="qty-card-${p.id}">1</span>
-            <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',1)">+</button>
-          </div>
-          <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">＋ Agregar</button>
+  const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}" loading="lazy">` : `<span class="product-img-placeholder">🍯</span>`;
+  return `<div class="product-card fade-in">
+    <div class="product-img-wrap">${imgHtml}${p.badge?`<span class="product-badge">${p.badge}</span>`:''}</div>
+    <div class="product-body">
+      <div class="product-name">${p.nombre}</div>
+      ${p.peso?`<div class="product-peso">${p.peso}</div>`:''}
+      <div class="product-desc">${p.descripcion||''}</div>
+      ${tienePrecio?`<div class="product-price">$${Number(p.precio).toLocaleString('es-AR')}</div>`:`<div class="product-price consultar">Precio a consultar</div>`}
+      <div class="card-actions">
+        <div class="qty-controls">
+          <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',-1)">−</button>
+          <span class="qty-num-card" id="qty-card-${p.id}">1</span>
+          <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',1)">+</button>
         </div>
+        <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">＋ Agregar</button>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
 const cantidadesCard = {};
@@ -600,9 +716,9 @@ function cambiarCantidadCard(id, delta) {
   if (el) el.textContent = cantidadesCard[id];
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 // CARRITO
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 function agregarAlCarrito(id) {
   const p = productosData.find(x => x.id == id);
   if (!p) return;
@@ -614,7 +730,7 @@ function agregarAlCarrito(id) {
   actualizarCarritoUI();
   const btn = document.getElementById('btn-' + id);
   if (btn) { btn.classList.add('added'); btn.textContent = '✓ Agregado'; }
-  setTimeout(() => { if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; } }, 1400);
+  setTimeout(() => { if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; }}, 1400);
   const cnt = document.getElementById('cartCount');
   cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump');
   showToast('¡' + p.nombre + ' agregado! 🍯');
@@ -637,10 +753,10 @@ function actualizarCarritoUI() {
   const items = Object.values(carrito);
   const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
   const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-  const totalUnidades = items.reduce((s,i) => s+i.qty, 0);
-  document.getElementById('cartCount').textContent = totalUnidades;
-  document.getElementById('cartTotal').textContent = tieneConsultar && total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
-  document.getElementById('checkoutBtn').disabled = items.length === 0;
+  const totalU = items.reduce((s,i) => s+i.qty, 0);
+  document.getElementById('cartCount').textContent = totalU;
+  document.getElementById('cartTotal').textContent = tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR');
+  document.getElementById('checkoutBtn').disabled = items.length===0;
   document.getElementById('cartConsultarWarn').classList.toggle('show', tieneConsultar);
   const wrap = document.getElementById('cartItems');
   if (!items.length) {
@@ -648,7 +764,7 @@ function actualizarCarritoUI() {
     return;
   }
   wrap.innerHTML = items.map(({producto:p,qty}) => {
-    const precioLinea = p.precio && Number(p.precio)>0 ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR') : 'Precio a consultar';
+    const precioLinea = p.precio&&Number(p.precio)>0 ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR') : 'Precio a consultar';
     const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}">` : '🍯';
     return `<div class="cart-item">
       <div class="ci-img">${imgHtml}</div>
@@ -670,19 +786,19 @@ function toggleCart() {
   document.getElementById('cartPanel').classList.toggle('open');
 }
 
-// ═══════════════════════════════════════
-// FORMULARIO
-// ═══════════════════════════════════════
+// ═══════════════════════════════
+// FORMULARIO PEDIDO
+// ═══════════════════════════════
 function abrirFormulario() {
   const items = Object.values(carrito);
   if (!items.length) return;
   toggleCart();
-  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
+  const tieneConsultar = items.some(i => !i.producto.precio||Number(i.producto.precio)<=0);
   const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
   document.getElementById('resumenItems').innerHTML = items.map(({producto:p,qty}) =>
     `<div class="resumen-item"><span>${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''}</span><span>${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'A consultar'}</span></div>`
   ).join('');
-  document.getElementById('resumenTotal').textContent = tieneConsultar&&total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
+  document.getElementById('resumenTotal').textContent = tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR');
   setTimeout(() => document.getElementById('modalFormOverlay').classList.add('open'), 350);
 }
 
@@ -705,17 +821,16 @@ function confirmarPedido() {
   const lineas = items.map(({producto:p,qty}) =>
     `• ${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''} — ${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'Precio a consultar'}`
   ).join('\n');
-  const totalTexto = tieneConsultar&&total===0 ? 'A confirmar' : '$'+total.toLocaleString('es-AR');
-  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineas}\n\n*Total estimado: ${totalTexto}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
+  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineas}\n\n*Total estimado: ${tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR')}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
   abrirWhatsApp(msg);
   carrito = {}; actualizarCarritoUI();
   document.getElementById('modalFormOverlay').classList.remove('open');
   setTimeout(() => document.getElementById('modalExitoOverlay').classList.add('open'), 400);
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 // UTILIDADES
-// ═══════════════════════════════════════
+// ═══════════════════════════════
 function abrirWhatsApp(msg) {
   window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
 }
@@ -731,10 +846,16 @@ function observeFadeIns() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, {threshold:.1});
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => obs.observe(el));
 }
+
+// ═══════════════════════════════
+// INIT
+// ═══════════════════════════════
 observeFadeIns();
+initGaleria();
 cargarProductos();
+cargarClientes();
 actualizarCarritoUI();
 </script>
 </body>

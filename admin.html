@@ -163,6 +163,7 @@ body{font-family:'DM Sans',sans-serif;background:#F5F0E8;color:var(--text);min-h
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('productos')">🍯 Productos</button>
       <button class="tab-btn" onclick="switchTab('nuevo')">＋ Nuevo</button>
+      <button class="tab-btn" onclick="switchTab('clientes')">📸 Clientes</button>
       <button class="tab-btn" onclick="switchTab('config')">⚙️ Configuración</button>
     </div>
 
@@ -248,6 +249,43 @@ body{font-family:'DM Sans',sans-serif;background:#F5F0E8;color:var(--text);min-h
     </div>
 
     <!-- ── TAB: CONFIGURACIÓN ── -->
+    <!-- ── TAB: CLIENTES FELICES ── -->
+    <div id="tab-clientes" class="tab-content">
+      <div class="panel-card">
+        <h3>📸 Clientes Felices</h3>
+        <p style="font-size:.84rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7">
+          Subí fotos de clientes felices con Miel Witer. La web muestra <strong>3 fotos diferentes cada día</strong>, seleccionadas automáticamente de forma aleatoria. Podés tener todas las fotos que quieras — cuantas más haya, mayor variedad diaria.
+        </p>
+
+        <!-- Subir nueva foto -->
+        <div style="background:var(--cream);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;border:1px solid var(--border)">
+          <h4 style="font-size:.85rem;font-weight:500;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem">Agregar nueva foto</h4>
+          <div class="form-row cols2">
+            <div class="form-field">
+              <label>Nombre del cliente <span style="font-weight:300">(opcional)</span></label>
+              <input type="text" id="cNombre" placeholder="Ej: María de Resistencia">
+            </div>
+            <div class="form-field">
+              <label>Imagen *</label>
+              <div class="img-upload-area" style="padding:1rem">
+                <input type="file" id="cImagen" accept="image/*" onchange="previsualizarClienteImg(this)">
+                <span class="upload-icon" style="font-size:1.5rem">📸</span>
+                <p style="font-size:.75rem">Seleccionar foto</p>
+              </div>
+              <img id="cImgPreview" class="img-preview" alt="Vista previa">
+              <div id="cImgUploading" class="img-uploading">⏳ Subiendo...</div>
+              <input type="hidden" id="cImagenUrl">
+              <input type="hidden" id="cPublicId">
+            </div>
+          </div>
+          <button class="btn-primary" onclick="agregarCliente()" style="margin-top:.5rem">📸 Agregar foto</button>
+        </div>
+
+        <!-- Lista de fotos -->
+        <div id="clientesList"><div class="empty-list">Cargando fotos...</div></div>
+      </div>
+    </div>
+
     <div id="tab-config" class="tab-content">
 
       <!-- Conexión Worker -->
@@ -391,9 +429,157 @@ async function iniciarAdmin() {
   if (url) {
     document.getElementById('headerStatus').textContent = '🔗 ' + url.replace('https://', '');
     await cargarProductosAdmin();
+    await cargarClientesAdmin();
   } else {
     document.getElementById('headerStatus').textContent = '⚠️ Configurá el Worker primero';
     renderListaProductos([]);
+    renderListaClientes([]);
+  }
+}
+
+// ══════════════════════════════════════════════
+// CLIENTES FELICES
+// ══════════════════════════════════════════════
+let clientesCache = [];
+let clientesGithubSha = '';
+
+async function cargarClientesAdmin() {
+  const url = getWorkerUrl();
+  if (!url) return;
+  try {
+    const res = await fetch(url + '/clientes', {
+      headers: { 'Authorization': 'Bearer ' + getToken() }
+    });
+    if (!res.ok) throw new Error('Error ' + res.status);
+    const data = await res.json();
+    clientesCache = data.clientes || [];
+    clientesGithubSha = data.sha || '';
+    renderListaClientes(clientesCache);
+  } catch(e) {
+    renderListaClientes([]);
+  }
+}
+
+function renderListaClientes(lista) {
+  const container = document.getElementById('clientesList');
+  if (!lista || lista.length === 0) {
+    container.innerHTML = '<div class="empty-list">No hay fotos de clientes aún. Agregá la primera!</div>';
+    return;
+  }
+  container.innerHTML = lista.map(c => {
+    const inactivo = c.activo === false;
+    return '<div class="producto-row ' + (inactivo?'pr-inactive':'') + '">'
+      + '<div class="pr-img" style="width:60px;height:60px">'
+      + (c.imagen_url ? '<img src="'+c.imagen_url+'" alt="'+(c.nombre||'Cliente')+'">' : '📸')
+      + '</div>'
+      + '<div class="pr-info">'
+      + '<div class="pr-name">' + (c.nombre||'(sin nombre)') + ' ' + (inactivo?'<span class="badge-inactivo">INACTIVO</span>':'') + '</div>'
+      + '<div class="pr-meta">' + new Date(c.created_at||Date.now()).toLocaleDateString('es-AR') + '</div>'
+      + '</div>'
+      + '<div class="pr-actions">'
+      + '<button class="btn-edit" onclick="toggleClienteActivo(''+c.id+'')">' + (inactivo?'✅ Activar':'🔴 Ocultar') + '</button>'
+      + '<button class="btn-danger" onclick="eliminarCliente(''+c.id+'')">🗑️</button>'
+      + '</div></div>';
+  }).join('');
+}
+
+function previsualizarClienteImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const p = document.getElementById('cImgPreview');
+    p.src = e.target.result; p.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function agregarCliente() {
+  const url = getWorkerUrl();
+  if (!url) { showToast('Configurá el Worker primero', 'error'); return; }
+  const file = document.getElementById('cImagen').files[0];
+  if (!file) { showToast('Seleccioná una imagen', 'error'); return; }
+  showLoading('Subiendo foto del cliente...');
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', 'miel-witer/clientes');
+    const imgRes = await fetch(url + '/imagen', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: formData
+    });
+    if (!imgRes.ok) throw new Error('Error subiendo imagen');
+    const imgData = await imgRes.json();
+    const cliente = {
+      id: 'c' + Date.now(),
+      nombre: document.getElementById('cNombre').value.trim(),
+      imagen_url: imgData.url,
+      cloudinary_public_id: imgData.public_id,
+      activo: true,
+      created_at: new Date().toISOString(),
+    };
+    clientesCache.push(cliente);
+    const ok = await guardarClientesEnGithub();
+    if (ok) {
+      showToast('Foto de cliente agregada', 'ok');
+      document.getElementById('cNombre').value = '';
+      document.getElementById('cImagen').value = '';
+      document.getElementById('cImgPreview').style.display = 'none';
+      renderListaClientes(clientesCache);
+    } else { clientesCache.pop(); }
+  } catch(e) {
+    showToast('Error: ' + e.message, 'error');
+    clientesCache.pop();
+  } finally {
+    hideLoading();
+  }
+}
+
+function toggleClienteActivo(id) {
+  const c = clientesCache.find(x => x.id === id);
+  if (!c) return;
+  c.activo = !c.activo;
+  guardarClientesEnGithub().then(ok => {
+    if (ok) { renderListaClientes(clientesCache); showToast(c.activo ? 'Foto activada' : 'Foto ocultada', 'ok'); }
+  });
+}
+
+async function eliminarCliente(id) {
+  const c = clientesCache.find(x => x.id === id);
+  if (!c) return;
+  if (!confirm('Eliminar esta foto de cliente?')) return;
+  showLoading('Eliminando...');
+  clientesCache = clientesCache.filter(x => x.id !== id);
+  if (c.cloudinary_public_id) {
+    const url = getWorkerUrl();
+    if (url) await fetch(url + '/imagen', {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ public_id: c.cloudinary_public_id })
+    }).catch(()=>{});
+  }
+  const ok = await guardarClientesEnGithub();
+  hideLoading();
+  if (ok) { renderListaClientes(clientesCache); showToast('Foto eliminada', 'ok'); }
+}
+
+async function guardarClientesEnGithub() {
+  const url = getWorkerUrl();
+  if (!url) { showToast('Worker no configurado', 'error'); return false; }
+  try {
+    const res = await fetch(url + '/clientes', {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientes: clientesCache, sha: clientesGithubSha })
+    });
+    if (!res.ok) throw new Error('Error ' + res.status);
+    const reload = await fetch(url + '/clientes', { headers: { 'Authorization': 'Bearer ' + getToken() } });
+    if (reload.ok) { const d = await reload.json(); clientesGithubSha = d.sha; }
+    return true;
+  } catch(e) {
+    showToast('Error guardando: ' + e.message, 'error');
+    return false;
   }
 }
 
@@ -405,7 +591,7 @@ function getToken()     { return localStorage.getItem(KEY_TOKEN) || ''; }
 // ══════════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['productos','nuevo','config'][i] === name);
+    b.classList.toggle('active', ['productos','nuevo','clientes','config'][i] === name);
   });
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
