@@ -37,5 +37,18 @@
     "activo": true,
     "orden": 0,
     "created_at": "2026-04-21T13:57:16.765Z"
+  },
+  {
+    "id": "p1776780669563",
+    "nombre": "Miel Clasica combo",
+    "peso": "1 kg + 500g",
+    "descripcion": "miel pura en combo",
+    "precio": 0,
+    "badge": "",
+    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776780669/miel-witer/productos/xxtfijqqmamv09mzcc4f.png",
+    "cloudinary_public_id": "miel-witer/productos/xxtfijqqmamv09mzcc4f",
+    "activo": true,
+    "orden": 4,
+    "created_at": "2026-04-21T14:11:09.563Z"
   }
 ]
