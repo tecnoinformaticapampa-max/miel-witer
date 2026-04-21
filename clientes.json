@@ -8,14 +8,6 @@
     "created_at": "2026-04-21T16:43:03.363Z"
   },
   {
-    "id": "c1776789995943",
-    "nombre": "Cliente Satisfecho!",
-    "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776789995/miel-witer/clientes/ecuksaeq2hxdcdb5kbvz.png",
-    "cloudinary_public_id": "miel-witer/clientes/ecuksaeq2hxdcdb5kbvz",
-    "activo": true,
-    "created_at": "2026-04-21T16:46:35.943Z"
-  },
-  {
     "id": "c1776790018422",
     "nombre": "Ella es feliz con su miel Witer",
     "imagen_url": "https://res.cloudinary.com/ditz4ufas/image/upload/v1776790017/miel-witer/clientes/hj5vfoaftkibgm8nqnf2.png",
