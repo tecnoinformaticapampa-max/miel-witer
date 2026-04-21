@@ -136,9 +136,12 @@ export default {
     if (path === "/productos" && request.method === "PUT") {
       if (!validateToken(request, env)) return unauthorized();
       try {
-        const { productos, sha } = await request.json();
-        await githubPut(env, env.GITHUB_FILE_PATH, productos, sha, "Actualización de productos desde panel admin");
-        return json({ ok: true });
+        const { productos } = await request.json();
+        // Siempre re-leer el SHA actual antes de escribir para evitar conflictos
+        const { sha: currentSha } = await githubGet(env, env.GITHUB_FILE_PATH);
+        await githubPut(env, env.GITHUB_FILE_PATH, productos, currentSha, "Actualización de productos desde panel admin");
+        const { sha: newSha } = await githubGet(env, env.GITHUB_FILE_PATH);
+        return json({ ok: true, sha: newSha });
       } catch(e) {
         return json({ error: e.message }, 500);
       }
@@ -160,9 +163,12 @@ export default {
       if (!validateToken(request, env)) return unauthorized();
       try {
         const filePath = env.GITHUB_CLIENTES_PATH || "clientes.json";
-        const { clientes, sha } = await request.json();
-        await githubPut(env, filePath, clientes, sha, "Actualización de clientes felices desde panel admin");
-        return json({ ok: true });
+        const { clientes } = await request.json();
+        // Siempre re-leer el SHA actual antes de escribir para evitar conflictos
+        const { sha: currentSha } = await githubGet(env, filePath);
+        await githubPut(env, filePath, clientes, currentSha, "Actualización de clientes felices desde panel admin");
+        const { sha: newSha } = await githubGet(env, filePath);
+        return json({ ok: true, sha: newSha });
       } catch(e) {
         return json({ error: e.message }, 500);
       }

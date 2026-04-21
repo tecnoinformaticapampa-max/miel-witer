@@ -571,7 +571,7 @@ async function guardarClientesEnGithub() {
     const res = await fetch(url + '/clientes', {
       method: 'PUT',
       headers: { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ clientes: clientesCache, sha: clientesGithubSha })
+      body: JSON.stringify({ clientes: clientesCache })
     });
     if (!res.ok) throw new Error('Error ' + res.status);
     const reload = await fetch(url + '/clientes', { headers: { 'Authorization': 'Bearer ' + getToken() } });
@@ -757,21 +757,15 @@ async function guardarEnGithub() {
         'Authorization': 'Bearer ' + getToken(),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ productos: productosCache, sha: productosGithubSha })
+      body: JSON.stringify({ productos: productosCache })
     });
     if (!res.ok) {
       const err = await res.json().catch(()=>({}));
       throw new Error(err.detalle?.message || 'Error ' + res.status);
     }
     const data = await res.json();
-    // Actualizar SHA para el próximo PUT
-    const reload = await fetch(url + '/productos', {
-      headers: { 'Authorization': 'Bearer ' + getToken() }
-    });
-    if (reload.ok) {
-      const d = await reload.json();
-      productosGithubSha = d.sha;
-    }
+    // Actualizar SHA para el próximo PUT (viene directo en la respuesta)
+    if (data.sha) productosGithubSha = data.sha;
     return true;
   } catch(e) {
     showToast('Error al guardar: ' + e.message, 'error');
