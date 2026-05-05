@@ -3,920 +3,344 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miel Witer – Miel Pura del Impenetrable Chaqueño</title>
-<meta name="description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte. 10 años de trayectoria apicultora.">
+<title>Miel Witer — Sitio en Pausa</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#D4820A">
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/7LD64ykN/screenshot-7.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Miel Witer">
-<meta property="og:title" content="Miel Witer – Miel Pura del Impenetrable">
-<meta property="og:description" content="Miel 100% pura de Pampa del Indio, Chaco. Sin aditivos, directa del monte.">
-<meta property="og:image" content="https://i.postimg.cc/xdYCQS2G/screenshot-3.png">
-<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-
-<script>
-const CONFIG = {
-  WORKER_URL:    "https://miel-witer-worker.tecnoinformaticapampa.workers.dev",
-  PRODUCTOS_URL: "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/productos.json",
-  CLIENTES_URL:  "https://raw.githubusercontent.com/tecnoinformaticapampa-max/miel-witer/main/clientes.json",
-  WHATSAPP: "5493725641680",
-  INSTAGRAM: "https://www.instagram.com/witer_miel/",
-  NEGOCIO: "Miel Witer",
-};
-// Fotos de galería de productos (fijas, del dueño)
-const GALERIA_FOTOS = [
-  "https://i.postimg.cc/xdYCQS2G/screenshot-3.png",
-  "https://i.postimg.cc/tgyTbHjN/screenshot-4.png",
-  "https://i.postimg.cc/bvmN3TTT/screenshot-12.png",
-  "https://i.postimg.cc/9fLFJppt/screenshot-13.png",
-  "https://i.postimg.cc/ZqwKVccP/screenshot-14.png",
-  "https://i.postimg.cc/fb8TBKKc/screenshot-15.png",
-  "https://i.postimg.cc/KYG8PVnf/screenshot-19.png",
-  "https://i.postimg.cc/vmYZrjWW/screenshot-20.png",
-  "https://i.postimg.cc/vmYZrjWr/screenshot-22.png",
-  "https://i.postimg.cc/N0sj6V1m/screenshot-23.png",
-];
-</script>
-
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --honey:#D4820A;--amber:#B8680A;--gold:#F0A500;--gold-lt:#FCC848;
-  --cream:#FAF5E9;--cream-dk:#F0E8D0;--forest:#2D4A2A;--forest-lt:#3D6339;
-  --forest-dk:#1A2E18;--text:#1C1208;--text-muted:#6B4F2A;
-  --card-bg:#FFFDF5;--white:#FFFFFF;
-  --shadow-sm:0 2px 12px rgba(45,74,42,.07);
-  --shadow-md:0 6px 28px rgba(45,74,42,.12);
-  --shadow-lg:0 14px 48px rgba(45,74,42,.18);
-}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s,box-shadow .3s}
-nav.scrolled{background:rgba(250,245,233,.97);box-shadow:0 2px 20px rgba(180,100,0,.12)}
-.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
-.nav-logo img{width:42px;height:42px;object-fit:contain;border-radius:8px}
-.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--cream);letter-spacing:.04em;transition:color .3s}
-nav.scrolled .nav-logo-text{color:var(--forest)}
-.nav-logo-text span{color:var(--gold)}
-.cart-btn{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .2s,transform .15s}
-.cart-btn:hover{background:var(--amber);transform:scale(1.04)}
-.cart-count{background:#fff;color:var(--honey);border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;min-width:20px}
-.cart-count.bump{animation:bump .25s ease}
-@keyframes bump{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+  :root {
+    --honey:      #D4820A;
+    --amber:      #B8680A;
+    --gold:       #F0A500;
+    --gold-lt:    #FCC848;
+    --cream:      #FAF5E9;
+    --forest-dk:  #1A2E18;
+    --shadow-lg:  0 14px 48px rgba(45,74,42,.18);
+  }
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 1.5rem 5rem;position:relative;overflow:hidden}
-.hero-bg-img{position:absolute;inset:0;background-image:url('https://i.postimg.cc/xdYCQS2G/screenshot-3.png');background-size:cover;background-position:center;filter:brightness(.42) saturate(1.2);z-index:0}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,46,24,.45) 0%,rgba(26,46,24,.25) 50%,rgba(26,46,24,.75) 100%);z-index:1}
-.hero-honeycomb{position:absolute;inset:0;opacity:.04;z-index:2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E")}
-.hero-content{position:relative;z-index:3;max-width:700px}
-.hero-badge{display:inline-block;background:rgba(240,165,0,.18);border:1px solid rgba(240,165,0,.35);color:var(--gold-lt);font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.75rem}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,9vw,5.8rem);font-weight:500;line-height:1.04;color:var(--cream);margin-bottom:.5rem}
-.hero h1 em{color:var(--gold);font-style:italic}
-.hero-sub{font-size:clamp(.9rem,2.5vw,1.1rem);color:rgba(250,245,233,.72);font-weight:300;max-width:460px;margin:1rem auto 2.5rem;line-height:1.75}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:3rem}
-.btn-primary{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.8rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
-.btn-primary:hover{background:var(--gold);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--cream);border:1px solid rgba(250,245,233,.3);border-radius:50px;padding:.8rem 1.8rem;font-size:.95rem;cursor:pointer;transition:border-color .2s,color .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Sans',sans-serif}
-.btn-outline:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
-/* FIX: scroll hint separado de los botones */
-.hero-scroll-hint{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.45}
-.hero-scroll-hint span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
-.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--cream),transparent);animation:scrollAnim 2s ease infinite}
-@keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1);transform-origin:top}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+  html, body { height: 100%; }
 
-/* ── SECCIONES COMUNES ── */
-section{padding:5rem 1.5rem}
-.container{max-width:920px;margin:0 auto}
-.section-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--honey);font-weight:500;margin-bottom:.6rem;display:block}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:500;color:var(--forest-dk);line-height:1.12;margin-bottom:1rem}
-.section-title em{color:var(--honey);font-style:italic}
-.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-.fade-in.delay-1{transition-delay:.12s}
-.fade-in.delay-2{transition-delay:.24s}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--forest-dk);
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
 
-/* ── HISTORIA ── */
-.historia{background:var(--white)}
-.historia-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:center}
-@media(min-width:640px){.historia-grid{grid-template-columns:1.1fr .9fr}}
-.historia-text p{color:var(--text-muted);line-height:1.85;margin-bottom:1rem;font-size:.96rem}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.8rem}
-.stat{text-align:center;padding:1.2rem .5rem;background:var(--cream);border-radius:14px;border:1px solid rgba(212,130,10,.1)}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;color:var(--honey);display:block;line-height:1}
-.stat-label{font-size:.68rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;display:block}
-.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.historia-fotos img{width:100%;height:160px;object-fit:cover;border-radius:14px}
+  .bg-img {
+    position: fixed;
+    inset: 0;
+    background-image: url('https://i.postimg.cc/tgyTbHjN/screenshot-4.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(.2) saturate(.7) grayscale(.2);
+    z-index: 0;
+  }
 
-/* ── GALERÍA DESLIZABLE ── */
-.galeria{background:var(--forest-dk);padding:4rem 0;overflow:hidden}
-.galeria-title{text-align:center;margin-bottom:2rem;padding:0 1.5rem}
-.galeria-title .section-label{color:var(--gold)}
-.galeria-title .section-title{color:var(--cream)}
-.galeria-track-wrap{position:relative;overflow:hidden}
-.galeria-track{display:flex;gap:1rem;padding:0 1.5rem;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
-.galeria-item{flex-shrink:0;width:240px;height:200px;border-radius:16px;overflow:hidden;border:2px solid rgba(240,165,0,.15)}
-@media(min-width:640px){.galeria-item{width:280px;height:220px}}
-.galeria-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.galeria-item:hover img{transform:scale(1.06)}
-.galeria-nav{display:flex;justify-content:center;gap:.75rem;margin-top:1.5rem;padding:0 1.5rem}
-.galeria-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,165,0,.3);background:rgba(255,255,255,.07);color:var(--gold-lt);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.galeria-btn:hover{background:rgba(240,165,0,.18)}
-.galeria-dots{display:flex;gap:.4rem;align-items:center}
-.galeria-dot{width:6px;height:6px;border-radius:50%;background:rgba(250,245,233,.25);transition:background .2s,transform .2s;cursor:pointer;border:none}
-.galeria-dot.active{background:var(--gold);transform:scale(1.3)}
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(26,46,24,.65) 0%,
+      rgba(26,46,24,.35) 50%,
+      rgba(26,46,24,.85) 100%);
+    z-index: 1;
+  }
 
-/* ── CATÁLOGO ── */
-.catalogo{background:var(--cream)}
-.catalogo-header{text-align:center;margin-bottom:3rem}
-.loading-state{text-align:center;padding:4rem 1rem;color:var(--text-muted)}
-.loading-spinner{width:40px;height:40px;border:3px solid rgba(212,130,10,.2);border-top-color:var(--honey);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty-state{text-align:center;padding:4rem 1rem;color:var(--text-muted)}
-.empty-state .empty-icon{font-size:3.5rem;display:block;margin-bottom:1rem;opacity:.4}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.25rem}
-@media(min-width:900px){.products-grid{grid-template-columns:repeat(4,1fr)}}
-.product-card{background:var(--card-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;border:1px solid rgba(212,130,10,.1);display:flex;flex-direction:column}
-.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-.product-img-wrap{height:170px;overflow:hidden;position:relative;background:var(--cream-dk);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.product-card:hover .product-img-wrap img{transform:scale(1.06)}
-.product-img-placeholder{font-size:4rem;opacity:.4}
-.product-badge{position:absolute;top:.75rem;right:.75rem;background:var(--forest);color:#fff;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:50px}
-.product-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;flex:1}
-.product-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--forest-dk)}
-.product-peso{font-size:.72rem;color:var(--honey);font-weight:500;margin-bottom:.3rem;letter-spacing:.05em;text-transform:uppercase}
-.product-desc{font-size:.8rem;color:var(--text-muted);line-height:1.65;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-.product-price{font-size:1.45rem;font-weight:500;color:var(--honey);font-family:'Cormorant Garamond',serif;margin-bottom:.9rem}
-.product-price.consultar{font-size:1rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;background:var(--cream);padding:.3rem .7rem;border-radius:8px;display:inline-block}
-.card-actions{display:flex;align-items:center;gap:.6rem;margin-top:auto}
-.qty-controls{display:flex;align-items:center;gap:.3rem;background:var(--cream);border-radius:50px;padding:.25rem .4rem;border:1px solid rgba(212,130,10,.2)}
-.qty-btn-card{width:26px;height:26px;border-radius:50%;border:none;background:none;color:var(--honey);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1;font-weight:500}
-.qty-btn-card:hover{background:rgba(212,130,10,.1)}
-.qty-num-card{font-size:.9rem;font-weight:500;min-width:20px;text-align:center}
-.add-btn{flex:1;background:var(--forest);color:#fff;border:none;border-radius:50px;padding:.6rem .8rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.3rem}
-.add-btn:hover{background:var(--forest-lt)}
-.add-btn.added{background:var(--honey)}
+  .bg-honeycomb {
+    position: fixed;
+    inset: 0;
+    opacity: .03;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V17L28 1l28 16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3Cpath d='M28 100L0 84V51l28 16 28-16v33z' fill='none' stroke='%23F0A500' stroke-width='1.5'/%3E%3C/svg%3E");
+  }
 
-/* ── CLIENTES FELICES ── */
-.clientes{background:var(--white);padding:5rem 1.5rem}
-.clientes-header{text-align:center;margin-bottom:3rem}
-.clientes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:960px;margin:0 auto}
-@media(max-width:640px){.clientes-grid{grid-template-columns:1fr;max-width:400px}}
-.cliente-card{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:3/4;box-shadow:var(--shadow-md);cursor:pointer}
-.cliente-card img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .4s}
-.cliente-card:hover img{transform:scale(1.05)}
-.cliente-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,46,24,.85) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1.2rem}
-.cliente-card:hover .cliente-card-overlay{opacity:1}
-.cliente-card-nombre{color:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;line-height:1.4}
-.cliente-card-texto{color:rgba(255,255,255,.8);font-size:.78rem;font-style:italic;margin-top:.2rem}
-/* Lightbox */
-.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;backdrop-filter:blur(6px)}
-.lightbox-overlay.open{display:flex}
-.lightbox-inner{position:relative;max-width:520px;width:100%;cursor:default}
-.lightbox-inner img{width:100%;max-height:80vh;object-fit:contain;border-radius:16px;display:block}
-.lightbox-info{background:rgba(255,255,255,.08);border-radius:0 0 16px 16px;padding:.9rem 1.2rem;color:#fff}
-.lightbox-info strong{font-size:.95rem;font-family:'DM Sans',sans-serif}
-.lightbox-info span{display:block;font-size:.82rem;color:rgba(255,255,255,.7);font-style:italic;margin-top:.2rem}
-.lightbox-close{position:absolute;top:-1rem;right:-1rem;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:2.2rem;height:2.2rem;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.lightbox-close:hover{background:rgba(255,255,255,.3)}
-.clientes-empty{text-align:center;padding:2rem;color:var(--text-muted);font-size:.9rem}
-.clientes-nota{text-align:center;margin-top:1.5rem;font-size:.8rem;color:var(--text-muted)}
-.clientes-nota strong{color:var(--honey)}
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    max-width: 520px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-/* ── ORIGEN ── */
-.origen{background:var(--forest-dk)}
-.origen .section-title{color:var(--cream)}
-.origen .section-label{color:var(--gold)}
-.origen-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:start}
-@media(min-width:640px){.origen-grid{grid-template-columns:1fr 1fr}}
-.origen p{color:rgba(250,245,233,.68);line-height:1.85;font-size:.95rem;margin-bottom:1rem}
-.features{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem}
-.features li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:rgba(250,245,233,.7);line-height:1.5}
-.feat-icon{width:30px;height:30px;background:rgba(240,165,0,.14);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.origen-foto{width:100%;border-radius:16px;overflow:hidden;margin-bottom:1.2rem}
-.origen-foto img{width:100%;height:240px;object-fit:cover;display:block}
-.map-wrap{border-radius:16px;overflow:hidden;border:1px solid rgba(240,165,0,.2)}
-.map-wrap iframe{width:100%;height:240px;display:block;border:0}
-.map-label{background:rgba(255,255,255,.06);padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:rgba(250,245,233,.6)}
-.map-label strong{color:var(--gold-lt)}
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(240,165,0,.1);
+    border: 1px solid rgba(240,165,0,.2);
+    color: rgba(252,200,72,.7);
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .38rem 1.1rem;
+    border-radius: 50px;
+    margin-bottom: 1.8rem;
+  }
 
-/* ── INSTAGRAM ── */
-.instagram-strip{background:var(--cream);padding:3rem 1.5rem;text-align:center;border-top:1px solid rgba(212,130,10,.1)}
-.ig-inner{max-width:520px;margin:0 auto}
-.ig-logo{width:48px;height:48px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem}
-.ig-inner h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--forest-dk);margin-bottom:.4rem}
-.ig-inner p{font-size:.88rem;color:var(--text-muted);margin-bottom:1.2rem}
-.ig-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366);color:#fff;border:none;border-radius:50px;padding:.75rem 1.6rem;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .15s}
-.ig-btn:hover{opacity:.9;transform:translateY(-2px)}
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #aaa;
+    box-shadow: 0 0 6px #aaa;
+    animation: blink 3s ease-in-out infinite;
+  }
 
-/* ── FOOTER ── */
-footer{background:var(--forest-dk);border-top:1px solid rgba(240,165,0,.1);color:rgba(250,245,233,.45);text-align:center;padding:3rem 1.5rem;font-size:.82rem}
-.footer-logo-wrap{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:.5rem}
-.footer-logo-img{width:40px;height:40px;object-fit:contain;border-radius:8px;opacity:.85}
-.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-lt)}
-footer a{color:var(--gold);text-decoration:none}
-.footer-links{display:flex;justify-content:center;gap:1.2rem;margin-top:.8rem;flex-wrap:wrap}
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+  }
 
-/* ── CARRITO ── */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
-.cart-overlay.open{opacity:1;pointer-events:all}
-.cart-panel{position:fixed;right:0;top:0;height:100%;width:min(390px,100vw);background:var(--white);z-index:201;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.14)}
-.cart-panel.open{transform:translateX(0)}
-.cart-header{padding:1.4rem 1.5rem;border-bottom:1px solid rgba(212,130,10,.1);display:flex;justify-content:space-between;align-items:center}
-.cart-header h3{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--forest-dk)}
-.close-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-muted);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.close-btn:hover{background:var(--cream)}
-.cart-items-wrap{flex:1;overflow-y:auto;padding:1rem 1.5rem}
-.cart-empty-msg{text-align:center;padding:3.5rem 1rem;color:var(--text-muted)}
-.cart-empty-msg .ei{font-size:3rem;display:block;margin-bottom:1rem;opacity:.35}
-.cart-item{display:flex;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid rgba(212,130,10,.07)}
-.ci-img{width:46px;height:46px;border-radius:12px;background:var(--cream);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
-.ci-img img{width:100%;height:100%;object-fit:cover}
-.ci-info{flex:1;min-width:0}
-.ci-name{font-size:.86rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ci-price{font-size:.84rem;color:var(--honey);font-weight:500;margin-top:.1rem}
-.ci-controls{display:flex;align-items:center;gap:.35rem;flex-shrink:0}
-.qty-btn{width:27px;height:27px;border-radius:50%;border:1px solid rgba(212,130,10,.3);background:none;color:var(--honey);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1}
-.qty-btn:hover{background:var(--cream)}
-.qty-num{font-size:.88rem;font-weight:500;min-width:18px;text-align:center}
-.cart-footer{padding:1.4rem 1.5rem;border-top:1px solid rgba(212,130,10,.1)}
-.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
-.cart-total-label{font-size:.82rem;color:var(--text-muted)}
-.cart-total-val{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--honey);font-weight:600}
-.cart-consultar-note{font-size:.75rem;color:var(--text-muted);margin-bottom:.5rem;line-height:1.5}
-.cart-consultar-warn{background:#FFF8E7;border:1px solid rgba(212,130,10,.2);border-radius:8px;padding:.6rem .8rem;font-size:.76rem;color:var(--amber);margin-bottom:1rem;line-height:1.5;display:none}
-.cart-consultar-warn.show{display:block}
-.checkout-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.6rem}
-.checkout-btn:hover{background:var(--amber)}
-.checkout-btn:disabled{opacity:.4;cursor:not-allowed}
-.vaciar-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.8rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
+  .logo-wrap {
+    margin-bottom: 1.5rem;
+    animation: float 6s ease-in-out infinite;
+    opacity: .82;
+  }
 
-/* ── MODAL FORMULARIO ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{background:var(--white);border-radius:24px;padding:0;max-width:460px;width:100%;max-height:92vh;overflow-y:auto;transform:scale(.92);transition:transform .3s;display:flex;flex-direction:column}
-.modal-overlay.open .modal-box{transform:scale(1)}
-.modal-head{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(212,130,10,.1);position:sticky;top:0;background:var(--white);border-radius:24px 24px 0 0;z-index:1}
-.modal-head h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--forest-dk)}
-.modal-head p{font-size:.82rem;color:var(--text-muted);margin-top:.2rem}
-.modal-body{padding:1.2rem 1.5rem}
-.resumen-pedido{background:var(--cream);border-radius:12px;padding:1rem;margin-bottom:1.2rem}
-.resumen-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:.6rem}
-.resumen-item{display:flex;justify-content:space-between;font-size:.83rem;padding:.25rem 0}
-.resumen-item span:last-child{color:var(--honey);font-weight:500}
-.resumen-total{display:flex;justify-content:space-between;font-size:.9rem;font-weight:500;padding-top:.6rem;margin-top:.4rem;border-top:1px solid rgba(212,130,10,.15)}
-.resumen-total span:last-child{color:var(--honey);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
-.form-field{margin-bottom:1rem}
-.form-field label{display:block;font-size:.78rem;font-weight:500;color:var(--text-muted);margin-bottom:.35rem;letter-spacing:.04em}
-.form-field input,.form-field select,.form-field textarea{width:100%;border:1.5px solid rgba(212,130,10,.2);border-radius:10px;padding:.65rem .9rem;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--cream);color:var(--text);outline:none;transition:border-color .2s}
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--honey);background:var(--white)}
-.form-field textarea{resize:vertical;min-height:70px;line-height:1.6}
-.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.form-opcional{font-size:.72rem;color:var(--text-muted);margin-left:.3rem}
-.modal-footer{padding:1rem 1.5rem 1.5rem;position:sticky;bottom:0;background:var(--white);border-top:1px solid rgba(212,130,10,.1);border-radius:0 0 24px 24px}
-.confirm-btn{width:100%;background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:500;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.5rem}
-.confirm-btn:hover{background:var(--amber)}
-.volver-btn{width:100%;background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;padding:.4rem;font-family:'DM Sans',sans-serif}
-.modal-nota{font-size:.72rem;color:var(--text-muted);text-align:center;line-height:1.5;margin-top:.5rem}
-.modal-exito{background:var(--white);border-radius:24px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;transform:scale(.92);transition:transform .3s}
-.modal-overlay.open .modal-exito{transform:scale(1)}
-.modal-exito .modal-icon{font-size:3.5rem;display:block;margin-bottom:1rem}
-.modal-exito h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--forest-dk);margin-bottom:.5rem}
-.modal-exito p{color:var(--text-muted);font-size:.9rem;line-height:1.75;margin-bottom:1.5rem}
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-7px); }
+  }
 
-/* ── WA FLOTANTE ── */
-.wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
-.wa-btn{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s}
-.wa-btn:hover{transform:scale(1.1)}
-.wa-tooltip{background:var(--forest-dk);color:var(--cream);font-size:.78rem;padding:.4rem .85rem;border-radius:50px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
-.wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
+  .logo-wrap img {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    border-radius: 18px;
+    border: 2px solid rgba(240,165,0,.2);
+    box-shadow: 0 0 28px rgba(0,0,0,.45);
+    filter: grayscale(.25) brightness(.9);
+  }
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-dk);color:var(--cream);padding:.6rem 1.4rem;border-radius:50px;font-size:.8rem;opacity:0;pointer-events:none;transition:all .28s;z-index:400;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .icon-main {
+    font-size: 2.6rem;
+    margin-bottom: .85rem;
+    display: inline-block;
+    opacity: .7;
+    animation: iconDrift 5s ease-in-out infinite;
+  }
 
-/* ── PWA BANNER ── */
-.pwa-banner{position:fixed;bottom:0;left:0;right:0;background:var(--forest-dk);color:var(--cream);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;z-index:300;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);border-top:2px solid var(--honey)}
-.pwa-banner.show{transform:translateY(0)}
-.pwa-banner img{width:40px;height:40px;border-radius:10px;object-fit:contain;flex-shrink:0}
-.pwa-banner-text{flex:1}
-.pwa-banner-text strong{display:block;font-size:.9rem}
-.pwa-banner-text span{font-size:.75rem;color:rgba(250,245,233,.55)}
-.pwa-install-btn{background:var(--honey);color:#fff;border:none;border-radius:50px;padding:.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
-.pwa-dismiss{background:none;border:none;color:rgba(250,245,233,.4);font-size:1.2rem;cursor:pointer;padding:.2rem;flex-shrink:0}
+  @keyframes iconDrift {
+    0%, 100% { transform: translateY(0) scale(1); opacity: .7; }
+    50%       { transform: translateY(-6px) scale(1.05); opacity: .9; }
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 7.5vw, 3.3rem);
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.08;
+    margin-bottom: .4rem;
+  }
+
+  h1 em {
+    color: var(--gold-lt);
+    font-style: italic;
+    opacity: .85;
+  }
+
+  .subtitle {
+    font-size: clamp(.78rem, 2.3vw, .9rem);
+    font-weight: 300;
+    color: rgba(250,245,233,.38);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    background: rgba(255,253,245,.055);
+    backdrop-filter: blur(22px);
+    border: 1px solid rgba(240,165,0,.1);
+    border-radius: 22px;
+    padding: 1.8rem 1.6rem;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .card .message {
+    font-size: .97rem;
+    color: rgba(250,245,233,.52);
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: .6rem;
+  }
+
+  .card .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.22rem;
+    font-weight: 500;
+    color: rgba(252,200,72,.65);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  /* Botón WhatsApp */
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37,211,102,.09);
+    border: 1px solid rgba(37,211,102,.22);
+    color: rgba(37,211,102,.88);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .88rem;
+    font-weight: 400;
+    letter-spacing: .03em;
+    text-decoration: none;
+    padding: .75rem 1.5rem;
+    border-radius: 50px;
+    transition: background .25s, border-color .25s, color .25s, box-shadow .25s;
+  }
+
+  .wa-btn:hover {
+    background: rgba(37,211,102,.16);
+    border-color: rgba(37,211,102,.4);
+    color: #25d366;
+    box-shadow: 0 0 18px rgba(37,211,102,.12);
+  }
+
+  .wa-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    width: 100%;
+    margin: .2rem 0 1rem;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(240,165,0,.09);
+  }
+
+  .divider-icon { font-size: .82rem; opacity: .22; }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: .73rem;
+    color: rgba(250,245,233,.22);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #666;
+    box-shadow: 0 0 5px #666;
+    animation: blink 3.5s ease-in-out infinite;
+  }
+
+  footer {
+    position: relative;
+    z-index: 10;
+    margin-top: 1rem;
+    font-size: .67rem;
+    font-weight: 300;
+    color: rgba(250,245,233,.14);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  footer em { color: var(--gold); font-style: normal; opacity: .45; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">
+<div class="bg-img"></div>
+<div class="bg-overlay"></div>
+<div class="bg-honeycomb"></div>
+
+<div class="container">
+
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    Sitio en pausa
+  </div>
+
+  <div class="logo-wrap">
     <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer" onerror="this.style.display='none'">
-    <span class="nav-logo-text">Miel <span>Witer</span></span>
-  </a>
-  <button class="cart-btn" onclick="toggleCart()">
-    🛒 Carrito <span class="cart-count" id="cartCount">0</span>
-  </button>
-</nav>
+  </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-img"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-honeycomb"></div>
-  <div class="hero-content">
-    <div class="hero-badge">🍯 100% Pura · Sin Aditivos · Pampa del Indio, Chaco</div>
-    <h1>El corazón del<br><em>Impenetrable</em><br>en tu mesa</h1>
-    <p class="hero-sub">Miel pura de los montes del Chaco profundo. Recolectada con amor desde hace más de 10 años. Sin mezclas, sin aditivos.</p>
-    <div class="hero-ctas">
-      <a href="#catalogo" class="btn-primary">🍯 Ver Productos</a>
-      <a href="#" class="btn-outline" onclick="abrirWhatsApp('Hola! Vi la página de Miel Witer y quiero consultar 🍯');return false">💬 Consultar por WhatsApp</a>
-    </div>
-    <div class="hero-scroll-hint">
-      <span>Descubrí</span>
-      <div class="scroll-line"></div>
-    </div>
-  </div>
-</section>
+  <div class="icon-main">🍯</div>
 
-<!-- HISTORIA -->
-<section class="historia" id="historia">
-  <div class="container">
-    <div class="historia-grid">
-      <div class="fade-in">
-        <span class="section-label">Quiénes somos</span>
-        <h2 class="section-title">Diez años de <em>pasión</em> apicultora</h2>
-        <p>Nació en el corazón del monte chaqueño, de manos de familias que conocen los secretos del Impenetrable. Nuestra miel no tiene aditivos, no tiene mezclas: es exactamente lo que la naturaleza produce.</p>
-        <p>Las abejas liban flores silvestres del quebracho, el algarrobo y el mistol — una biodiversidad única que le da a Miel Witer su sabor profundo e inconfundible.</p>
-        <div class="stats-row">
-          <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Años</span></div>
-          <div class="stat"><span class="stat-num">0</span><span class="stat-label">Aditivos</span></div>
-          <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Pura</span></div>
-        </div>
-      </div>
-      <div class="historia-fotos fade-in delay-1">
-        <img src="https://i.postimg.cc/tgyTbHjN/screenshot-4.png" alt="Miel Witer producto" loading="lazy">
-        <img src="https://i.postimg.cc/jjK5TrbH/screenshot-6.png" alt="Miel Witer tarro" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
+  <h1>Volvemos <em>pronto</em></h1>
+  <p class="subtitle">Miel Witer &mdash; Miel Pura del Impenetrable</p>
 
-<!-- GALERÍA DESLIZABLE -->
-<div class="galeria" id="galeria">
-  <div class="galeria-title fade-in">
-    <span class="section-label">Nuestra miel</span>
-    <h2 class="section-title">Del panal a tu <em>mesa</em></h2>
+  <div class="card">
+    <p class="message">
+      Por el momento este sitio no se encuentra disponible.<br>
+      Si necesitás comunicarte con nosotros,<br>estamos a tu disposición por WhatsApp.
+    </p>
+    <span class="tagline">Siempre cerca, aunque el sitio descanse.</span>
+
+    <a
+      class="wa-btn"
+      href="https://wa.me/543725555394"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.886 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Escribinos al 3725-555394
+    </a>
   </div>
-  <div class="galeria-track-wrap">
-    <div class="galeria-track" id="galeriaTrack"></div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">🍯</div>
+    <div class="divider-line"></div>
   </div>
-  <div class="galeria-nav">
-    <button class="galeria-btn" onclick="galeriaNav(-1)">←</button>
-    <div class="galeria-dots" id="galeriaDots"></div>
-    <button class="galeria-btn" onclick="galeriaNav(1)">→</button>
+
+  <div class="status-row">
+    <div class="status-dot"></div>
+    Sitio temporalmente inactivo
   </div>
+
 </div>
 
-<!-- CATÁLOGO -->
-<section class="catalogo" id="catalogo">
-  <div class="container">
-    <div class="catalogo-header fade-in">
-      <span class="section-label">Nuestros productos</span>
-      <h2 class="section-title">El <em>sabor</em> del monte</h2>
-    </div>
-    <div id="productosContainer">
-      <div class="loading-state"><div class="loading-spinner"></div><p>Cargando productos...</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CLIENTES FELICES -->
-<section class="clientes" id="clientes">
-  <div class="container">
-    <div class="clientes-header fade-in">
-      <span class="section-label">Comunidad Miel Witer</span>
-      <h2 class="section-title">Clientes <em>felices</em></h2>
-    </div>
-    <div class="clientes-grid" id="clientesGrid">
-      <div class="loading-state"><div class="loading-spinner"></div></div>
-    </div>
-    <p class="clientes-nota">Las fotos se renuevan cada día 🍯 — <strong>¿Querés aparecer acá?</strong> ¡Mandanos tu foto por WhatsApp!</p>
-  </div>
-</section>
-
-<!-- ORIGEN + MAPA -->
-<section class="origen" id="origen">
-  <div class="container">
-    <div class="origen-grid">
-      <div class="fade-in">
-        <span class="section-label">Nuestro origen</span>
-        <h2 class="section-title">Del <em>Impenetrable</em> a tu hogar</h2>
-        <div class="origen-foto">
-          <img src="https://i.postimg.cc/0jftwzx2/screenshot-21.png" alt="Pampa del Indio, Chaco" loading="lazy">
-        </div>
-        <p>Pampa del Indio, en el corazón del Chaco profundo. Rodeada de bosques nativos que preservan la biodiversidad única del Impenetrable.</p>
-        <ul class="features">
-          <li><span class="feat-icon">🌿</span>Flores silvestres del monte nativo chaqueño</li>
-          <li><span class="feat-icon">☀️</span>Cosecha artesanal bajo el sol del Chaco</li>
-          <li><span class="feat-icon">🏺</span>Envasado local, sin intermediarios</li>
-          <li><span class="feat-icon">📦</span>Envíos a todo el país</li>
-        </ul>
-      </div>
-      <div class="fade-in delay-1">
-        <div class="map-wrap">
-          <iframe src="https://www.google.com/maps/embed?pb=!4v1776736045486!6m8!1m7!1s2pmneIcY98deZKNnegdoPg!2m2!1d-26.05188350867848!2d-59.94163613812756!3f266.5132180286004!4f-3.889304397794845!5f1.5378273236760203" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Punto de venta Miel Witer"></iframe>
-          <div class="map-label">📍 <span><strong>Punto de venta</strong> · Pampa del Indio, Chaco</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INSTAGRAM -->
-<div class="instagram-strip fade-in">
-  <div class="ig-inner">
-    <div class="ig-logo">📸</div>
-    <h3>Seguinos en Instagram</h3>
-    <p>El día a día de Miel Witer, el monte chaqueño y nuestras cosechas en <strong>@witer_miel</strong></p>
-    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener" class="ig-btn">Ver @witer_miel →</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo-wrap">
-    <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer" class="footer-logo-img" onerror="this.style.display='none'">
-    <span class="footer-logo-text">Miel Witer</span>
-  </div>
-  <p>Pampa del Indio, Chaco, Argentina · Producción en Armonía con el Ambiente</p>
-  <div class="footer-links">
-    <a href="#" onclick="abrirWhatsApp('Hola! Los contacto desde la web 🍯');return false">💬 WhatsApp</a>
-    <a href="https://www.instagram.com/witer_miel/" target="_blank" rel="noopener">📸 Instagram</a>
-    <a href="#catalogo">🍯 Productos</a>
-  </div>
-  <p style="margin-top:1rem;font-size:.7rem;opacity:.4">© 2026 Miel Witer · Producto 100% chaqueño</p>
+  &copy; <span id="yr"></span> <em>Miel Witer</em> &mdash; Pampa del Indio, Chaco
 </footer>
 
-<!-- WA FLOTANTE -->
-<div class="wa-float">
-  <span class="wa-tooltip">¡Consultanos por WhatsApp!</span>
-  <button class="wa-btn" onclick="abrirWhatsApp('Hola! Vi la página de Miel Witer y quiero consultar 🍯')" aria-label="WhatsApp">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </button>
-</div>
-
-<!-- CARRITO -->
-<!-- Lightbox clientes -->
-<div class="lightbox-overlay" id="clienteLightbox" onclick="cerrarLightbox(event)">
-  <div class="lightbox-inner" onclick="event.stopPropagation()">
-    <button class="lightbox-close" onclick="cerrarLightbox()">✕</button>
-    <img id="lightboxImg" src="" alt="">
-    <div class="lightbox-info" id="lightboxInfo" style="display:none">
-      <strong id="lightboxNombre"></strong>
-      <span id="lightboxTexto"></span>
-    </div>
-  </div>
-</div>
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-panel" id="cartPanel">
-  <div class="cart-header"><h3>🛒 Tu pedido</h3><button class="close-btn" onclick="toggleCart()">✕</button></div>
-  <div class="cart-items-wrap" id="cartItems"></div>
-  <div class="cart-footer">
-    <div class="cart-total-row">
-      <span class="cart-total-label">Total estimado</span>
-      <span class="cart-total-val" id="cartTotal">$0</span>
-    </div>
-    <p class="cart-consultar-note">* Los precios pueden actualizarse. Confirmamos al recibir tu pedido.</p>
-    <div class="cart-consultar-warn" id="cartConsultarWarn">⚠️ Algunos productos tienen precio a consultar. Te lo confirmamos por WhatsApp al recibir el pedido.</div>
-    <button class="checkout-btn" id="checkoutBtn" onclick="abrirFormulario()" disabled>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Hacer pedido por WhatsApp
-    </button>
-    <button class="vaciar-btn" onclick="vaciarCarrito()">Vaciar carrito</button>
-  </div>
-</div>
-
-<!-- MODAL FORMULARIO -->
-<div class="modal-overlay" id="modalFormOverlay">
-  <div class="modal-box">
-    <div class="modal-head"><h3>Completar pedido</h3><p>Ingresá tus datos para confirmar el pedido y coordinar el envío.</p></div>
-    <div class="modal-body">
-      <div class="resumen-pedido">
-        <div class="resumen-title">Resumen del pedido</div>
-        <div id="resumenItems"></div>
-        <div class="resumen-total"><span>Total estimado</span><span id="resumenTotal">$0</span></div>
-      </div>
-      <div class="form-field"><label>Nombre y apellido *</label><input type="text" id="fNombre" placeholder="Tu nombre completo"></div>
-      <div class="form-field"><label>WhatsApp / Teléfono *</label><input type="tel" id="fTelefono" placeholder="Ej: 3725 123456"></div>
-      <div class="form-field"><label>Localidad / Ciudad *</label><input type="text" id="fLocalidad" placeholder="Tu ciudad"></div>
-      <div class="form-row-2">
-        <div class="form-field">
-          <label>Provincia *</label>
-          <select id="fProvincia">
-            <option value="">Seleccioná...</option>
-            <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
-            <option>Chaco</option><option>Chubut</option><option>Córdoba</option>
-            <option>Corrientes</option><option>Entre Ríos</option><option>Formosa</option>
-            <option>Jujuy</option><option>La Pampa</option><option>La Rioja</option>
-            <option>Mendoza</option><option>Misiones</option><option>Neuquén</option>
-            <option>Río Negro</option><option>Salta</option><option>San Juan</option>
-            <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
-            <option>Santiago del Estero</option><option>Tierra del Fuego</option><option>Tucumán</option>
-          </select>
-        </div>
-        <div class="form-field"><label>Código postal *</label><input type="text" id="fCP" placeholder="Ej: H3416"></div>
-      </div>
-      <div class="form-field">
-        <label>Dirección de envío <span class="form-opcional">(opcional)</span></label>
-        <textarea id="fDireccion" placeholder="Calle, número, piso... También podés coordinar directamente en el chat."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="confirm-btn" onclick="confirmarPedido()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Confirmar y enviar pedido
-      </button>
-      <button class="volver-btn" onclick="cerrarFormulario()">← Volver al carrito</button>
-      <p class="modal-nota">Te respondemos a la brevedad para confirmar stock, precio final y costo de envío.</p>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL ÉXITO -->
-<div class="modal-overlay" id="modalExitoOverlay">
-  <div class="modal-exito">
-    <span class="modal-icon">🎉</span>
-    <h3>¡Pedido enviado!</h3>
-    <p>Te abrimos WhatsApp con el detalle completo. En breve el equipo de Miel Witer se comunica para confirmar stock, coordinar el envío y enviarte el medio de pago.</p>
-    <button class="btn-primary" onclick="document.getElementById('modalExitoOverlay').classList.remove('open')" style="margin:0 auto">¡Perfecto!</button>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-
-<!-- PWA BANNER -->
-<div class="pwa-banner" id="pwaBanner">
-  <img src="https://i.postimg.cc/7LD64ykN/screenshot-7.png" alt="Miel Witer">
-  <div class="pwa-banner-text"><strong>Instalá Miel Witer</strong><span>Agregá la app a tu pantalla de inicio</span></div>
-  <button class="pwa-install-btn" id="pwaInstallBtn">Instalar</button>
-  <button class="pwa-dismiss" onclick="cerrarPWA()">✕</button>
-</div>
-
 <script>
-// ═══════════════════════════════
-// ESTADO
-// ═══════════════════════════════
-let carrito = {};
-let productosData = [];
-
-// ═══════════════════════════════
-// PWA
-// ═══════════════════════════════
-let deferredPrompt = null;
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-}
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault(); deferredPrompt = e;
-  setTimeout(() => {
-    if (!localStorage.getItem('mw_pwa_dismissed'))
-      document.getElementById('pwaBanner').classList.add('show');
-  }, 4000);
-});
-document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') cerrarPWA();
-  deferredPrompt = null;
-});
-function cerrarPWA() {
-  document.getElementById('pwaBanner').classList.remove('show');
-  localStorage.setItem('mw_pwa_dismissed', '1');
-}
-
-// ═══════════════════════════════
-// GALERÍA DESLIZABLE
-// ═══════════════════════════════
-let galeriaIdx = 0;
-const VISIBLE = window.innerWidth >= 640 ? 3 : 1;
-
-function initGaleria() {
-  const track = document.getElementById('galeriaTrack');
-  const dots = document.getElementById('galeriaDots');
-  track.innerHTML = GALERIA_FOTOS.map((url, i) =>
-    `<div class="galeria-item"><img src="${url}" alt="Miel Witer ${i+1}" loading="lazy"></div>`
-  ).join('');
-  const totalDots = Math.ceil(GALERIA_FOTOS.length / VISIBLE);
-  dots.innerHTML = Array.from({length: totalDots}, (_,i) =>
-    `<button class="galeria-dot${i===0?' active':''}" onclick="galeriaGoTo(${i})"></button>`
-  ).join('');
-  // Auto-play cada 4 segundos
-  setInterval(() => galeriaNav(1), 4000);
-}
-
-function galeriaNav(dir) {
-  const totalDots = Math.ceil(GALERIA_FOTOS.length / VISIBLE);
-  galeriaIdx = (galeriaIdx + dir + totalDots) % totalDots;
-  galeriaGoTo(galeriaIdx);
-}
-
-function galeriaGoTo(idx) {
-  galeriaIdx = idx;
-  const itemWidth = document.querySelector('.galeria-item')?.offsetWidth + 16 || 256;
-  document.getElementById('galeriaTrack').style.transform = `translateX(-${idx * VISIBLE * itemWidth}px)`;
-  document.querySelectorAll('.galeria-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
-}
-
-// ═══════════════════════════════
-// CLIENTES FELICES — rotación por día
-// ═══════════════════════════════
-async function cargarClientes() {
-  const grid = document.getElementById('clientesGrid');
-  try {
-    // Leer desde el Worker para obtener datos siempre actualizados
-    const res = await fetch(CONFIG.WORKER_URL + '/clientes');
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    const clientes = data.clientes || data;
-    const activos = clientes.filter(c => c.activo !== false);
-    if (!activos.length) {
-      grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">
-        Pronto vas a ver acá a nuestros clientes felices. ¿Querés ser el primero? 
-        <a href="#" onclick="abrirWhatsApp('Hola! Quiero aparecer en la sección clientes felices de Miel Witer 🍯');return false" style="color:var(--honey)">¡Mandanos tu foto!</a>
-      </div>`;
-      return;
-    }
-    // Rotación diaria: semilla = día del año
-    const hoy = new Date();
-    const semilla = hoy.getFullYear() * 1000 + Math.floor((hoy - new Date(hoy.getFullYear(),0,0)) / 86400000);
-    const shuffled = seededShuffle(activos, semilla);
-    const mostrar = shuffled.slice(0, 3);
-    grid.innerHTML = mostrar.map(c => `
-      <div class="cliente-card fade-in" onclick="abrirLightbox('${c.imagen_url}','${(c.nombre||'').replace(/'/g,"\'")}','${(c.texto||'').replace(/'/g,"\'")}')">
-        <img src="${c.imagen_url}" alt="${c.nombre||'Cliente feliz'}" loading="lazy">
-        <div class="cliente-card-overlay">
-          <div>
-            ${c.nombre ? `<div class="cliente-card-nombre">${c.nombre}</div>` : ''}
-            ${c.texto  ? `<div class="cliente-card-texto">"${c.texto}"</div>` : ''}
-          </div>
-        </div>
-      </div>`).join('');
-    observeFadeIns();
-  } catch {
-    grid.innerHTML = `<div class="clientes-empty" style="grid-column:1/-1">Cargando fotos de clientes...</div>`;
-  }
-}
-
-// ── LIGHTBOX CLIENTES ──────────────────────────────────────
-function abrirLightbox(url, nombre, texto) {
-  document.getElementById('lightboxImg').src = url;
-  const info = document.getElementById('lightboxInfo');
-  const n = document.getElementById('lightboxNombre');
-  const t = document.getElementById('lightboxTexto');
-  if (nombre || texto) {
-    n.textContent = nombre || '';
-    t.textContent = texto ? '"' + texto + '"' : '';
-    t.style.display = texto ? 'block' : 'none';
-    info.style.display = 'block';
-  } else {
-    info.style.display = 'none';
-  }
-  document.getElementById('clienteLightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function cerrarLightbox(e) {
-  if (e && e.target !== e.currentTarget && e.currentTarget.id !== 'clienteLightbox') return;
-  document.getElementById('clienteLightbox').classList.remove('open');
-  document.getElementById('lightboxImg').src = '';
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarLightbox(); });
-
-// Shuffle determinístico con semilla numérica
-function seededShuffle(arr, seed) {
-  const a = [...arr];
-  let s = seed;
-  for (let i = a.length - 1; i > 0; i--) {
-    s = (s * 1664525 + 1013904223) & 0xFFFFFFFF;
-    const j = Math.abs(s) % (i + 1);
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-// ═══════════════════════════════
-// PRODUCTOS
-// ═══════════════════════════════
-async function cargarProductos() {
-  const container = document.getElementById('productosContainer');
-  try {
-    // Leer desde el Worker para obtener datos siempre actualizados (sin delay de deploy)
-    const workerUrl = CONFIG.WORKER_URL + '/productos';
-    const res = await fetch(workerUrl);
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    productosData = data.productos || data;
-    renderProductos(productosData);
-  } catch {
-    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span>
-      <p>Próximamente nuestros productos estarán disponibles aquí.<br>Mientras tanto consultanos por WhatsApp.</p>
-      <br><button class="btn-primary" onclick="abrirWhatsApp('Hola! Quiero consultar sobre los productos disponibles 🍯')" style="margin:0 auto">💬 Consultar ahora</button></div>`;
-  }
-}
-
-function renderProductos(productos) {
-  const container = document.getElementById('productosContainer');
-  const activos = (productos||[]).filter(p => p.activo !== false);
-  if (!activos.length) {
-    container.innerHTML = `<div class="empty-state"><span class="empty-icon">🍯</span><p>Estamos preparando el catálogo. Volvé pronto.</p></div>`;
-    return;
-  }
-  const sorted = [...activos].sort((a,b) => (a.orden||0)-(b.orden||0));
-  container.innerHTML = `<div class="products-grid">${sorted.map(renderCard).join('')}</div>`;
-  observeFadeIns();
-}
-
-function renderCard(p) {
-  const tienePrecio = p.precio && Number(p.precio) > 0;
-  const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}" loading="lazy">` : `<span class="product-img-placeholder">🍯</span>`;
-  return `<div class="product-card fade-in">
-    <div class="product-img-wrap">${imgHtml}${p.badge?`<span class="product-badge">${p.badge}</span>`:''}</div>
-    <div class="product-body">
-      <div class="product-name">${p.nombre}</div>
-      ${p.peso?`<div class="product-peso">${p.peso}</div>`:''}
-      <div class="product-desc">${p.descripcion||''}</div>
-      ${tienePrecio?`<div class="product-price">$${Number(p.precio).toLocaleString('es-AR')}</div>`:`<div class="product-price consultar">Precio a consultar</div>`}
-      <div class="card-actions">
-        <div class="qty-controls">
-          <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',-1)">−</button>
-          <span class="qty-num-card" id="qty-card-${p.id}">1</span>
-          <button class="qty-btn-card" onclick="cambiarCantidadCard('${p.id}',1)">+</button>
-        </div>
-        <button class="add-btn" id="btn-${p.id}" onclick="agregarAlCarrito('${p.id}')">＋ Agregar</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-const cantidadesCard = {};
-function cambiarCantidadCard(id, delta) {
-  cantidadesCard[id] = Math.max(1, (cantidadesCard[id]||1) + delta);
-  const el = document.getElementById('qty-card-' + id);
-  if (el) el.textContent = cantidadesCard[id];
-}
-
-// ═══════════════════════════════
-// CARRITO
-// ═══════════════════════════════
-function agregarAlCarrito(id) {
-  const p = productosData.find(x => x.id == id);
-  if (!p) return;
-  const qty = cantidadesCard[id] || 1;
-  carrito[id] = carrito[id] ? {...carrito[id], qty: carrito[id].qty + qty} : {producto:p, qty};
-  cantidadesCard[id] = 1;
-  const el = document.getElementById('qty-card-' + id);
-  if (el) el.textContent = '1';
-  actualizarCarritoUI();
-  const btn = document.getElementById('btn-' + id);
-  if (btn) { btn.classList.add('added'); btn.textContent = '✓ Agregado'; }
-  setTimeout(() => { if (btn) { btn.classList.remove('added'); btn.innerHTML = '＋ Agregar'; }}, 1400);
-  const cnt = document.getElementById('cartCount');
-  cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump');
-  showToast('¡' + p.nombre + ' agregado! 🍯');
-}
-
-function cambiarCantidad(id, delta) {
-  if (!carrito[id]) return;
-  carrito[id].qty += delta;
-  if (carrito[id].qty <= 0) delete carrito[id];
-  actualizarCarritoUI();
-}
-
-function vaciarCarrito() {
-  if (!Object.keys(carrito).length) return;
-  if (!confirm('¿Vaciar el carrito?')) return;
-  carrito = {}; actualizarCarritoUI();
-}
-
-function actualizarCarritoUI() {
-  const items = Object.values(carrito);
-  const tieneConsultar = items.some(i => !i.producto.precio || Number(i.producto.precio)<=0);
-  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-  const totalU = items.reduce((s,i) => s+i.qty, 0);
-  document.getElementById('cartCount').textContent = totalU;
-  document.getElementById('cartTotal').textContent = tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR');
-  document.getElementById('checkoutBtn').disabled = items.length===0;
-  document.getElementById('cartConsultarWarn').classList.toggle('show', tieneConsultar);
-  const wrap = document.getElementById('cartItems');
-  if (!items.length) {
-    wrap.innerHTML = `<div class="cart-empty-msg"><span class="ei">🛒</span><p>Tu carrito está vacío.<br>¡Agregá productos para comenzar!</p></div>`;
-    return;
-  }
-  wrap.innerHTML = items.map(({producto:p,qty}) => {
-    const precioLinea = p.precio&&Number(p.precio)>0 ? '$'+(Number(p.precio)*qty).toLocaleString('es-AR') : 'Precio a consultar';
-    const imgHtml = p.imagen_url ? `<img src="${p.imagen_url}" alt="${p.nombre}">` : '🍯';
-    return `<div class="cart-item">
-      <div class="ci-img">${imgHtml}</div>
-      <div class="ci-info">
-        <div class="ci-name">${p.nombre}${p.peso?' · '+p.peso:''}</div>
-        <div class="ci-price">${precioLinea}</div>
-      </div>
-      <div class="ci-controls">
-        <button class="qty-btn" onclick="cambiarCantidad('${p.id}',-1)">−</button>
-        <span class="qty-num">${qty}</span>
-        <button class="qty-btn" onclick="cambiarCantidad('${p.id}',1)">+</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function toggleCart() {
-  document.getElementById('cartOverlay').classList.toggle('open');
-  document.getElementById('cartPanel').classList.toggle('open');
-}
-
-// ═══════════════════════════════
-// FORMULARIO PEDIDO
-// ═══════════════════════════════
-function abrirFormulario() {
-  const items = Object.values(carrito);
-  if (!items.length) return;
-  toggleCart();
-  const tieneConsultar = items.some(i => !i.producto.precio||Number(i.producto.precio)<=0);
-  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-  document.getElementById('resumenItems').innerHTML = items.map(({producto:p,qty}) =>
-    `<div class="resumen-item"><span>${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''}</span><span>${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'A consultar'}</span></div>`
-  ).join('');
-  document.getElementById('resumenTotal').textContent = tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR');
-  setTimeout(() => document.getElementById('modalFormOverlay').classList.add('open'), 350);
-}
-
-function cerrarFormulario() {
-  document.getElementById('modalFormOverlay').classList.remove('open');
-  setTimeout(() => toggleCart(), 300);
-}
-
-function confirmarPedido() {
-  const nombre = document.getElementById('fNombre').value.trim();
-  const telefono = document.getElementById('fTelefono').value.trim();
-  const localidad = document.getElementById('fLocalidad').value.trim();
-  const provincia = document.getElementById('fProvincia').value;
-  const cp = document.getElementById('fCP').value.trim();
-  const direccion = document.getElementById('fDireccion').value.trim();
-  if (!nombre||!telefono||!localidad||!provincia||!cp) { showToast('Completá los campos obligatorios *'); return; }
-  const items = Object.values(carrito);
-  const tieneConsultar = items.some(i => !i.producto.precio||Number(i.producto.precio)<=0);
-  const total = items.reduce((s,i) => s+(Number(i.producto.precio)||0)*i.qty, 0);
-  const lineas = items.map(({producto:p,qty}) =>
-    `• ${qty}x ${p.nombre}${p.peso?' ('+p.peso+')':''} — ${p.precio&&Number(p.precio)>0?'$'+(Number(p.precio)*qty).toLocaleString('es-AR'):'Precio a consultar'}`
-  ).join('\n');
-  const msg = `¡Hola Miel Witer! 🍯 Quiero hacer el siguiente pedido:\n\n*PRODUCTOS:*\n${lineas}\n\n*Total estimado: ${tieneConsultar&&total===0?'A confirmar':'$'+total.toLocaleString('es-AR')}*\n\n*DATOS DE ENVÍO:*\n👤 ${nombre}\n📱 ${telefono}\n📍 ${localidad}, ${provincia} (CP: ${cp})${direccion?'\n🏠 '+direccion:''}\n\n¿Cómo coordino el pago y la entrega?`;
-  abrirWhatsApp(msg);
-  carrito = {}; actualizarCarritoUI();
-  document.getElementById('modalFormOverlay').classList.remove('open');
-  setTimeout(() => document.getElementById('modalExitoOverlay').classList.add('open'), 400);
-}
-
-// ═══════════════════════════════
-// UTILIDADES
-// ═══════════════════════════════
-function abrirWhatsApp(msg) {
-  window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-});
-function observeFadeIns() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-  }, {threshold:.1});
-  document.querySelectorAll('.fade-in:not(.visible)').forEach(el => obs.observe(el));
-}
-
-// ═══════════════════════════════
-// INIT
-// ═══════════════════════════════
-observeFadeIns();
-initGaleria();
-cargarProductos();
-cargarClientes();
-actualizarCarritoUI();
+  document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
